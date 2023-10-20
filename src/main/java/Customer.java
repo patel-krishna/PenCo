@@ -15,6 +15,6 @@ public class Customer extends User{
     public Product addProductToCart(Product newProd){
         shoppingCart.getShoppingList().add(newProd);
     }
-    public Product removeProductFromCart(){
+    public  Product removeProductFromCart(){
 
     }
