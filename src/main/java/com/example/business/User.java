@@ -1,3 +1,6 @@
+package com.example.business;
+import com.example.business.Product;
+
 public class User {
     String username;
     String password;
@@ -15,6 +18,7 @@ public class User {
     }
 
     public void setPassword(String password) {
+
         this.password = password;
     }
 
@@ -23,9 +27,19 @@ public class User {
         this.password = password;
     }
     public static Product getProduct(String SKU){
-        return new Product(null,null, null, SKU, 0, null);
+
+        return globalVariables.allProductsSku.get(SKU);
     }
     public static Product getProductBySlug(String URL){
-        return new Product(null,null, URL, null, 0, null);
+
+        for (String key : globalVariables.allProductsSku.keySet()) {
+            Product value = globalVariables.allProductsSku.get(key);
+            if(value.URL.equals(URL)){
+                return value;
+            }
+        }
+
+        return null;
+
     }
 }
