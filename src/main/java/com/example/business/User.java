@@ -27,7 +27,6 @@ public class User {
         this.password = password;
     }
     public static Product getProduct(String SKU){
-
         return globalVariables.allProductsSku.get(SKU);
     }
     public static Product getProductBySlug(String URL){
@@ -38,7 +37,6 @@ public class User {
                 return value;
             }
         }
-
         return null;
 
     }

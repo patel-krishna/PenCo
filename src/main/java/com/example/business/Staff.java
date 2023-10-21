@@ -8,7 +8,7 @@ public class Staff extends User{
 
     public void createProduct(String sku, String name){
         Product temp = new Product(name, "", "", sku, 0, "");
-        globalVariables.allProductsSlug.put(sku, temp);
+        globalVariables.allProductsSku.put(sku, temp);
     }
 
 }
