@@ -1,6 +1,8 @@
 package com.example.business;
 import com.example.business.Product;
 
+import java.util.HashMap;
+
 public class User {
     String username;
     String password;
@@ -26,10 +28,10 @@ public class User {
         this.username = username;
         this.password = password;
     }
-    public static Product getProduct(String SKU){
-        return globalVariables.allProductsSku.get(SKU);
+    public Product getProduct(HashMap<String, Product> allProducts, String SKU){
+        return allProducts.get(SKU);
     }
-    public static Product getProductBySlug(String URL){
+    public Product getProductBySlug(String URL){
 
         for (String key : globalVariables.allProductsSku.keySet()) {
             Product value = globalVariables.allProductsSku.get(key);
