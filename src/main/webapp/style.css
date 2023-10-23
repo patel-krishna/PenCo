@@ -19,6 +19,31 @@ main {
     padding: 20px;
 }
 
+.login {
+    position: absolute;
+    font-family: 'Josefin Sans', sans-serif;
+    top: 20px; /* Adjust the top position as needed */
+    left: 20px; /* Adjust the left position as needed */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.add-cart {
+    position: fixed;
+    top: 20px; /* Adjust the top position as needed */
+    right: 20px; /* Adjust the right position as needed */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.cart {
+    text-decoration: none;
+}
+
 .product {
     width: 300px;
     border: 1px solid #ccc;
