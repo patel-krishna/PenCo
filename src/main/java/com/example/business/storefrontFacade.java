@@ -27,6 +27,12 @@ public class storefrontFacade {
         currentUser.getProduct(allProductsSku, sku);
     }
 
+    public void getProductBySlug(String slug){
+        currentUser.getProductBySlug(allProductsSku,slug);
+    }
+
+    
+
 }
 
 
