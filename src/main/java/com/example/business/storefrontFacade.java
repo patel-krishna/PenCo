@@ -23,16 +23,26 @@ public class storefrontFacade {
         }
     }
 
-    public void getProduct(String sku){
-        currentUser.getProduct(allProductsSku, sku);
+    public Product getProduct(String sku){
+       return currentUser.getProduct(allProductsSku, sku);
     }
 
-    public void getProductBySlug(String slug){
-        currentUser.getProductBySlug(allProductsSku,slug);
+    public Product getProductBySlug(String slug){
+        return currentUser.getProductBySlug(allProductsSku,slug);
     }
 
+    public Cart getCart() {
+        if (currentUser instanceof Customer) {
+            Customer customer = (Customer) currentUser;
+            return customer.getCart();
+        } else {
+            // Handle the case where currentUser is not a Staff
+            // You could throw an exception or handle it in some other way
+            System.out.println("The user is a staff and does not have a cart");
+            return null;
+        }
+    }
     
-
 }
 
 
