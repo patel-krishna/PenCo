@@ -2,6 +2,7 @@ body {
     font-family: 'Josefin Sans', sans-serif;
     margin: 0;
     padding: 0;
+    height: 100%;
 }
 
 header {
@@ -42,7 +43,7 @@ footer {
     color: white;
     text-align: center;
     padding: 10px;
-    position: absolute;
+    position: relative;
     bottom: 0;
     width: 100%;
 }
