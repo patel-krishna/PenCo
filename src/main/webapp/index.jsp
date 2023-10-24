@@ -2,12 +2,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>JSP - Hello World</title>gi
+    <title>JSP - Hello World</title>
 </head>
 <body>
 <h1><%= "Hello World! pushing krishna" %>
 </h1>
 <br/>
 <a href="hello-servlet">Hello Servlet</a>
+<%--header template--%>
+<jsp:include page="navbar.jsp" />
 </body>
 </html>

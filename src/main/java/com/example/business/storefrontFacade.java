@@ -163,6 +163,11 @@ public class storefrontFacade {
     public HashMap<String, User> getAllUsers() {
         return allUsers;
     }
+
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
 }
 
 
