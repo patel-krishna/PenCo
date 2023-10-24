@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @WebListener
-public class appInitializer implements ServletContextListener {
+public class AppInitializer implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
@@ -20,6 +20,7 @@ public class appInitializer implements ServletContextListener {
         // Initialize your storefrontFacade and set it as an attribute in the servlet context
         storefrontFacade facade = new storefrontFacade();
         context.setAttribute("storefrontFacade", facade);
+        //context.setAttribute("products");
     }
 
     @Override
