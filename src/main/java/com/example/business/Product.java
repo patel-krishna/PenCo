@@ -3,15 +3,17 @@ package com.example.business;
 public class Product {
     String name;
     String description;
+    String vendor;
     String URL;
     String SKU;
     double price;
     String imgSrc;
 
     //Constructors
-    public Product(String name, String description, String URL, String SKU, double price, String imgSrc) {
+    public Product(String name, String description, String vendor, String URL, String SKU, double price, String imgSrc) {
         this.name = name;
         this.description = description;
+        this.vendor = vendor;
         this.URL = URL;
         this.SKU = SKU;
         this.price = price;
@@ -22,6 +24,7 @@ public class Product {
     public Product(){
         this.name = null;
         this.description = null;
+        this.vendor = null;
         this.URL = null;
         this.SKU = null;
         this.price = 0;
@@ -64,9 +67,8 @@ public class Product {
     public double getPrice() {
         return price;
     }
-
-    public Product(String imgSrc) {
-        this.imgSrc = imgSrc;
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     public String getImgSrc() {
@@ -77,7 +79,11 @@ public class Product {
         this.imgSrc = imgSrc;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public String getVendor() {
+        return vendor;
+    }
+
+    public void setVendor(String vendor) {
+        this.vendor = vendor;
     }
 }
