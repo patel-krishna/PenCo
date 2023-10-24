@@ -30,7 +30,7 @@ main {
     cursor: pointer;
 }
 
-.add-cart {
+.shopping-cart {
     position: fixed;
     top: 20px; /* Adjust the top position as needed */
     right: 20px; /* Adjust the right position as needed */
@@ -42,6 +42,21 @@ main {
 
 .cart {
     text-decoration: none;
+}
+
+.add-to-cart {
+    background-color: #E0E0DE;
+    color: #333; /* Dark text color */
+    padding: 10px 20px;
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer;
+    font-size: 14px; /* Font size */
+    transition: background-color 0.3s, color 0.3s; /* Smooth color transition */
+}
+.add-to-cart:hover {
+    background-color: #BDBDB7; /* Slightly darker background color on hover */
+    color: #555; /* Slightly darker text color on hover */
 }
 
 .product {
