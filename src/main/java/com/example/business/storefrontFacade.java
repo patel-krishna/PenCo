@@ -22,7 +22,7 @@ public class storefrontFacade {
     public storefrontFacade(){
         allProductsSku = productInitialization(filePathProducts);
         allUsers = userInitialization(filePathUsers);
-        currentUser = null;
+        currentUser = new User();
     }
 
     public void createProduct(Staff staff, String sku, String name) {
