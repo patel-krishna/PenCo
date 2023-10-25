@@ -44,6 +44,8 @@
     <%
         }else if(user instanceof Staff) {
     %>
+    <h2>Update Product Info</h2>
+    
     <a href="cart/products/<%= product.getName()%>">Edit Product</a>
     <%
         }else{
@@ -54,4 +56,16 @@
     %>
 </ul>
 </body>
+<script>
+    // Check if the success message is present in the session
+    var successMessage = "<%= request.getSession().getAttribute("successMessage") %>";
+
+    if (successMessage && successMessage.trim() !== "null") {
+        // Display a JavaScript alert with the success message
+        alert(successMessage);
+
+        // Clear the success message from the session to prevent it from showing again
+        <% request.getSession().removeAttribute("successMessage"); %>
+    }
+</script>
 </html>

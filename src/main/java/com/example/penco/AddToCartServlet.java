@@ -24,12 +24,23 @@ public class AddToCartServlet extends HttpServlet{
 
         if (cartProd != null) {
             // Product Exists
-            Customer currentUser = (Customer) facade.getCurrentUser();
-            currentUser.addProductToCart(cartProd);
 
-            System.out.print("Added to cart");
-            // Redirect to a welcome or home page
-            response.sendRedirect(request.getContextPath() + "/products/" + slug);
+            Customer currentUser = (Customer) facade.getCurrentUser();
+
+            //if the product is already in the cart
+            if(currentUser.getCart().getShoppingCart().contains(cartProd)){
+                //return to page and tell customer
+                response.sendRedirect(request.getContextPath() + "/products/" + slug);
+                request.getSession().setAttribute("successMessage", "Product is already in cart!");
+            }else{
+                //add to cart
+                currentUser.addProductToCart(cartProd);
+
+                System.out.print("Added to cart");
+                // Redirect to a product page
+                response.sendRedirect(request.getContextPath() + "/products/" + slug);
+                request.getSession().setAttribute("successMessage", "Product added  to cart successfully");
+            }
 
         } else {
             // Authentication failed
