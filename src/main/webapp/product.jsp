@@ -28,6 +28,7 @@
     <li class="product-info"><%= product.getSKU() %>
         - <%= product.getName() %>
         - $<%= product.getPrice() %>
+        -<img src="<%= product.getImgSrc()%>">
     </li>
     <%
         }
@@ -45,7 +46,31 @@
         }else if(user instanceof Staff) {
     %>
     <h2>Update Product Info</h2>
-    
+    <form action="/PenCo/products/<%= product.getURL()%>" method="post">
+
+        <label for="sku">SKU:</label>
+        <input type="text" id="sku" name="sku" value="<%= product.getSKU() %>">
+
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" value="<%= product.getName() %>">
+
+        <label for="description">Description:</label>
+        <textarea name="description" id="description"><%= product.getDescription() %></textarea>
+
+        <label for="vendor">Vendor:</label>
+        <input type="text" id="vendor" name="vendor" value="<%= product.getVendor() %>">
+
+        <label for="url">URL Slug:</label>
+        <input type="text" id="url" name="url" value="<%= product.getURL() %>">
+
+        <label for="price">Price:</label>
+        <input type="text" id="price" name="price" value="<%= product.getPrice() %>">
+
+        <label for="imgSrc">Image Source:</label>
+        <input type="text" id="imgSrc" name="imgSrc" value="<%= product.getImgSrc() %>">
+        <button type="submit">Update Product</button>
+    </form>
+
     <a href="cart/products/<%= product.getName()%>">Edit Product</a>
     <%
         }else{

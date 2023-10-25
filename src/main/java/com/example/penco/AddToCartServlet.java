@@ -34,7 +34,7 @@ public class AddToCartServlet extends HttpServlet{
                 request.getSession().setAttribute("successMessage", "Product is already in cart!");
             }else{
                 //add to cart
-                currentUser.addProductToCart(cartProd);
+                facade.addProductToCart(cartProd.getSKU());
 
                 System.out.print("Added to cart");
                 // Redirect to a product page
