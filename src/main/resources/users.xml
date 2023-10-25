@@ -1,0 +1,27 @@
+<users>
+    <user>
+        <username>johndoe</username>
+        <password>password123</password>
+        <role>customer</role>
+    </user>
+    <user>
+        <username>alice_smith</username>
+        <password>securepass456</password>
+        <role>customer</role>
+    </user>
+    <user>
+        <username>janedavis</username>
+        <password>letmein789</password>
+        <role>staff</role>
+    </user>
+    <user>
+        <username>robert_brown</username>
+        <password>staffpass321</password>
+        <role>staff</role>
+    </user>
+    <user>
+        <username>sarah_jones</username>
+        <password>mypassword999</password>
+        <role>customer</role>
+    </user>
+</users>

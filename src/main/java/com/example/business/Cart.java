@@ -1,15 +1,16 @@
+package com.example.business;
+//import com.example.*;
 import java.util.Set;
-import com.example.*;
-
 
 public class Cart {
     private Set<Product> shoppingList;
 
-    public Set<Product> getShoppingList() {
+    public Set<Product> getShoppingCart() {
         return shoppingList;
     }
 
-    public void setShoppingList(Set<Product> shoppingList) {
+    public void setShoppingCart(Set<Product> shoppingList) {
         this.shoppingList = shoppingList;
     }
+
 }
