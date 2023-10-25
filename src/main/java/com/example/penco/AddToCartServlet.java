@@ -1,4 +1,5 @@
 package com.example.penco;
+
 import com.example.business.*;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletContext;
@@ -11,23 +12,24 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "LoginServlet", value = "/LoginServlet")
-public class LoginServlet extends HttpServlet {
+@WebServlet(name = "AddToCartServlet", value = "/cart/products/*")
+public class AddToCartServlet extends HttpServlet{
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
+        String slug = request.getParameter("slug");
 
         ServletContext servletContext = getServletContext();
         storefrontFacade facade = (storefrontFacade) servletContext.getAttribute("storefrontFacade");
-        HashMap<String, User> allUsers = facade.getAllUsers();
+        Product cartProd = facade.getProductBySlug(slug);
 
-        if (allUsers.get(username).getPassword().equals(password)) {
-            // Authentication successful
-            User loggedUser = allUsers.get(username) ;
-            facade.setCurrentUser(loggedUser);
+        if (cartProd != null) {
+            // Product Exists
+            Customer currentUser = (Customer) facade.getCurrentUser();
+            currentUser.addProductToCart(cartProd);
 
+            System.out.print("Added to cart");
             // Redirect to a welcome or home page
-            response.sendRedirect("index.jsp");
+            response.sendRedirect(request.getContextPath() + "/products/" + slug);
 
         } else {
             // Authentication failed
@@ -35,4 +37,5 @@ public class LoginServlet extends HttpServlet {
             request.getRequestDispatcher("sign-in.jsp").forward(request, response);
         }
     }
+
 }

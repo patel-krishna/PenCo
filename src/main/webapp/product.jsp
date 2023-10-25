@@ -36,7 +36,11 @@
     <%
         if(user instanceof Customer) {
     %>
-            <a href="cart/products/<%= product.getName()%>">Add to Cart</a>
+    <form action="/PenCo/cart/products/<%= product.getURL()%>" method="post">
+        <!-- Hidden field to specify the product slug to be added to the cart -->
+        <input type="hidden" name="slug" value="<%= product.getURL()%>">
+        <button type="submit">Add to Cart</button>
+    </form>
     <%
         }else if(user instanceof Staff) {
     %>
