@@ -19,7 +19,7 @@
     %>
     <ul>
         <li><a href="index.jsp">Home</a></li>
-        <li><a href="products">All Products</a></li>
+        <li><a href="${pageContext.request.contextPath}/products">All Products</a></li>
         <li><a href="cart">Cart</a></li>
         <li>Welcome, <%=user.getUsername()%> </li>
     </ul>
@@ -28,7 +28,7 @@
     %>
     <ul>
         <li><a href="index.jsp">Home</a></li>
-        <li><a href="products">All Products</a></li>
+        <li><a href="${pageContext.request.contextPath}/products">All Products</a></li>
         <li><a href="create-products.jsp">Create Product</a></li>
         <li>Welcome, staff member <%=user.getUsername()%>!</li>
     </ul>
@@ -37,7 +37,7 @@
     %>
     <ul>
         <li><a href="index.jsp">Home</a></li>
-        <li><a href="products">All Products</a></li>
+        <li><a href="${pageContext.request.contextPath}/products">All Products</a></li>
         <li><a href="sign-in.jsp">Sign in</a></li>
     </ul>
     <%

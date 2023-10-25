@@ -14,6 +14,8 @@
     <title>Products</title>
 </head>
 <body>
+<jsp:include page="navbar.jsp" />
+<h1>All Products</h1>
 <ul>
   <%
     HashMap<String, Product> productMap = (HashMap<String, Product>) request.getAttribute("productMap");

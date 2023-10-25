@@ -17,6 +17,7 @@
     <title><%=product.getName()%></title>
 </head>
 <body>
+<jsp:include page="navbar.jsp" />
 <h1><%=product.getName()%></h1>
 <ul>
     <%
