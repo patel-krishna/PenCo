@@ -22,7 +22,7 @@ public class storefrontFacade {
     public storefrontFacade(){
         allProductsSku = productInitialization(filePathProducts);
         allUsers = userInitialization(filePathUsers);
-        currentUser = null;
+        currentUser = new User();
     }
 
     public void createProduct(Staff staff, String sku, String name) {
@@ -163,6 +163,11 @@ public class storefrontFacade {
     public HashMap<String, User> getAllUsers() {
         return allUsers;
     }
+
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
 }
 
 
