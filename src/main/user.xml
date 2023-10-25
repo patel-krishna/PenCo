@@ -1,0 +1,23 @@
+
+<users>
+    <user>
+        <username>john</username>
+        <password>password123</password>
+    </user>
+</users>
+
+<users>
+<user>
+    <username>linda</username>
+    <password>pass567</password>
+</user>
+</users>
+
+<users>
+<user>
+    <username>anna</username>
+    <password>hello123</password>
+</user>
+</users>
+
+
