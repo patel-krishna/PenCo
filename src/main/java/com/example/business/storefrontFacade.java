@@ -168,6 +168,9 @@ public class storefrontFacade {
         return currentUser;
     }
 
+    public void setCurrentUser(User user) {
+        currentUser = user;
+    }
 }
 
 
