@@ -10,6 +10,8 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
+    storefrontFacade facade = (storefrontFacade) application.getAttribute("storefrontFacade");
+    User user = facade.getCurrentUser();
     Product product = (Product) request.getAttribute("product");
 %>
 <html>
@@ -27,6 +29,22 @@
         - <%= product.getName() %>
         - $<%= product.getPrice() %>
     </li>
+    <%
+        }
+    %>
+
+    <%
+        if(user instanceof Customer) {
+    %>
+            <a href="cart/products/<%= product.getName()%>">Add to Cart</a>
+    <%
+        }else if(user instanceof Staff) {
+    %>
+    <a href="cart/products/<%= product.getName()%>">Edit Product</a>
+    <%
+        }else{
+    %>
+    <a href="${pageContext.request.contextPath}/sign-in.jsp">Please Sign In</a>
     <%
         }
     %>
