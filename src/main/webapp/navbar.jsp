@@ -17,7 +17,7 @@
 
         if (user instanceof Customer) {
     %>
-    <ul>
+    <ul class="navbar">
         <li><a href="${pageContext.request.contextPath}/index.jsp">Home</a></li>
         <li><a href="${pageContext.request.contextPath}/products">All Products</a></li>
         <li><a href="${pageContext.request.contextPath}/cart.jsp">Cart</a></li>
@@ -27,7 +27,7 @@
     <%
     } else if (user instanceof Staff) {
     %>
-    <ul>
+    <ul class="navbar">
         <li><a href="${pageContext.request.contextPath}/index.jsp">Home</a></li>
         <li><a href="${pageContext.request.contextPath}/products">All Products</a></li>
         <li><a href="${pageContext.request.contextPath}/create-product.jsp">Create Product</a></li>
@@ -36,7 +36,7 @@
     <%
     } else {
     %>
-    <ul>
+    <ul class="navbar">
         <li><a href="${pageContext.request.contextPath}/index.jsp">Home</a></li>
         <li><a href="${pageContext.request.contextPath}/products">All Products</a></li>
         <li><a href="${pageContext.request.contextPath}/sign-in.jsp">Sign in</a></li>
