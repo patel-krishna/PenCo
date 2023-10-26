@@ -50,3 +50,21 @@ input{
     display: flex;
     flex-direction: column;
 }
+.nav1 {
+    overflow: hidden;
+}
+
+.nav1 a {
+    float: left;
+    color: purple;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration-style: wavy;
+    font-size: 17px;
+    font-size: large;
+}
+
+.nav1 a:hover {
+    background-color:pink;
+}
+

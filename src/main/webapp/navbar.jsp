@@ -36,10 +36,10 @@
     <%
     } else {
     %>
-    <ul>
-        <li><a href="${pageContext.request.contextPath}/products">All Products</a></li>
-        <li><a href="index.jsp">Home</a></li>
-    </ul>
+    <div class="nav1">
+        <a href="${pageContext.request.contextPath}/products">All Products</a>
+        <a href="index.jsp">Home</a>
+    </div>
     <%
         }
     %>
