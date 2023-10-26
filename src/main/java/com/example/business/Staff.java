@@ -87,7 +87,6 @@ public class Staff extends User{
                     writer.newLine();
                 }
             }
-
             writer.write("</products>");
         } catch (IOException e) {
             e.printStackTrace();

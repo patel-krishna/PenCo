@@ -46,7 +46,7 @@
             <%
             if(user instanceof Customer) {
             %>
-            <form action="/PenCo/cart/products/<%= product.getURL()%>" method="post">
+            <form action="${pageContext.request.contextPath}/cart/products/<%= product.getURL()%>" method="post">
                 <!-- Hidden field to specify the product slug to be added to the cart -->
                 <input type="hidden" name="slug" value="<%= product.getURL()%>">
                 <button class="button" type="submit">Add to Cart</button>

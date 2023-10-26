@@ -18,7 +18,7 @@
 </div>
 <header>
     <h1>Welcome to PenCo</h1>
-    <h3>Whatever you choose for your stationery is your favorite color because it's where you pour your heart out.</h3>
+    <h3>Where Your Words Find Color: Discover Your Favorites at Our Stationery Store. Montreal based.</h3>
 </header>
 </body>
 </html>
