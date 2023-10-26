@@ -28,6 +28,12 @@ public class User {
         this.username = username;
         this.password = password;
     }
+
+    public User(){
+        username = null;
+        password = null;
+    }
+
     public Product getProduct(HashMap<String, Product> allProducts, String SKU){
         return allProducts.get(SKU);
     }

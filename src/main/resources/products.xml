@@ -46,12 +46,12 @@
     </product>
     <product>
         <name>Paper Clips</name>
-        <description>A pack of 100 stainless steel paper clips for holding documents together.</description>
+        <description>A pack of 100 paper clips for holding documents together.</description>
         <vendor>Office Essentials</vendor>
         <slug>paper-clips-100pcs</slug>
         <sku>SKU234567</sku>
         <price>1.49</price>
-	<img>https://images.unsplash.com/photo-1516134162643-d3a8f6ef0623?auto=format&fit=crop&q=80&w=2835&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D</img>
+	<img>https://muji.ca/cdn/shop/products/4550344903025_1260_700x.jpg?v=1681768442D</img>
     </product>
     <product>
         <name>Correction Tape</name>
