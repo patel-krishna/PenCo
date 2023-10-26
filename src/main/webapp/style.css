@@ -88,27 +88,38 @@ footer {
     width: 100%;
 }
 
+/* Navigation Bar */
+/* CSS */
 .navbar {
-    list-style: none;
-    padding: 5px;
-    margin: 0px;
-    background-color: white;
     display: flex;
-    justify-content: flex-end; /* Align to the right */
+    justify-content: space-between;
     align-items: center;
+    background-color: white;
     border-bottom: 1px solid #ccc;
+    padding: 10px;
 }
 
-.navbar li {
-    display: inline;
+.logo{
+    padding-right: 30px;
+}
+
+.nav-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: flex-end; /* Align the links to the right */
+}
+
+.nav-links li {
     margin: 0 10px;
 }
 
-.navbar a {
+.nav-links a {
     text-decoration: none;
-    color: #333; /* Link color */
+    color: #333;
 }
 
-.navbar a:hover {
-    color: #007BFF; /* Hover color */
+.nav-links a:hover {
+    color: #007BFF;
 }
