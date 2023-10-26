@@ -19,6 +19,7 @@
     <title><%=product.getName()%></title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/index.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap" rel="stylesheet">
@@ -27,7 +28,7 @@
 <body>
 <jsp:include page="navbar.jsp" />
 <h1><%=product.getName()%></h1>
-<ul>
+<ul class ="view-prod">
     <%
         if (product != null) {
     %>
@@ -35,7 +36,7 @@
     <li class="product-info"><%= product.getSKU() %>
         - <%= product.getName() %>
         - $<%= product.getPrice() %>
-        -<img src="<%= product.getImgSrc()%>">
+        -<img class="view-image" src="<%= product.getImgSrc()%>" alt="view-image">
     </li>
     <%
         }
@@ -53,7 +54,7 @@
         }else if(user instanceof Staff) {
     %>
     <h2>Update Product Info</h2>
-    <form action="/PenCo/products/<%= product.getURL()%>" method="post">
+    <form action="${pageContext.request.contextPath}/products/<%= product.getURL()%>" method="post">
 
         <label for="sku">SKU:</label>
         <input type="text" id="sku" name="sku" value="<%= product.getSKU() %>">
@@ -75,14 +76,13 @@
 
         <label for="imgSrc">Image Source:</label>
         <input type="text" id="imgSrc" name="imgSrc" value="<%= product.getImgSrc() %>">
-        <button type="submit">Update Product</button>
+        <button type="submit" class="update-prod">Update Product</button>
     </form>
 
-    <a href="cart/products/<%= product.getName()%>">Edit Product</a>
     <%
         }else{
     %>
-    <a href="${pageContext.request.contextPath}/sign-in.jsp">Please Sign In</a>
+    <a class="si-prod" href="${pageContext.request.contextPath}/sign-in.jsp">Please sign in to add item to cart!</a>
     <%
         }
     %>
@@ -100,4 +100,36 @@
         <% request.getSession().removeAttribute("successMessage"); %>
     }
 </script>
+<style>
+    body {
+        text-align: center;
+        background-image: none;
+    }
+    .si-prod {
+        display: block;
+        font-size: 20px;
+        cursor: pointer;
+        color: #333;
+        text-decoration: none;
+        padding: 10px 20px;
+    }
+    .view-prod{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .view-image {
+        width: 450px;
+        height: 370px;
+    }
+    .update-prod {
+        color: #333;
+        text-decoration: none;
+        border: 2px solid #ccc;
+        padding: 5px 10px;
+        border-radius: 10px;
+        background-color: #f5f5f5;
+        display: inline-block;
+    }
+</style>
 </html>

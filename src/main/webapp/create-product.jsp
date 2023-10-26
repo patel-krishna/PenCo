@@ -47,7 +47,7 @@
 
         <label for="imgSrc">Image Source:</label>
         <input type="text" id="imgSrc" name="imgSrc">
-        <input type="submit" value="Creat Product">
+        <input type="submit" class="submit-prod" value="Create Product">
     </form>
 </div>>
 </body>
