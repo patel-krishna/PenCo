@@ -63,8 +63,9 @@ input{
     align-items: center;
 }
 textarea{
-    display: flex;
-    flex-direction: column;
     background: pink;
 }
+
+
+
 
