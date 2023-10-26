@@ -76,7 +76,7 @@ public class storefrontFacade {
     }
 
     public void removeProductFromCart(String sku){
-        Product productToRemove = allProductsSku.get(sku);
+        Product productToRemove = this.getAllProductsSku().get(sku);
         if(currentUser instanceof Customer){
             Customer customer = (Customer) currentUser;
             customer.removeProductFromCart(productToRemove);

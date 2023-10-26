@@ -60,7 +60,6 @@ public class Staff extends User{
     public static void writeProductsToXML(HashMap<String, Product> productMap, String filePath) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             if(!productMap.isEmpty()){
-                writer.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
                 writer.newLine();
                 writer.write("<products>");
                 writer.newLine();
