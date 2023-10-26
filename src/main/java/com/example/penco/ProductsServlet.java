@@ -22,8 +22,8 @@ public class ProductsServlet extends HttpServlet {
         storefrontFacade facade = (storefrontFacade) servletContext.getAttribute("storefrontFacade");
         HashMap<String, Product> productMap = facade.getAllProductsSku();
 
-                // Set the products list as an attribute in the request
-                request.setAttribute("productMap", productMap);
+        // Set the products list as an attribute in the request
+        request.setAttribute("productMap", productMap);
 
         // Forward the request to the JSP page responsible for displaying the products
         // Forward the request to the JSP page while keeping the URL as "/products"

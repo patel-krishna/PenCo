@@ -21,7 +21,6 @@
 <jsp:include page="navbar.jsp" />
 <h1>All Products</h1>
 
-<%--Download Catalogue--%>
 <% if(user instanceof Staff) { %>
   <a href="${pageContext.request.contextPath}/products/download">Download Product Catalogue</a>
 <% } %>
