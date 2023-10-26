@@ -28,72 +28,74 @@
 </head>
 <body>
 <jsp:include page="navbar.jsp" />
-<h1><%=product.getName()%></h1>
-<ul class ="view-prod">
+
     <%
         if (product != null) {
     %>
-<%--Example of how to display product info --%>
-    <li class="product-info"><%= product.getSKU() %>
-        - <%= product.getName() %>
-        - $<%= product.getPrice() %>
-        -<img class="view-image" src="<%= product.getImgSrc()%>" alt="view-image">
-    </li>
+    <div class="container">
+        <div class="image">
+            <img src="<%= product.getImgSrc()%>" alt="Your Image">
+        </div>
+        <div class="information">
+            <h2><%= product.getName() %></h2>
+            <p><strong>Product ID: </strong><%= product.getSKU() %></p>
+            <p><strong>Description: </strong><%= product.getDescription() %></p>
+            <p><strong>Price: </strong>$<%= product.getPrice() %></p>
+            <p><strong>Vendor: </strong> <%= product.getVendor() %></p>
+<%--            USER CONTROLS BASED ON USER--%>
+            <%
+            if(user instanceof Customer) {
+            %>
+            <form action="/PenCo/cart/products/<%= product.getURL()%>" method="post">
+                <!-- Hidden field to specify the product slug to be added to the cart -->
+                <input type="hidden" name="slug" value="<%= product.getURL()%>">
+                <button class="button" type="submit">Add to Cart</button>
+            </form>
+            <%
+            }else if(user instanceof Staff) {
+            %>
+            <h3>Update Product Info</h3>
+            <form action="${pageContext.request.contextPath}/products/<%= product.getURL()%>" method="post" class="centered-form">
 
-    <div class="product-list">
-    <p><%= product.getSKU() %> - <%= product.getName() %> - <%= product.getPrice() %> -<img class="view" src="<%= product.getImgSrc()%>">
-    </p>
+                <label for="sku">SKU:</label>
+                <input type="text" id="sku" name="sku" value="<%= product.getSKU() %>">
+
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" value="<%= product.getName() %>">
+
+                <label for="description">Description:</label>
+                <textarea name="description" id="description"><%= product.getDescription() %></textarea>
+
+                <label for="vendor">Vendor:</label>
+                <input type="text" id="vendor" name="vendor" value="<%= product.getVendor() %>">
+
+                <label for="url">URL Slug:</label>
+                <input type="text" id="url" name="url" value="<%= product.getURL() %>">
+
+                <label for="price">Price:</label>
+                <input type="text" id="price" name="price" value="<%= product.getPrice() %>">
+
+                <label for="imgSrc">Image Source:</label>
+                <input type="text" id="imgSrc" name="imgSrc" value="<%= product.getImgSrc() %>">
+
+                <button type="submit" class="button">Update Product</button>
+            </form>
+
+            <%
+            }else{
+            %>
+            <a class="si-prod" href="${pageContext.request.contextPath}/sign-in.jsp">Please sign in to add item to cart!</a>
+            <%
+                }
+            %>
+        </div>
     </div>
+
     <%
         }
     %>
 
-    <%
-        if(user instanceof Customer) {
-    %>
-    <form action="/PenCo/cart/products/<%= product.getURL()%>" method="post">
-        <!-- Hidden field to specify the product slug to be added to the cart -->
-        <input type="hidden" name="slug" value="<%= product.getURL()%>">
-        <button type="submit">Add to Cart</button>
-    </form>
-    <%
-        }else if(user instanceof Staff) {
-    %>
-    <h2>Update Product Info</h2>
-    <form action="${pageContext.request.contextPath}/products/<%= product.getURL()%>" method="post">
 
-        <label for="sku">SKU:</label>
-        <input type="text" id="sku" name="sku" value="<%= product.getSKU() %>">
-
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" value="<%= product.getName() %>">
-
-        <label for="description">Description:</label>
-        <textarea name="description" id="description"><%= product.getDescription() %></textarea>
-
-        <label for="vendor">Vendor:</label>
-        <input type="text" id="vendor" name="vendor" value="<%= product.getVendor() %>">
-
-        <label for="url">URL Slug:</label>
-        <input type="text" id="url" name="url" value="<%= product.getURL() %>">
-
-        <label for="price">Price:</label>
-        <input type="text" id="price" name="price" value="<%= product.getPrice() %>">
-
-        <label for="imgSrc">Image Source:</label>
-        <input type="text" id="imgSrc" name="imgSrc" value="<%= product.getImgSrc() %>">
-
-        <button type="submit" class="update-prod">Update Product</button>
-    </form>
-
-
-    <%
-        }else{
-    %>
-    <a class="si-prod" href="${pageContext.request.contextPath}/sign-in.jsp">Please sign in to add item to cart!</a>
-    <%
-        }
-    %>
 </ul>
 </body>
 <script>
@@ -130,7 +132,8 @@
         width: 450px;
         height: 370px;
     }
-    .update-prod {
+
+    .button {
         color: #333;
         text-decoration: none;
         border: 2px solid #ccc;
@@ -138,6 +141,53 @@
         border-radius: 10px;
         background-color: #f5f5f5;
         display: inline-block;
+
   }
+
+    /*Styling for Poduct Card*/
+    .container {
+        display: flex;
+        align-items: center;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        margin: 20px;
+    }
+
+    .image {
+        flex: 1;
+        padding: 10px;
+    }
+
+    .image img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .information {
+        flex: 2;
+        padding: 10px;
+    }
+
+    .information h2 {
+        font-size: 24px;
+    }
+
+    .information p {
+        margin: 10px 0;
+    }
+
+    .centered-form{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    textarea {
+        margin: 10px; /* Add margin on all sides */
+    }
+
+
+
 </style>
 </html>
