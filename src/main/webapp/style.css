@@ -18,7 +18,38 @@ main {
     justify-content: space-around;
     padding: 20px;
 }
+h1{
+    font-size: 40px;
+    text-align: center;
+    background-image: linear-gradient(to left, pink, purple);
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
 
+}
+h2{
+    font-size: 40px;
+    text-align: center;
+    background-image: linear-gradient(to left, pink, purple);
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+}
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+li {
+    float: right;
+}
+
+li a {
+    display: block;
+    padding: 8px;
+    background-color:pink;
+}
 .login {
     position: absolute;
     font-family: 'Josefin Sans', sans-serif;
