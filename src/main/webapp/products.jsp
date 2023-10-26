@@ -16,7 +16,7 @@
 <html>
 <head>
     <title>Products</title>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/index.css">
 </head>
 <body>
 <jsp:include page="navbar.jsp" />
