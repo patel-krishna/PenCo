@@ -19,15 +19,15 @@ h2{
     background-clip: text;
     -webkit-background-clip: text;
 }
-.demo{
+.demo {
     text-align: center;
     color:black;
 }
 ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
 }
 li {
     float: right;
@@ -63,9 +63,7 @@ input{
     align-items: center;
 }
 textarea{
+    display: flex;
+    flex-direction: column;
     background: pink;
 }
-
-
-
-
