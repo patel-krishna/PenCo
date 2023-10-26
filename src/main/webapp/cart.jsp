@@ -40,7 +40,7 @@
     <p class="price">$<%=product.getPrice()%></p>
     <form action="${pageContext.request.contextPath}/removeProduct" method="post">
         <input type="hidden" name="sku" value="<%=product.getSKU()%>">
-        <button type="submit">Remove</button>
+        <button class="button" type="submit">Remove</button>
     </form>
 </section>
 <%}
@@ -50,6 +50,19 @@
     }
 %>
 </main>
+
+<style>
+    .button {
+        color: #333;
+        text-decoration: none;
+        border: 2px solid #ccc;
+        padding: 5px 10px;
+        border-radius: 10px;
+        background-color: #f5f5f5;
+        display: inline-block;
+
+    }
+</style>
 
 </body>
 </html>

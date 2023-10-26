@@ -74,6 +74,17 @@
     img {
         width: 100%;
     }
+
+    .button {
+        color: #333;
+        text-decoration: none;
+        border: 2px solid #ccc;
+        padding: 5px 10px;
+        border-radius: 10px;
+        background-color: #f5f5f5;
+        display: inline-block;
+
+    }
 </style>
 </body>
 </html>

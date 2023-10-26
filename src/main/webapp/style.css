@@ -10,7 +10,6 @@ header {
     color: #575753;
     text-align: center;
     padding: 20px;
-    text-align: center; /* Center-align the text horizontally */
     position: absolute; /* Position the header absolutely */
     top: 50%; /* Move the top edge to the middle of the page */
     left: 50%; /* Move the left edge to the middle of the page */
