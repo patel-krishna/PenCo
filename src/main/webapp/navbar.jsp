@@ -23,6 +23,7 @@
         <li><a href="cart">Cart</a></li>
         <li>Welcome, <%=user.getUsername()%> </li>
     </ul>
+
     <%
     } else if (user instanceof Staff) {
     %>
