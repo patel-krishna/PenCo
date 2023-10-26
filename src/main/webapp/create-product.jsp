@@ -10,8 +10,8 @@
 <head>
     <title>Create Product</title>
 
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/index.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/index.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/style.css">
     <meta charset="UTF-8">
     <link rel="preconnect" href="https://fonts.googleapis.com%22%3E/
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>

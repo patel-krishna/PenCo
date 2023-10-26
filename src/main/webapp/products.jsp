@@ -16,7 +16,7 @@
 <html>
 <head>
     <title>Products</title>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/style.css">
     <meta charset="UTF-8">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

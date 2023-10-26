@@ -4,8 +4,8 @@
 <head>
     <title> PenCo | Home </title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/index.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/index.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com%22%3E/" >
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap" rel="stylesheet">

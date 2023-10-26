@@ -19,8 +19,8 @@
     <title><%=product.getName()%></title>
     <meta charset="UTF-8">
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/style.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/index.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/style/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/style/index.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap" rel="stylesheet">
