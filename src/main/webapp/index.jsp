@@ -11,9 +11,6 @@
 </div>
 <h1><%= "Welcome to PenCo" %></h1>
 <p class="demo">Whatever you choose for your stationery is your favorite color because it's where you pour your heart out.</p>
-
-
-
 <%--header template--%>
 </body>
 </html>

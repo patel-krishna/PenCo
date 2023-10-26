@@ -11,6 +11,14 @@ h1{
     -webkit-background-clip: text;
 
 }
+h2{
+    font-size: 40px;
+    text-align: center;
+    background-image: linear-gradient(to left, pink, purple);
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+}
 .demo{
     text-align: center;
     color:black;

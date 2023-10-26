@@ -9,10 +9,13 @@
 <html>
 <head>
     <title>Create Product</title>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/index.css">
 </head>
+
 <body>
 <h2>Create Product Form</h2>
-<form action="/PenCo/create-product" method="post">
+<div id="wrapper">
+<form id="form" action="/PenCo/create-product" method="post">
 
     <label for="sku">SKU:</label>
     <input type="text" id="sku" name="sku" value="">
@@ -34,8 +37,8 @@
 
     <label for="imgSrc">Image Source:</label>
     <input type="text" id="imgSrc" name="imgSrc">
-    <button type="submit">Create Product</button>
+    <input type="submit" value="Creat Product">
 </form>
-
+</div>>
 </body>
 </html>
