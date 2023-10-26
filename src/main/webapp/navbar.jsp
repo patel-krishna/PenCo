@@ -37,8 +37,9 @@
     } else {
     %>
     <ul>
+        li><a href="${pageContext.request.contextPath}/index.jsp">Home</a></li>
         <li><a href="${pageContext.request.contextPath}/products">All Products</a></li>
-        <li><a href="index.jsp">Home</a></li>
+        <li><a href="${pageContext.request.contextPath}/sign-in.jsp">Sign in</a></li>
     </ul>
     <%
         }
