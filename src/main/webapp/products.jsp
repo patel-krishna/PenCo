@@ -16,6 +16,7 @@
 <html>
 <head>
     <title>Products</title>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style.css">
 </head>
 <body>
 <jsp:include page="navbar.jsp" />
@@ -34,11 +35,27 @@
   <li class="product-card"><%= entry.getKey() %>
     - <%= entry.getValue().getName() %>
     - $<%= entry.getValue().getPrice() %>
+    - <img src="<%= entry.getValue().getImgSrc() %>" alt="Image Description">
     - <a href="products/<%= entry.getValue().getURL() %>">View</a></li>
   <%
       }
     }
   %>
+  <style>
+    .product-card {
+      width: 300px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin: 10px;
+      padding: 10px;
+      text-align: center;
+      background-color: #f5f5f5;
+    }
+    img {
+      width: 200px;
+      height: 150px;
+    }
+  </style>
 </ul>
 </body>
 </html>
