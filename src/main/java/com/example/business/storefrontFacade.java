@@ -13,8 +13,8 @@ import org.w3c.dom.NodeList;
 public class storefrontFacade {
     public static HashMap<String,Product> allProductsSku;
 
-    final String filePathProducts = "C:\\Users\\briannam\\Documents\\GitHub\\PenCo\\src\\main\\resources\\products.xml";
-    final String filePathUsers = "C:\\Users\\briannam\\Documents\\GitHub\\PenCo\\src\\main\\resources\\users.xml";
+    final String filePathProducts = "//Users//briannam//Documents//GitHub//PenCo//src//main//resources//products.xml";
+    final String filePathUsers = "//Users//briannam//Documents//GitHub//PenCo//src//main//resources//users.xml";
 
     static HashMap<String, User> allUsers;
     static User currentUser;
@@ -76,7 +76,7 @@ public class storefrontFacade {
     }
 
     public void removeProductFromCart(String sku){
-        Product productToRemove = allProductsSku.get(sku);
+        Product productToRemove = this.getAllProductsSku().get(sku);
         if(currentUser instanceof Customer){
             Customer customer = (Customer) currentUser;
             customer.removeProductFromCart(productToRemove);

@@ -3,7 +3,7 @@ body{
     background-size: cover;
 }
 h1{
-    font-size: 50px;
+    font-size: 40px;
     text-align: center;
     background-image: linear-gradient(to left, pink, purple);
     color: transparent;
@@ -11,13 +11,24 @@ h1{
     -webkit-background-clip: text;
 
 }
-ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
+h2{
+    font-size: 40px;
+    text-align: center;
+    background-image: linear-gradient(to left, pink, purple);
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
 }
-
+.demo {
+    text-align: center;
+    color:black;
+}
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
 li {
     float: right;
 }
@@ -49,4 +60,11 @@ input{
 #form {
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
+textarea{
+    display: flex;
+    flex-direction: column;
+    background: pink;
+}
+

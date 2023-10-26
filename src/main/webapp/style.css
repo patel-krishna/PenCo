@@ -87,3 +87,39 @@ footer {
     bottom: 0;
     width: 100%;
 }
+
+/* Navigation Bar */
+/* CSS */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+}
+
+.logo{
+    padding-right: 30px;
+}
+
+.nav-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: flex-end; /* Align the links to the right */
+}
+
+.nav-links li {
+    margin: 0 10px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #333;
+}
+
+.nav-links a:hover {
+    color: #007BFF;
+}
