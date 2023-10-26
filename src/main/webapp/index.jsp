@@ -6,10 +6,10 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/index.css">
 </head>
 <body>
-
+<jsp:include page="navbar.jsp" />
     <h1><%= "Welcome to PenCo" %></h1>
     <h1>Please Sign In</h1>
-    <jsp:include page="navbar.jsp" />
+
     <div id="wrapper">
         <form id="form" action="LoginServlet" method="post">
             <label for="username">Username:</label>

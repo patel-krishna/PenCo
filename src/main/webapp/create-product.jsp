@@ -11,6 +11,7 @@
     <title>Create Product</title>
 </head>
 <body>
+<jsp:include page="navbar.jsp" />
 <h2>Create Product Form</h2>
 <form action="/PenCo/create-product" method="post">
 
