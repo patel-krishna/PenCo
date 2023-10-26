@@ -87,3 +87,28 @@ footer {
     bottom: 0;
     width: 100%;
 }
+
+.navbar {
+    list-style: none;
+    padding: 5px;
+    margin: 0px;
+    background-color: white;
+    display: flex;
+    justify-content: flex-end; /* Align to the right */
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+}
+
+.navbar li {
+    display: inline;
+    margin: 0 10px;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: #333; /* Link color */
+}
+
+.navbar a:hover {
+    color: #007BFF; /* Hover color */
+}
