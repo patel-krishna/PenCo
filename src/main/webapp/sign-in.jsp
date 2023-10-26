@@ -21,9 +21,7 @@
     <label for="password">Password:</label>
     <input type="password" id="password" name="password" required><br>
 
-    <input id="submit-btn" type="submit" value="Sign In">
-  </form>
-</div>
+    <input type="submit" value="Sign In">
 </form>
 </body>
 </html>
