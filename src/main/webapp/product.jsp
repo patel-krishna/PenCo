@@ -25,6 +25,7 @@
     <%
         if (product != null) {
     %>
+<%--Example of how to display product info --%>
     <li class="product-info"><%= product.getSKU() %>
         - <%= product.getName() %>
         - $<%= product.getPrice() %>
