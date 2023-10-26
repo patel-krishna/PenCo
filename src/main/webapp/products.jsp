@@ -55,6 +55,13 @@
       width: 200px;
       height: 150px;
     }
+    ul {
+      list-style: none;
+    }
+    li {
+      float: left;
+      margin-right: 10px; /* Add some spacing between list items */
+    }
   </style>
 </ul>
 </body>
