@@ -18,7 +18,9 @@
 <head>
     <title><%=product.getName()%></title>
     <meta charset="UTF-8">
+
     <link rel="stylesheet" href="${pageContext.request.contextPath}/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/index.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap" rel="stylesheet">
@@ -26,17 +28,17 @@
 </head>
 <body>
 <jsp:include page="navbar.jsp" />
-<h1><%=product.getName()%></h1>
+
 <ul>
     <%
         if (product != null) {
     %>
+    <h2>Update Product Info</h2>
 <%--Example of how to display product info --%>
-    <li class="product-info"><%= product.getSKU() %>
-        - <%= product.getName() %>
-        - $<%= product.getPrice() %>
-        -<img src="<%= product.getImgSrc()%>">
-    </li>
+    <div class="product-list">
+    <p><%= product.getSKU() %> - <%= product.getName() %> - <%= product.getPrice() %> -<img class="view" src="<%= product.getImgSrc()%>">
+    </p>
+    </div>
     <%
         }
     %>
@@ -52,8 +54,8 @@
     <%
         }else if(user instanceof Staff) {
     %>
-    <h2>Update Product Info</h2>
-    <form action="/PenCo/products/<%= product.getURL()%>" method="post">
+
+    <form id="form" action="/PenCo/products/<%= product.getURL()%>" method="post">
 
         <label for="sku">SKU:</label>
         <input type="text" id="sku" name="sku" value="<%= product.getSKU() %>">
@@ -75,10 +77,11 @@
 
         <label for="imgSrc">Image Source:</label>
         <input type="text" id="imgSrc" name="imgSrc" value="<%= product.getImgSrc() %>">
-        <button type="submit">Update Product</button>
+
+        <a href="cart/products/<%= product.getName()%>">Edit Product</a>
     </form>
 
-    <a href="cart/products/<%= product.getName()%>">Edit Product</a>
+
     <%
         }else{
     %>
@@ -100,4 +103,16 @@
         <% request.getSession().removeAttribute("successMessage"); %>
     }
 </script>
+<style>
+    .view{
+        width: 100px;
+        height: 100px;
+    }
+    .product-list{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size:larger;
+    }
+</style>
 </html>
