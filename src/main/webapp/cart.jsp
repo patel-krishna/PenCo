@@ -29,17 +29,19 @@
 
 <jsp:include page="navbar.jsp" />
 <h1>Cart</h1>
-
+<main>
 <%
     if(!cart.getShoppingCart().isEmpty()){
         for (Product product : cart.getShoppingCart()) {
 %>
 <section class="product">
     <img src="<%=product.getImgSrc()%>" alt="<%=product.getName()%>">
-    <p><%=product.getName()%>"</p>
-    <p class="price">$<%=product.getPrice()%>"</p>
-
-    <button class="button">Delete</button>
+    <p><%=product.getName()%></p>
+    <p class="price">$<%=product.getPrice()%></p>
+    <form action="${pageContext.request.contextPath}/removeProduct" method="post">
+        <input type="hidden" name="sku" value="<%=product.getSKU()%>">
+        <button type="submit">Remove</button>
+    </form>
 </section>
 <%}
     }else{ %>
@@ -47,7 +49,7 @@
       <%
     }
 %>
-
+</main>
 
 </body>
 </html>

@@ -86,4 +86,21 @@ public class Product {
     public void setVendor(String vendor) {
         this.vendor = vendor;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Product product = (Product) obj;
+        return SKU != null ? SKU.equals(product.SKU) : product.SKU == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return SKU != null ? SKU.hashCode() : 0;
+    }
 }
