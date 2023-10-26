@@ -78,7 +78,6 @@
         <button type="submit">Update Product</button>
     </form>
 
-    <a href="cart/products/<%= product.getName()%>">Edit Product</a>
     <%
         }else{
     %>

@@ -37,7 +37,7 @@
     <input type="text" id="url" name="url">
 
     <label for="price">Price:</label>
-    <input type="text" id="price" name="price">
+    <input type="number" step="0.01" id="price" name="price">
 
     <label for="imgSrc">Image Source:</label>
     <input type="text" id="imgSrc" name="imgSrc">
