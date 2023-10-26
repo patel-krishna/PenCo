@@ -6,10 +6,15 @@ body {
 }
 
 header {
-    background-color: #FCFCF5;
+    /*background-color: #FCFCF5;*/
     color: #575753;
     text-align: center;
     padding: 20px;
+    text-align: center; /* Center-align the text horizontally */
+    position: absolute; /* Position the header absolutely */
+    top: 50%; /* Move the top edge to the middle of the page */
+    left: 50%; /* Move the left edge to the middle of the page */
+    transform: translate(-50%, -50%);
 }
 
 main {
@@ -37,8 +42,6 @@ h2{
 }
 ul {
     list-style-type: none;
-    margin: 0;
-    padding: 0;
     overflow: hidden;
 }
 li {
@@ -48,8 +51,8 @@ li {
 li a {
     display: block;
     padding: 8px;
-    background-color:pink;
 }
+
 .login {
     position: absolute;
     font-family: 'Josefin Sans', sans-serif;
@@ -75,17 +78,18 @@ li a {
     text-decoration: none;
 }
 
-.add-to-cart {
+.button {
     background-color: #E0E0DE;
     color: #333; /* Dark text color */
     padding: 10px 20px;
+    margin: 10px;
     border: none; /* No border */
     border-radius: 5px; /* Rounded corners */
     cursor: pointer;
     font-size: 14px; /* Font size */
     transition: background-color 0.3s, color 0.3s; /* Smooth color transition */
 }
-.add-to-cart:hover {
+.button:hover {
     background-color: #BDBDB7; /* Slightly darker background color on hover */
     color: #555; /* Slightly darker text color on hover */
 }

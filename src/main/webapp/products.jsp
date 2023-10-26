@@ -28,7 +28,7 @@
 <h1>All Products</h1>
 
 <% if(user instanceof Staff) { %>
-<a href="${pageContext.request.contextPath}/products/download">Download Product Catalogue</a>
+<a class="button" href="${pageContext.request.contextPath}/products/download">Download Product Catalogue</a>
 <% } %>
 
 <ul>
@@ -37,11 +37,14 @@
         if (productMap != null) {
             for (HashMap.Entry<String, Product> entry : productMap.entrySet()) {
     %>
-    <li class="product-card"><%= entry.getKey() %>
-        - <%= entry.getValue().getName() %>
-        - $<%= entry.getValue().getPrice() %>
-        - <img src="<%= entry.getValue().getImgSrc() %>" alt="Image Description">
-        - <a href="products/<%= entry.getValue().getURL() %>">View</a></li>
+
+    <section class="product-card">
+        <img src="<%= entry.getValue().getImgSrc() %>">
+        <p><%= entry.getValue().getName() %></p>
+        <p class="price">$<%= entry.getValue().getPrice() %></p>
+        <a class="button" href="products/<%= entry.getValue().getURL() %>">View</a>
+    </section>
+
     <%
             }
         }
@@ -69,8 +72,7 @@
         display: inline-block;
     }
     img {
-        width: 300px;
-        height: 250px;
+        width: 100%;
     }
 </style>
 </body>

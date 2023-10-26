@@ -13,8 +13,8 @@ import org.w3c.dom.NodeList;
 public class storefrontFacade {
     public static HashMap<String,Product> allProductsSku;
 
-    final String filePathProducts = "/Users/chitchitm.czaw/IdeaProjects/Intellij/PenCo/src/main/resources/products.xml";
-    final String filePathUsers = "/Users/chitchitm.czaw/IdeaProjects/Intellij/PenCo/src/main/resources/users.xml";
+    final String filePathProducts = "C:\\Users\\Krish\\Documents\\School\\Concordia\\Projects\\PenCo\\src\\main\\resources\\products.xml";
+    final String filePathUsers = "C:\\Users\\Krish\\Documents\\School\\Concordia\\Projects\\PenCo\\src\\main\\resources\\users.xml";
 
     static HashMap<String, User> allUsers;
     static User currentUser;

@@ -33,7 +33,6 @@
     <%
         if (product != null) {
     %>
-    <h2>Update Product Info</h2>
 <%--Example of how to display product info --%>
     <li class="product-info"><%= product.getSKU() %>
         - <%= product.getName() %>

@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>JSP - Hello World</title>
+    <title> PenCo | Home </title>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/index.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style.css">
@@ -16,7 +16,9 @@
 <div>
     <jsp:include page="navbar.jsp" />
 </div>
-<h1><%= "Welcome to PenCo" %></h1>
-<p class="demo">Whatever you choose for your stationery is your favorite color because it's where you pour your heart out.</p>
+<header>
+    <h1>Welcome to PenCo</h1>
+    <h3>Whatever you choose for your stationery is your favorite color because it's where you pour your heart out.</h3>
+</header>
 </body>
 </html>
