@@ -23,6 +23,7 @@
         <li><a href="cart">Cart</a></li>
         <li>Welcome, <%=user.getUsername()%> </li>
     </ul>
+
     <%
     } else if (user instanceof Staff) {
     %>
@@ -36,9 +37,8 @@
     } else {
     %>
     <ul>
-        <li><a href="index.jsp">Home</a></li>
         <li><a href="${pageContext.request.contextPath}/products">All Products</a></li>
-        <li><a href="${pageContext.request.contextPath}/sign-in.jsp">Sign in</a></li>
+        <li><a href="index.jsp">Home</a></li>
     </ul>
     <%
         }
