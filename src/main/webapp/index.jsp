@@ -3,13 +3,25 @@
 <html>
 <head>
     <title>JSP - Hello World</title>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/index.css">
 </head>
 <body>
-<h1><%= "Hello World! pushing krishna" %>
-</h1>
-<br/>
-<a href="hello-servlet">Hello Servlet</a>
+
+    <h1><%= "Welcome to PenCo" %></h1>
+    <h1>Please Sign In</h1>
+    <jsp:include page="navbar.jsp" />
+    <div id="wrapper">
+        <form id="form" action="LoginServlet" method="post">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required><br>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required><br>
+
+            <input id="submit-btn" type="submit" value="Sign In">
+        </form>
+    </div>
+
 <%--header template--%>
-<jsp:include page="navbar.jsp" />
 </body>
 </html>

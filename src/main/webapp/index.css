@@ -1,0 +1,52 @@
+body{
+    background-image: url("stationery.jpg");
+    background-size: cover;
+}
+h1{
+    font-size: 50px;
+    text-align: center;
+    background-image: linear-gradient(to left, pink, purple);
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+
+}
+ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+}
+
+li {
+    float: right;
+}
+
+li a {
+    display: block;
+    padding: 8px;
+    background-color:pink;
+}
+input{
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: none;
+    background-color:pink;
+    color:black;
+}
+
+#wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#submit-btn {
+    align-self: center;
+}
+
+#form {
+    display: flex;
+    flex-direction: column;
+}
