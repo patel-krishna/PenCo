@@ -17,9 +17,6 @@ public class LoginServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        // Perform user authentication here (e.g., checking credentials against a database)
-        // You may need to replace this with your actual authentication logic.
-
         ServletContext servletContext = getServletContext();
         storefrontFacade facade = (storefrontFacade) servletContext.getAttribute("storefrontFacade");
         HashMap<String, User> allUsers = facade.getAllUsers();

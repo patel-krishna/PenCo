@@ -11,6 +11,10 @@ h1{
     -webkit-background-clip: text;
 
 }
+.demo{
+    text-align: center;
+    color:black;
+}
 ul {
         list-style-type: none;
         margin: 0;

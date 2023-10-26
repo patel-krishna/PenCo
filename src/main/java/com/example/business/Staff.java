@@ -59,32 +59,34 @@ public class Staff extends User{
 
     public static void writeProductsToXML(HashMap<String, Product> productMap, String filePath) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            writer.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-            writer.newLine();
-            writer.write("<products>");
-            writer.newLine();
+            if(!productMap.isEmpty()){
+                writer.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+                writer.newLine();
+                writer.write("<products>");
+                writer.newLine();
 
-            for (String productId : productMap.keySet()) {
-                Product product = productMap.get(productId);
+                for (String productId : productMap.keySet()) {
+                    Product product = productMap.get(productId);
 
-                writer.write("  <product>");
-                writer.newLine();
-                writer.write("    <name>" + product.getName() + "</name>");
-                writer.newLine();
-                writer.write("    <description>" + product.getDescription() + "</description>");
-                writer.newLine();
-                writer.write("    <vendor>" + product.getVendor() + "</vendor>");
-                writer.newLine();
-                writer.write("    <slug>" + product.getURL() + "</slug>");
-                writer.newLine();
-                writer.write("    <sku>" + product.getSKU() + "</sku>");
-                writer.newLine();
-                writer.write("    <Price>" + product.getPrice() + "</Price>");
-                writer.newLine();
-                writer.write("    <img>" + product.getImgSrc() + "</img>");
-                writer.newLine();
-                writer.write("  </product>");
-                writer.newLine();
+                    writer.write("  <product>");
+                    writer.newLine();
+                    writer.write("    <name>" + product.getName() + "</name>");
+                    writer.newLine();
+                    writer.write("    <description>" + product.getDescription() + "</description>");
+                    writer.newLine();
+                    writer.write("    <vendor>" + product.getVendor() + "</vendor>");
+                    writer.newLine();
+                    writer.write("    <slug>" + product.getURL() + "</slug>");
+                    writer.newLine();
+                    writer.write("    <sku>" + product.getSKU() + "</sku>");
+                    writer.newLine();
+                    writer.write("    <Price>" + product.getPrice() + "</Price>");
+                    writer.newLine();
+                    writer.write("    <img>" + product.getImgSrc() + "</img>");
+                    writer.newLine();
+                    writer.write("  </product>");
+                    writer.newLine();
+                }
             }
 
             writer.write("</products>");

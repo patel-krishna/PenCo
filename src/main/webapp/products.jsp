@@ -9,6 +9,10 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+  storefrontFacade facade = (storefrontFacade) application.getAttribute("storefrontFacade");
+  User user = facade.getCurrentUser();
+%>
 <html>
 <head>
     <title>Products</title>
@@ -16,6 +20,12 @@
 <body>
 <jsp:include page="navbar.jsp" />
 <h1>All Products</h1>
+
+<%--Download Catalogue--%>
+<% if(user instanceof Staff) { %>
+  <a href="${pageContext.request.contextPath}/products/download">Download Product Catalogue</a>
+<% } %>
+
 <ul>
   <%
     HashMap<String, Product> productMap = (HashMap<String, Product>) request.getAttribute("productMap");
