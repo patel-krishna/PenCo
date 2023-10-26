@@ -17,14 +17,12 @@
 <head>
     <title>Products</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/index.css">
-
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/style.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style.css">
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 </head>
 <body>
 <jsp:include page="navbar.jsp" />
@@ -49,28 +47,28 @@
       }
     }
   %>
-  <style>
+</ul>
+<style>
     .product-card {
-      width: 300px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      margin: 10px;
-      padding: 10px;
-      text-align: center;
-      background-color: #f5f5f5;
+        width: 300px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin: 10px;
+        padding: 10px;
+        text-align: center;
+        background-color: #f5f5f5;
     }
     img {
-      width: 200px;
-      height: 150px;
+        width: 200px;
+        height: 150px;
     }
     ul {
-      list-style: none;
+        list-style: none;
     }
     li {
-      float: left;
-      margin-right: 10px; /* Add some spacing between list items */
+        float: left;
+        margin-right: 10px; /* Add some spacing between list items */
     }
-  </style>
-</ul>
+</style>
 </body>
 </html>
