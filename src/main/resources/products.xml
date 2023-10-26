@@ -1,49 +1,21 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <products>
+  <product>
+    <name>Ballpoint Pen</name>
+    <description>A classic ballpoint pen for smooth writing. Ideal for everyday use.</description>
+    <vendor>Stationery World</vendor>
+    <slug>ballpoint-pen</slug>
+    <sku>SKU123456</sku>
+    <price>1.99</price>
+    <img>https://muji.ca/cdn/shop/products/tripen_700x.jpg?v=1610035922</img>
+  </product>
   <product>
     <name>Notebook</name>
     <description>A high-quality notebook with lined pages, perfect for note-taking and journaling.</description>
     <vendor>Office Supplies Inc.</vendor>
     <slug>notebook-2023</slug>
     <sku>SKU789012</sku>
-    <Price>5.99</Price>
+    <price>5.99</price>
     <img>https://muji.ca/cdn/shop/products/4548076316145_1260_700x.jpg?v=1603397677</img>
-  </product>
-  <product>
-    <name>Correction Tape</name>
-    <description>White correction tape for neatly fixing mistakes in documents and notes.</description>
-    <vendor>Stationery Solutions</vendor>
-    <slug>correction-tape-white</slug>
-    <sku>SKU890123</sku>
-    <Price>2.29</Price>
-    <img>https://muji.ca/cdn/shop/products/correctiontape_700x.jpg?v=1611777244</img>
-  </product>
-  <product>
-    <name>Paper Clips</name>
-    <description>A pack of 100 paper clips for holding documents together.</description>
-    <vendor>Office Essentials</vendor>
-    <slug>paper-clips-100pcs</slug>
-    <sku>SKU234567</sku>
-    <Price>1.49</Price>
-    <img>https://muji.ca/cdn/shop/products/4550344903025_1260_700x.jpg?v=1681768442D</img>
-  </product>
-  <product>
-    <name>Highlighter Set</name>
-    <description>A set of 4 colorful highlighters for emphasizing key points in your notes.</description>
-    <vendor>Highlighter Haven</vendor>
-    <slug>highlighter-set-4pcs</slug>
-    <sku>SKU567123</sku>
-    <Price>3.49</Price>
-    <img>https://muji.ca/cdn/shop/products/minimarkers1_700x.jpg?v=1614962470</img>
-  </product>
-  <product>
-    <name>Eraser Pack</name>
-    <description>A pack of 3 erasers for erasing pencil marks cleanly and effectively.</description>
-    <vendor>Erase It All</vendor>
-    <slug>eraser-pack-3pcs</slug>
-    <sku>SKU123890</sku>
-    <Price>1.79</Price>
-    <img>https://muji.ca/cdn/shop/products/eraser_black_s_700x.jpg?v=1608488412</img>
   </product>
   <product>
     <name>Sticky Notes</name>
@@ -51,35 +23,8 @@
     <vendor>Stationery Plus</vendor>
     <slug>sticky-notes-red</slug>
     <sku>SKU345678</sku>
-    <Price>2.49</Price>
+    <price>2.49</price>
     <img>https://muji.ca/cdn/shop/products/labeltab_700x.jpg?v=1618409443</img>
-  </product>
-  <product>
-    <name>File Folders</name>
-    <description>A set of 5 durable file folders for organizing and storing documents.</description>
-    <vendor>FileMaster</vendor>
-    <slug>file-folders-set5</slug>
-    <sku>SKU456789</sku>
-    <Price>3.99</Price>
-    <img>https://muji.ca/cdn/shop/products/4550182110210_org_0496e7c6-d13b-4729-9d1c-c886c1c5a395_1260x1260.jpg?v=1653936312</img>
-  </product>
-  <product>
-    <name>Desk Organizer</name>
-    <description>An elegant desk organizer to keep your workspace tidy and organized.</description>
-    <vendor>Organize It All</vendor>
-    <slug>desk-organizer-black</slug>
-    <sku>SKU567890</sku>
-    <Price>14.99</Price>
-    <img>https://muji.ca/cdn/shop/files/4945247380910_org_700x.jpg?v=1686854560</img>
-  </product>
-  <product>
-    <name>Ballpoint Pen</name>
-    <description>A classic ballpoint pen for smooth writing. Ideal for everyday use.</description>
-    <vendor>Stationery World</vendor>
-    <slug>ballpoint-pen</slug>
-    <sku>SKU123456</sku>
-    <Price>1.99</Price>
-    <img>https://muji.ca/cdn/shop/products/tripen_700x.jpg?v=1610035922</img>
   </product>
   <product>
     <name>Pencil Set</name>
@@ -87,7 +32,61 @@
     <vendor>Artistic Creations</vendor>
     <slug>pencil-set-12pcs</slug>
     <sku>SKU901234</sku>
-    <Price>7.99</Price>
+    <price>7.99</price>
     <img>https://muji.ca/cdn/shop/products/12pkcolourpencils_700x.jpg?v=1644510839</img>
+  </product>
+  <product>
+    <name>Desk Organizer</name>
+    <description>An elegant desk organizer to keep your workspace tidy and organized.</description>
+    <vendor>Organize It All</vendor>
+    <slug>desk-organizer-black</slug>
+    <sku>SKU567890</sku>
+    <price>14.99</price>
+    <img>https://muji.ca/cdn/shop/files/4945247380910_org_700x.jpg?v=1686854560</img>
+  </product>
+  <product>
+    <name>Paper Clips</name>
+    <description>A pack of 100 paper clips for holding documents together.</description>
+    <vendor>Office Essentials</vendor>
+    <slug>paper-clips-100pcs</slug>
+    <sku>SKU234567</sku>
+    <price>1.49</price>
+    <img>https://muji.ca/cdn/shop/products/4550344903025_1260_700x.jpg?v=1681768442D</img>
+  </product>
+  <product>
+    <name>Correction Tape</name>
+    <description>White correction tape for neatly fixing mistakes in documents and notes.</description>
+    <vendor>Stationery Solutions</vendor>
+    <slug>correction-tape-white</slug>
+    <sku>SKU890123</sku>
+    <price>2.29</price>
+    <img>https://muji.ca/cdn/shop/products/correctiontape_700x.jpg?v=1611777244</img>
+  </product>
+  <product>
+    <name>File Folders</name>
+    <description>A set of 5 durable file folders for organizing and storing documents.</description>
+    <vendor>FileMaster</vendor>
+    <slug>file-folders-set5</slug>
+    <sku>SKU456789</sku>
+    <price>3.99</price>
+    <img>https://muji.ca/cdn/shop/products/4550182110210_org_0496e7c6-d13b-4729-9d1c-c886c1c5a395_1260x1260.jpg?v=1653936312</img>
+  </product>
+  <product>
+    <name>Eraser Pack</name>
+    <description>A pack of 3 erasers for erasing pencil marks cleanly and effectively.</description>
+    <vendor>Erase It All</vendor>
+    <slug>eraser-pack-3pcs</slug>
+    <sku>SKU123890</sku>
+    <price>1.79</price>
+    <img>https://muji.ca/cdn/shop/products/eraser_black_s_700x.jpg?v=1608488412</img>
+  </product>
+  <product>
+    <name>Highlighter Set</name>
+    <description>A set of 4 colorful highlighters for emphasizing key points in your notes.</description>
+    <vendor>Highlighter Haven</vendor>
+    <slug>highlighter-set-4pcs</slug>
+    <sku>SKU567123</sku>
+    <price>3.49</price>
+    <img>https://muji.ca/cdn/shop/products/minimarkers1_700x.jpg?v=1614962470</img>
   </product>
 </products>
