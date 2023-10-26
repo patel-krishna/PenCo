@@ -17,29 +17,47 @@
 
         if (user instanceof Customer) {
     %>
-    <ul>
-        <li><a href="index.jsp">Home</a></li>
-        <li><a href="${pageContext.request.contextPath}/products">All Products</a></li>
-        <li><a href="cart">Cart</a></li>
-        <li>Welcome, <%=user.getUsername()%> </li>
-    </ul>
+    <div class="navbar">
+        <div class="logo">
+            <h2>PenCo.</h2>
+        </div>
+        <ul class="nav-links">
+            <li><a href="${pageContext.request.contextPath}/index.jsp">Home</a></li>
+            <li><a href="${pageContext.request.contextPath}/products">All Products</a></li>
+            <li><a href="${pageContext.request.contextPath}/cart.jsp">Cart</a></li>
+            <li>Welcome, <%=user.getUsername()%> </li>
+        </ul>
+    </div>
 
     <%
     } else if (user instanceof Staff) {
     %>
-    <ul>
-        <li><a href="index.jsp">Home</a></li>
-        <li><a href="${pageContext.request.contextPath}/products">All Products</a></li>
-        <li><a href="create-products.jsp">Create Product</a></li>
-        <li>Welcome, staff member <%=user.getUsername()%>!</li>
-    </ul>
+    <div class="navbar">
+        <div class="logo">
+            <h2>PenCo.</h2>
+        </div>
+        <ul class="nav-links">
+            <li><a href="${pageContext.request.contextPath}/index.jsp">Home</a></li>
+            <li><a href="${pageContext.request.contextPath}/products">All Products</a></li>
+            <li><a href="${pageContext.request.contextPath}/create-product.jsp">Create Product</a></li>
+            <li>Welcome, staff member <%=user.getUsername()%>!</li>
+        </ul>
+    </div>
     <%
     } else {
     %>
-    <ul>
-        <li><a href="${pageContext.request.contextPath}/products">All Products</a></li>
-        <li><a href="index.jsp">Home</a></li>
-    </ul>
+
+    <div class="navbar">
+        <div class="logo">
+            <h2>PenCo.</h2>
+        </div>
+        <ul class="nav-links">
+            <li><a href="${pageContext.request.contextPath}/index.jsp">Home</a></li>
+            <li><a href="${pageContext.request.contextPath}/products">All Products</a></li>
+            <li><a href="${pageContext.request.contextPath}/sign-in.jsp">Sign in</a></li>
+        </ul>
+    </div>
+
     <%
         }
     %>
