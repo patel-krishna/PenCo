@@ -28,13 +28,19 @@
 </head>
 <body>
 <jsp:include page="navbar.jsp" />
-
-<ul>
+<h1><%=product.getName()%></h1>
+<ul class ="view-prod">
     <%
         if (product != null) {
     %>
     <h2>Update Product Info</h2>
 <%--Example of how to display product info --%>
+    <li class="product-info"><%= product.getSKU() %>
+        - <%= product.getName() %>
+        - $<%= product.getPrice() %>
+        -<img class="view-image" src="<%= product.getImgSrc()%>" alt="view-image">
+    </li>
+
     <div class="product-list">
     <p><%= product.getSKU() %> - <%= product.getName() %> - <%= product.getPrice() %> -<img class="view" src="<%= product.getImgSrc()%>">
     </p>
@@ -54,8 +60,8 @@
     <%
         }else if(user instanceof Staff) {
     %>
-
-    <form id="form" action="/PenCo/products/<%= product.getURL()%>" method="post">
+    <h2>Update Product Info</h2>
+    <form action="${pageContext.request.contextPath}/products/<%= product.getURL()%>" method="post">
 
         <label for="sku">SKU:</label>
         <input type="text" id="sku" name="sku" value="<%= product.getSKU() %>">
@@ -78,14 +84,14 @@
         <label for="imgSrc">Image Source:</label>
         <input type="text" id="imgSrc" name="imgSrc" value="<%= product.getImgSrc() %>">
 
-        <a href="cart/products/<%= product.getName()%>">Edit Product</a>
+        <button type="submit" class="update-prod">Update Product</button>
     </form>
 
 
     <%
         }else{
     %>
-    <a href="${pageContext.request.contextPath}/sign-in.jsp">Please Sign In</a>
+    <a class="si-prod" href="${pageContext.request.contextPath}/sign-in.jsp">Please sign in to add item to cart!</a>
     <%
         }
     %>
@@ -104,15 +110,35 @@
     }
 </script>
 <style>
-    .view{
-        width: 100px;
-        height: 100px;
+    body {
+        text-align: center;
+        background-image: none;
     }
-    .product-list{
+    .si-prod {
+        display: block;
+        font-size: 20px;
+        cursor: pointer;
+        color: #333;
+        text-decoration: none;
+        padding: 10px 20px;
+    }
+    .view-prod{
         display: flex;
         flex-direction: column;
-        align-items: center;
-        font-size:larger;
+        justify-content: center;
     }
+    .view-image {
+        width: 450px;
+        height: 370px;
+    }
+    .update-prod {
+        color: #333;
+        text-decoration: none;
+        border: 2px solid #ccc;
+        padding: 5px 10px;
+        border-radius: 10px;
+        background-color: #f5f5f5;
+        display: inline-block;
+  }
 </style>
 </html>
