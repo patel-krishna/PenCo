@@ -29,7 +29,6 @@ ul {
         padding: 0;
         overflow: hidden;
 }
-
 li {
     float: right;
 }
@@ -63,22 +62,4 @@ input{
     flex-direction: column;
     align-items: center;
 }
-.nav1 {
-    overflow: hidden;
-}
-
-.nav1 a {
-    float: left;
-    color: purple;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration-style: wavy;
-    font-size: 17px;
-    font-size: large;
-}
-
-.nav1 a:hover {
-    background-color:pink;
-}
-
 

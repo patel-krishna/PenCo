@@ -47,14 +47,6 @@
     } else {
     %>
 
-
-
-    <div class="nav1">
-        <a href="${pageContext.request.contextPath}/products">All Products</a>
-        <a href="${pageContext.request.contextPath}/sign-in.jsp">Sign In</a>
-    </div>
-
-
     <div class="navbar">
         <div class="logo">
             <h2>PenCo.</h2>
