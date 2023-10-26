@@ -18,6 +18,7 @@
 <head>
     <title><%=product.getName()%></title>
     <meta charset="UTF-8">
+
     <link rel="stylesheet" href="${pageContext.request.contextPath}/style.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/index.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,12 +33,18 @@
     <%
         if (product != null) {
     %>
+    <h2>Update Product Info</h2>
 <%--Example of how to display product info --%>
     <li class="product-info"><%= product.getSKU() %>
         - <%= product.getName() %>
         - $<%= product.getPrice() %>
         -<img class="view-image" src="<%= product.getImgSrc()%>" alt="view-image">
     </li>
+
+    <div class="product-list">
+    <p><%= product.getSKU() %> - <%= product.getName() %> - <%= product.getPrice() %> -<img class="view" src="<%= product.getImgSrc()%>">
+    </p>
+    </div>
     <%
         }
     %>
@@ -76,8 +83,10 @@
 
         <label for="imgSrc">Image Source:</label>
         <input type="text" id="imgSrc" name="imgSrc" value="<%= product.getImgSrc() %>">
+
         <button type="submit" class="update-prod">Update Product</button>
     </form>
+
 
     <%
         }else{
@@ -130,6 +139,6 @@
         border-radius: 10px;
         background-color: #f5f5f5;
         display: inline-block;
-    }
+  }
 </style>
 </html>
