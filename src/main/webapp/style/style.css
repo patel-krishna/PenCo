@@ -6,10 +6,14 @@ body {
 }
 
 header {
-    background-color: #FCFCF5;
+    /*background-color: #FCFCF5;*/
     color: #575753;
     text-align: center;
     padding: 20px;
+    position: absolute; /* Position the header absolutely */
+    top: 50%; /* Move the top edge to the middle of the page */
+    left: 50%; /* Move the left edge to the middle of the page */
+    transform: translate(-50%, -50%);
 }
 
 main {
@@ -17,6 +21,35 @@ main {
     flex-wrap: wrap;
     justify-content: space-around;
     padding: 20px;
+}
+h1{
+    font-size: 40px;
+    text-align: center;
+    background-image: linear-gradient(to left, pink, purple);
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+
+}
+h2{
+    font-size: 40px;
+    text-align: center;
+    background-image: linear-gradient(to left, pink, purple);
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+}
+ul {
+    list-style-type: none;
+    overflow: hidden;
+}
+li {
+    float: right;
+}
+
+li a {
+    display: block;
+    padding: 8px;
 }
 
 .login {
@@ -44,17 +77,18 @@ main {
     text-decoration: none;
 }
 
-.add-to-cart {
+.button {
     background-color: #E0E0DE;
     color: #333; /* Dark text color */
     padding: 10px 20px;
+    margin: 10px;
     border: none; /* No border */
     border-radius: 5px; /* Rounded corners */
     cursor: pointer;
     font-size: 14px; /* Font size */
     transition: background-color 0.3s, color 0.3s; /* Smooth color transition */
 }
-.add-to-cart:hover {
+.button:hover {
     background-color: #BDBDB7; /* Slightly darker background color on hover */
     color: #555; /* Slightly darker text color on hover */
 }

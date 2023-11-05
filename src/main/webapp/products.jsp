@@ -10,41 +10,81 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-  storefrontFacade facade = (storefrontFacade) application.getAttribute("storefrontFacade");
-  User user = facade.getCurrentUser();
+    storefrontFacade facade = (storefrontFacade) application.getAttribute("storefrontFacade");
+    User user = facade.getCurrentUser();
 %>
 <html>
 <head>
     <title>Products</title>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/style.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/style.css">
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 </head>
 <body>
 <jsp:include page="navbar.jsp" />
 <h1>All Products</h1>
 
 <% if(user instanceof Staff) { %>
-  <a href="${pageContext.request.contextPath}/products/download">Download Product Catalogue</a>
+<a class="button" href="${pageContext.request.contextPath}/products/download">Download Product Catalogue</a>
 <% } %>
 
 <ul>
-  <%
-    HashMap<String, Product> productMap = (HashMap<String, Product>) request.getAttribute("productMap");
-    if (productMap != null) {
-      for (HashMap.Entry<String, Product> entry : productMap.entrySet()) {
-  %>
-  <li class="product-card"><%= entry.getKey() %>
-    - <%= entry.getValue().getName() %>
-    - $<%= entry.getValue().getPrice() %>
-    - <a href="products/<%= entry.getValue().getURL() %>">View</a></li>
-  <%
-      }
-    }
-  %>
+    <%
+        HashMap<String, Product> productMap = (HashMap<String, Product>) request.getAttribute("productMap");
+        if (productMap != null) {
+            for (HashMap.Entry<String, Product> entry : productMap.entrySet()) {
+    %>
+
+    <section class="product-card">
+        <img src="<%= entry.getValue().getImgSrc() %>">
+        <p><%= entry.getValue().getName() %></p>
+        <p class="price">$<%= entry.getValue().getPrice() %></p>
+        <a class="button" href="products/<%= entry.getValue().getURL() %>">View</a>
+    </section>
+
+    <%
+            }
+        }
+    %>
 </ul>
+<style>
+    .product-card {
+        width: 300px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin: 10px;
+        padding: 10px;
+        text-align: center;
+        background-color: #f5f5f5;
+        float: left;
+    }
+
+    .product-card a {
+        color: #333;
+        text-decoration: none;
+        border: 2px solid #ccc;
+        padding: 5px 10px;
+        border-radius: 10px;
+        background-color: #f5f5f5;
+        display: inline-block;
+    }
+    img {
+        width: 100%;
+    }
+
+    .button {
+        color: #333;
+        text-decoration: none;
+        border: 2px solid #ccc;
+        padding: 5px 10px;
+        border-radius: 10px;
+        background-color: #f5f5f5;
+        display: inline-block;
+
+    }
+</style>
 </body>
 </html>

@@ -46,6 +46,7 @@
     <%
     } else {
     %>
+
     <div class="navbar">
         <div class="logo">
             <h2>PenCo.</h2>
@@ -56,9 +57,8 @@
             <li><a href="${pageContext.request.contextPath}/sign-in.jsp">Sign in</a></li>
         </ul>
     </div>
+
     <%
         }
     %>
 </div>
-
-
