@@ -9,44 +9,64 @@ CREATE TABLE Products (
 );
 
 
-CREATE TABLE Users {
-	user_id INT AUTO INCREMENT PRIMARY KEY,
-	username VARCHAR(50) NOT NULL,
-	password VARCHAR(50) NOT NULL,
-	is_staff BOOLEAN DEFAULT false
-};
+CREATE TABLE Users
+(
+    user_id  INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL,
+    password VARCHAR(50) NOT NULL,
+    is_staff BOOLEAN DEFAULT false
+);
 
 
 CREATE TABLE Carts (
-    cart_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES Users(user_id)
+        cart_id INT AUTO_INCREMENT PRIMARY KEY,
+        user_id INT NOT NULL,
+        FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );
 
 CREATE TABLE CartItems (
-    cart_item_id INT AUTO_INCREMENT PRIMARY KEY,
-    cart_id INT NOT NULL,
-    product_id INT NOT NULL,
-    quantity INT,
-    FOREIGN KEY (cart_id) REFERENCES Carts(cart_id),
-    FOREIGN KEY (product_id) REFERENCES Products(product_id)
+        cart_item_id INT AUTO_INCREMENT PRIMARY KEY,
+        cart_id INT NOT NULL,
+        product_sku VARCHAR(50) NOT NULL,
+        quantity INT,
+        FOREIGN KEY (cart_id) REFERENCES Carts(cart_id),
+        FOREIGN KEY (product_sku) REFERENCES Products(SKU)
 );
 
 CREATE TABLE Orders (
-    order_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
-    shipping_address VARCHAR(255),
-    created_at TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES Users(user_id)
+            order_id INT AUTO_INCREMENT PRIMARY KEY,
+            user_id INT NOT NULL,
+            shipping_address VARCHAR(255),
+            created_at TIMESTAMP,
+            FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );
 
 CREATE TABLE OrderItems (
-    order_item_id INT AUTO_INCREMENT PRIMARY KEY,
-    order_id INT NOT NULL,
-    product_id INT NOT NULL,
-    quantity INT,
-    FOREIGN KEY (order_id) REFERENCES Orders(order_id),
-    FOREIGN KEY (product_id) REFERENCES Products(product_id)
+            order_item_id INT AUTO_INCREMENT PRIMARY KEY,
+            order_id INT NOT NULL,
+            product_sku VARCHAR(50) NOT NULL,
+            quantity INT,
+            FOREIGN KEY (order_id) REFERENCES Orders(order_id),
+            FOREIGN KEY (product_sku) REFERENCES Products(SKU)
 );
 
+# Populating tables queries
 
+INSERT INTO Products (SKU, name, description, vendor, url_slug, price, imgSrc) VALUES
+        ('SKU123456', 'Ballpoint Pen', 'A classic ballpoint pen for smooth writing. Ideal for everyday use.', 'Stationery World', 'ballpoint-pen', 1.99, 'https://muji.ca/cdn/shop/products/tripen_700x.jpg?v=1610035922'),
+        ('SKU789012', 'Notebook', 'A high-quality notebook with lined pages, perfect for note-taking and journaling.', 'Office Supplies Inc.', 'notebook-2023', 5.99, 'https://muji.ca/cdn/shop/products/4548076316145_1260_700x.jpg?v=1603397677'),
+        ('SKU345678', 'Sticky Notes', 'Colorful sticky notes for marking important points and reminders.', 'Stationery Plus', 'sticky-notes-red', 2.49, 'https://muji.ca/cdn/shop/products/labeltab_700x.jpg?v=1618409443'),
+        ('SKU901234', 'Pencil Set', 'A set of 12 high-quality pencils for drawing and sketching.', 'Artistic Creations', 'pencil-set-12pcs', 7.99, 'https://muji.ca/cdn/shop/products/12pkcolourpencils_700x.jpg?v=1644510839'),
+        ('SKU567890', 'Desk Organizer', 'An elegant desk organizer to keep your workspace tidy and organized.', 'Organize It All', 'desk-organizer-black', 14.99, 'https://muji.ca/cdn/shop/files/4945247380910_org_700x.jpg?v=1686854560'),
+        ('SKU234567', 'Paper Clips', 'A pack of 100 stainless steel paper clips for holding documents together.', 'Office Essentials', 'paper-clips-100pcs', 1.49, 'https://images.unsplash.com/photo-1516134162643-d3a8f6ef0623?auto=format&fit=crop&q=80&w=2835&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'),
+        ('SKU890123', 'Correction Tape', 'White correction tape for neatly fixing mistakes in documents and notes.', 'Stationery Solutions', 'correction-tape-white', 2.29, 'https://muji.ca/cdn/shop/products/correctiontape_700x.jpg?v=1611777244'),
+        ('SKU456789', 'File Folders', 'A set of 5 durable file folders for organizing and storing documents.', 'FileMaster', 'file-folders-set5', 3.99, 'https://muji.ca/cdn/shop/products/4550182110210_org_0496e7c6-d13b-4729-9d1c-c886c1c5a395_1260x1260.jpg?v=1653936312'),
+        ('SKU123890', 'Eraser Pack', 'A pack of 3 erasers for erasing pencil marks cleanly and effectively.', 'Erase It All', 'eraser-pack-3pcs', 1.79, 'https://muji.ca/cdn/shop/products/eraser_black_s_700x.jpg?v=1608488412'),
+        ('SKU567123', 'Highlighter Set', 'A set of 4 colorful highlighters for emphasizing key points in your notes.', 'Highlighter Haven', 'highlighter-set-4pcs', 3.49, 'https://muji.ca/cdn/shop/products/minimarkers1_700x.jpg?v=1614962470');
+
+INSERT INTO Users (username, password, is_staff) VALUES
+            ('user', 'password', false),
+            ('alice_smith', 'password', false),
+            ('staff', 'password', true),
+            ('robert_brown', 'password', true),
+            ('sarah_jones', 'password', false);
