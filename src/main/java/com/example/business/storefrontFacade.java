@@ -11,49 +11,42 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.NodeList;
 
 public class storefrontFacade {
-    public static HashMap<String,Product> allProductsSku;
 
-    final String filePathProducts = "C:\\Users\\Krish\\Documents\\School\\Concordia\\Projects\\PenCo\\src\\main\\resources\\products.xml";
-    final String filePathUsers = "C:\\Users\\Krish\\Documents\\School\\Concordia\\Projects\\PenCo\\src\\main\\resources\\users.xml";
-
-    static HashMap<String, User> allUsers;
-    static User currentUser;
+    public SQLConnector connector;
 
     public storefrontFacade(){
-        allProductsSku = productInitialization(filePathProducts);
-        allUsers = userInitialization(filePathUsers);
-        currentUser = new User();
+       connector = new SQLConnector();
     }
 
-    public void createProduct(Staff staff, String sku, String name) {
-        if (currentUser instanceof Staff) {
-            Staff staffUser = (Staff) currentUser;
-            staffUser.createProduct(allProductsSku, sku, name);
+    public void createProduct(User staff, String sku, String name) {
+        if (staff instanceof Staff) {
+            Staff staffUser = (Staff) staff;
+            staffUser.createProduct(sku, name);
         } else {
             // Handle the case where currentUser is not a Staff
-            // You could throw an exception or handle it in some other way
             System.out.println("The user is not a staff and cannot update product inventory");
 
         }
     }
-    public void updateProduct(Product updatedProd, String name, String description, String vendor, String URL, String SKU, double price, String imgSrc){
-        if (currentUser instanceof Staff) {
-            Staff staffUser = (Staff) currentUser;
+    public void updateProduct(User staff, Product updatedProd, String name, String description, String vendor, String URL, String SKU, double price, String imgSrc){
+        if (staff instanceof Staff) {
+            Staff staffUser = (Staff) staff;
             staffUser.updateProduct(updatedProd, name, description, vendor, URL, SKU, price, imgSrc);
         } else {
             // Handle the case where currentUser is not a Staff
-            // You could throw an exception or handle it in some other way
             System.out.println("The user is not a staff and cannot update product inventory");
 
         }
     }
 
     public Product getProduct(String sku){
-       return currentUser.getProduct(allProductsSku, sku);
+        User user = new User();
+        return user.getProduct(connector,sku);
     }
 
     public Product getProductBySlug(String slug){
-        return currentUser.getProductBySlug(allProductsSku,slug);
+        User user = new User();
+        return user.getProductBySlug(connector,slug);
     }
 
     public Cart getCart() {
@@ -93,6 +86,16 @@ public class storefrontFacade {
         }
     }
 
+
+
+
+
+
+
+
+
+
+    //functions for when we were using in-app memory
     public HashMap<String,Product> productInitialization(String filePath) {
         HashMap<String, Product> productMap = new HashMap<>();
         try {

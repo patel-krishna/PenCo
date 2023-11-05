@@ -1,20 +1,21 @@
 package com.example.business;
 //import com.example.*;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
 public class Cart {
-    private Set<Product> shoppingList;
+    private HashMap<Product, Integer> shoppingList;
 
     public Cart(){
-        this.shoppingList = new HashSet<Product>();
+        this.shoppingList = new HashMap<Product, Integer>();
     }
 
-    public Set<Product> getShoppingCart() {
+    public HashMap<Product, Integer> getShoppingCart() {
         return shoppingList;
     }
 
-    public void setShoppingCart(Set<Product> shoppingList) {
+    public void setShoppingCart(HashMap<Product,Integer> shoppingList) {
         this.shoppingList = shoppingList;
     }
 

@@ -2,7 +2,7 @@ package com.example.business;
 import java.sql.*;
 
 public class SQLConnector {
-    private Connection myDbConn;
+     Connection myDbConn;
 
     public SQLConnector() {
         String url = "jdbc:mysql://penco.mysql.database.azure.com:3306/penco?useSSL=true";
