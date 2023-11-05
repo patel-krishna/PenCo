@@ -95,8 +95,6 @@
         }
     %>
 
-
-</ul>
 </body>
 <script>
     // Check if the success message is present in the session

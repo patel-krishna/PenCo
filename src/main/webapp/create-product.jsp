@@ -39,8 +39,8 @@
         <label for="vendor">Vendor:</label>
         <input type="text" id="vendor" name="vendor">
 
-        <label for="url">URL Slug:</label>
-        <input type="text" id="url" name="url">
+        <label for="price">Price:</label>
+        <input type="number" step="0.01" id="price" name="price">
 
         <label for="price">Price:</label>
         <input type="number" step="0.01" id="price" name="price">
