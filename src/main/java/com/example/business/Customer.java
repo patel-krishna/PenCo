@@ -33,6 +33,7 @@ public class Customer extends User {
 
     //business layer functions
     public void addProductToCart(String productSku, int quantity) {
+
         shoppingCart.getShoppingCart().put(productSku, quantity);
 
         // Check if a cart exists for the user in the db
@@ -48,10 +49,15 @@ public class Customer extends User {
 
 
     public void removeProductFromCart(String productSku) {
+
         shoppingCart.getShoppingCart().remove(productSku);
 
-        
+        int cartId = shoppingCart.getCartIdByUsername(this.username);
+        if (cartId != -1) {
+            // Cart exists so we must drop all rows with that id in cartItems
+            shoppingCart.deleteCartItem(cartId,productSku);
 
+        }
     }
 
 }

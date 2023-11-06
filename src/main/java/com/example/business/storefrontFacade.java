@@ -67,11 +67,10 @@ public class storefrontFacade {
         }
     }
 
-    public void removeProductFromCart(String sku){
-        Product productToRemove = this.getAllProductsSku().get(sku);
-        if(currentUser instanceof Customer){
-            Customer customer = (Customer) currentUser;
-            customer.removeProductFromCart(productToRemove);
+    public void removeProductFromCart(User user, String sku){
+        if(user instanceof Customer){
+            Customer customer = (Customer) user;
+            customer.removeProductFromCart(sku);
         }
     }
 

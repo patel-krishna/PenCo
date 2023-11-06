@@ -192,4 +192,24 @@ public class Cart {
 
     }
 
+    public void deleteCartItem(int cartId, String sku) {
+        SQLConnector connector = new SQLConnector();
+        // Define the SQL query to delete items with a specific cart_id from CartItems
+        String deleteProductQuery = "DELETE FROM CartItems WHERE cart_id = ? AND product_sku = ?";
+
+        try {
+             PreparedStatement deleteCartItemsStatement = connector.myDbConn.prepareStatement(deleteProductQuery);
+
+            deleteCartItemsStatement.setInt(1, cartId);
+            deleteCartItemsStatement.setString(2, sku);
+
+            // Execute the delete statement
+            deleteCartItemsStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle any exceptions (e.g., database connection or query errors)
+        }
+    }
+
+
 }
