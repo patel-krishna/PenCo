@@ -39,15 +39,16 @@
         <label for="vendor">Vendor:</label>
         <input type="text" id="vendor" name="vendor">
 
-        <label for="price">Price:</label>
-        <input type="number" step="0.01" id="price" name="price">
+        <label for="url">URL slug:</label>
+        <input type="text" id="url" name="url">
 
         <label for="price">Price:</label>
         <input type="number" step="0.01" id="price" name="price">
 
         <label for="imgSrc">Image Source:</label>
         <input type="text" id="imgSrc" name="imgSrc">
-        <input type="submit" class="submit-prod" value="Create Product">
+
+        <button class="button" type="submit" class="submit-prod">Create Product</button>
     </form>
 </div>>
 </body>

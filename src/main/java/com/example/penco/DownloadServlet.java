@@ -22,7 +22,7 @@ public class DownloadServlet extends HttpServlet {
         User user = (User) servletContext.getAttribute("User");
         storefrontFacade facade = new storefrontFacade();
 
-        File file = facade.downloadProductCatalogue(user);
+        File file = facade.downloadProductCatalogue((Staff)user);
 
         /// Check if the file exists
         if (file.exists() && file.isFile()) {

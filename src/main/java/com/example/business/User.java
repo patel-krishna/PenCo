@@ -39,7 +39,8 @@ public class User {
         password = null;
     }
 
-    public Product getProduct(SQLConnector connector,String SKU){
+    public Product getProduct(String SKU){
+        SQLConnector connector = new SQLConnector();
         Product targetProduct = null;
 
         String query = "SELECT * FROM products WHERE SKU = ?";
@@ -71,8 +72,8 @@ public class User {
         return targetProduct;
     }
 
-    public Product getProductBySlug(SQLConnector connector, String URL){
-
+    public Product getProductBySlug(String URL){
+        SQLConnector connector = new SQLConnector();
         Product targetProduct = null;
 
         String query = "SELECT * FROM products WHERE url_slug = ?";
