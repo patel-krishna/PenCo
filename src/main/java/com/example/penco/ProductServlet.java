@@ -18,12 +18,10 @@ public class ProductServlet extends HttpServlet {
             throws ServletException, IOException {
 
         String pathInfo = request.getPathInfo();
-        System.out.println(pathInfo);
         String urlSlug = pathInfo.substring(1);
         System.out.println(urlSlug);
 
-        ServletContext servletContext = getServletContext();
-        storefrontFacade facade = (storefrontFacade) servletContext.getAttribute("storefrontFacade");
+        storefrontFacade facade = new storefrontFacade();
         Product product = facade.getProductBySlug(urlSlug);
 
         // Set the products list as an attribute in the request
@@ -36,6 +34,7 @@ public class ProductServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         String sku = request.getParameter("sku");
         String name = request.getParameter("name");
         String description = request.getParameter("description");
@@ -45,11 +44,11 @@ public class ProductServlet extends HttpServlet {
         String img = request.getParameter("imgSrc");
 
         ServletContext servletContext = getServletContext();
-        storefrontFacade facade = (storefrontFacade) servletContext.getAttribute("storefrontFacade");
-        HashMap<String,Product> map = facade.getAllProductsSku();
+        Staff user = (Staff) servletContext.getAttribute("User");
+        storefrontFacade facade = new storefrontFacade();
+        Product product = facade.getProduct(sku);
 
-        Product product = map.get(sku);
-        facade.updateProduct(product,name,description,vendor,url,sku,price,img);
+        facade.updateProduct(user,product,name,description,vendor,url,sku,price,img);
 
         response.sendRedirect(request.getContextPath() + "/products/" + url);
         request.getSession().setAttribute("successMessage", "Product has been updated!");

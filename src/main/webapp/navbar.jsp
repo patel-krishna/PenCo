@@ -12,8 +12,7 @@
 
 <div class="navbar">
     <%
-        storefrontFacade facade = (storefrontFacade) application.getAttribute("storefrontFacade");
-        User user = facade.getCurrentUser();
+        User user = (User) application.getAttribute("User");
 
         if (user instanceof Customer) {
     %>
