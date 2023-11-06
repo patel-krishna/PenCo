@@ -72,7 +72,6 @@ public class Cart {
         // Implement the logic to retrieve the cart ID for the given username
         // You can use a SQL query to fetch the cart ID based on the user's username
         // Return the cart ID if found, or -1 if not found
-        // Make sure to handle database operations properly
 
         int userId = -1;
         int cartId = -1;
@@ -111,7 +110,6 @@ public class Cart {
         // Implement the logic to create a new cart and return its cart ID
         // You can use a SQL query to insert a new cart with the user's user_id
         // Return the generated cart ID if the cart is successfully created
-        // Make sure to handle database operations properly
 
             int userId = getUserIdByUsername(username);
 
@@ -211,5 +209,69 @@ public class Cart {
         }
     }
 
+    public boolean productExistsInCart(int cartID, String sku){
 
+        SQLConnector connector = new SQLConnector();
+
+        try {
+            String productExistsQuery = "SELECT COUNT(*) FROM CartItems WHERE cart_id = ? AND product_sku = ?";
+            PreparedStatement productStatement = connector.myDbConn.prepareStatement(productExistsQuery);
+
+            productStatement.setInt(1, cartID);
+            productStatement.setString(2, sku);
+
+            try (ResultSet result = productStatement.executeQuery()) {
+                if (result.next()) {
+                    int count = result.getInt(1);
+                    return count > 0;
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return false;
+    }
+
+    public void updateQuantityOfProduct(int cartID, String sku, int quantity){
+        SQLConnector connector = new SQLConnector();
+
+        try {
+            String productExistsQuery = "UPDATE cartitems SET quantity = ? WHERE (cart_id = ? AND product_sku = ?)";
+            PreparedStatement productStatement = connector.myDbConn.prepareStatement(productExistsQuery);
+
+            productStatement.setInt(1, quantity);
+            productStatement.setInt(2, cartID);
+            productStatement.setString(3, sku);
+
+            //execute query
+            productStatement.executeQuery();
+
+            } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    public void deleteAllCart(int cartID){
+        SQLConnector connector = new SQLConnector();
+
+        try{
+            //delete items from cartItems
+            String deleteCartItemsQuery = "DELETE FROM CartItems WHERE cart_id = ?";
+            PreparedStatement deleteStatement = connector.myDbConn.prepareStatement(deleteCartItemsQuery);
+
+            deleteStatement.setInt(1, cartID);
+            int rowsAffected = deleteStatement.executeUpdate();
+            System.out.println(rowsAffected + " row(s) deleted from CartItems with cart_id = " + cartID);
+
+            //delete cart from Carts
+            String deleteCartQuery = "DELETE FROM Carts WHERE cart_id = ?";
+            PreparedStatement deleteCartStatement = connector.myDbConn.prepareStatement(deleteCartQuery);
+
+            rowsAffected = deleteCartStatement.executeUpdate();
+            System.out.println(rowsAffected + " row(s) deleted from Carts with cart_id = " + cartID);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

@@ -60,4 +60,38 @@ public class Customer extends User {
         }
     }
 
+    public void setProductQuantityInCart(String sku, int qty){
+        shoppingCart.getShoppingCart().put(sku, qty);
+
+        int cartId = shoppingCart.getCartIdByUsername(this.username);
+        if (cartId == -1) {
+            //create a cart as it doesnt exist yet
+            cartId = shoppingCart.createCart(username);
+            shoppingCart.addToCart(cartId, sku, qty);
+        }else{
+            //there is already a cart check if the product is in the cart already
+            if(shoppingCart.productExistsInCart(cartId, sku)){
+                //update the row with new quantity
+                if(qty>0){
+                    shoppingCart.updateQuantityOfProduct(cartId,sku, qty);
+                }
+
+            }else {
+                //add row to table with product
+                shoppingCart.addToCart(cartId, sku, qty);
+            }
+        }
+    }
+
+    public void clearCart(){
+        shoppingCart.getShoppingCart().clear();
+
+        //get the cart from username
+        int cartId = shoppingCart.getCartIdByUsername(this.username);
+        //if cart exists
+        if(cartId != -1){
+            shoppingCart.deleteAllCart(cartId);
+        }
+    }
+
 }

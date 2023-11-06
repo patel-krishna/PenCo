@@ -74,10 +74,24 @@ public class storefrontFacade {
         }
     }
 
-    public File downloadProductCatalogue(){
-        if(currentUser instanceof Staff){
-            Staff staff = (Staff) currentUser;
-            return staff.downloadProductCatalog(allProductsSku, filePathProducts);
+    public void setProductQuantityInCart(User user, String sku, int qty){
+        if(user instanceof Customer){
+            Customer customer = (Customer) user;
+            customer.setProductQuantityInCart(sku,qty);
+        }
+    }
+
+    public void clearCart(User user){
+        if(user instanceof Customer){
+            Customer customer = (Customer) user;
+            customer.clearCart();
+        }
+    }
+
+    public File downloadProductCatalogue(User user){
+        if(user instanceof Staff){
+            Staff staff = (Staff) user;
+            return staff.downloadProductCatalog();
         }else{
             System.out.println("Not a staff, cannot download catalogue.");
             return null;

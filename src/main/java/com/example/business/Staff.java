@@ -7,6 +7,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.File;
+import java.sql.*;
 
 public class Staff extends User{
 
@@ -100,13 +101,51 @@ public class Staff extends User{
         }
     }
 
-    public File downloadProductCatalog(HashMap<String, Product> allProductsSku, String filePath){
+    public File downloadProductCatalog(){
 
-        writeProductsToXML(allProductsSku, filePath);
-        return new File(filePath);
+        SQLConnector connector = new SQLConnector();
+        File csvFile = new File("products.csv");
+
+
+        try{
+            String productsQuery = "SELECT * FROM Products;";
+            PreparedStatement statement = connector.myDbConn.prepareStatement(productsQuery);
+
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM Products");
+
+            BufferedWriter writer = new BufferedWriter(new FileWriter(csvFile))){
+
+                // Write the CSV header
+                writer.write("ProductID,ProductName,Description,Price,SKU");
+                writer.newLine();
+
+                // Iterate through the result set and write each row to the CSV file
+                while (resultSet.next()) {
+                    String productID = resultSet.getString("ProductID");
+                    String productName = resultSet.getString("ProductName");
+                    String description = resultSet.getString("Description");
+                    String price = resultSet.getString("Price");
+                    String sku = resultSet.getString("SKU");
+
+                    String csvRow = String.join(",", productID, productName, description, price, sku);
+                    writer.write(csvRow);
+                    writer.newLine();
+                }
+
+                System.out.println("Data exported to " + csvFile.getAbsolutePath());
+                return new File("products.csv");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public static void writeProductsToXML(HashMap<String, Product> productMap, String filePath) {
+
+
+    //OLD FUNCTION FROM ASSIGNMENT 1
+        public static void writeProductsToXML(HashMap<String, Product> productMap, String filePath) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             if(!productMap.isEmpty()){
                 writer.newLine();
