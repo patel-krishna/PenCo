@@ -60,6 +60,7 @@ public class Cart {
             throw new RuntimeException(e);
         }
 
+        connector.closeConnection();
         return map;
     }
 
@@ -103,6 +104,7 @@ public class Cart {
             System.out.println(e);
             throw new RuntimeException(e);
         }
+        connector.closeConnection();
         return cartId;
     }
 
@@ -137,6 +139,8 @@ public class Cart {
                     e.printStackTrace();
                     // Handle any exceptions (e.g., database connection or query errors)
                 }
+
+                connector.closeConnection();
             }
 
             return -1;
@@ -162,7 +166,9 @@ public class Cart {
     } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        connector.closeConnection();
         return userId;
+
     }
 
     public void addToCart(int cartId, String productSKU, int quantity) {
@@ -188,6 +194,7 @@ public class Cart {
             // Handle any exceptions (e.g., database connection or query errors)
         }
 
+        connector.closeConnection();
     }
 
     public void deleteCartItem(int cartId, String sku) {

@@ -19,17 +19,18 @@ public class DownloadServlet extends HttpServlet {
             throws ServletException, IOException {
 
         ServletContext servletContext = getServletContext();
-        storefrontFacade facade = (storefrontFacade) servletContext.getAttribute("storefrontFacade");
+        User user = (User) servletContext.getAttribute("User");
+        storefrontFacade facade = new storefrontFacade();
 
-        File file = facade.downloadProductCatalogue();
+        File file = facade.downloadProductCatalogue(user);
 
         /// Check if the file exists
         if (file.exists() && file.isFile()) {
             // Set response content type
-            response.setContentType("application/xml");
+            response.setContentType("application/csv");
 
             // Set response headers for file download
-            response.setHeader("Content-Disposition", "attachment; filename=product_catalog.xml");
+            response.setHeader("Content-Disposition", "attachment; filename=product_catalog.csv");
 
             // Read the file and write it to the response output stream
             try (InputStream is = new FileInputStream(file);

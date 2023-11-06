@@ -5,6 +5,7 @@ import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.annotation.WebServlet;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import jakarta.servlet.ServletException;
@@ -19,11 +20,13 @@ public class ProductsServlet extends HttpServlet {
         // Your code to retrieve and display the list of products goes here
 
         ServletContext servletContext = getServletContext();
-        storefrontFacade facade = (storefrontFacade) servletContext.getAttribute("storefrontFacade");
-        HashMap<String, Product> productMap = facade.getAllProductsSku();
+        User user = (User) servletContext.getAttribute("User");
+
+        storefrontFacade facade = new storefrontFacade();
+        ArrayList<Product> products = facade.getAllProducts(user);
 
         // Set the products list as an attribute in the request
-        request.setAttribute("productMap", productMap);
+        request.setAttribute("productMap", products);
 
         // Forward the request to the JSP page responsible for displaying the products
         // Forward the request to the JSP page while keeping the URL as "/products"
