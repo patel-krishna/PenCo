@@ -51,27 +51,27 @@ public class Staff extends User{
      * @param imgSrc
      */
     public void updateProduct(Product updatedProd,String name, String description, String vendor, String URL, String SKU, double price, String imgSrc){
-        if(!name.isBlank()){
-            updatedProd.setName(name);
-        }
-        if(!description.isBlank()){
-            updatedProd.setDescription(description);
-        }
-        if(!vendor.isBlank()){
-            updatedProd.setVendor(vendor);
-        }
-        if(!URL.isBlank()){
-            updatedProd.setURL(URL);
-        }
-        if(!SKU.isBlank()){
-            updatedProd.setSKU(SKU);
-        }
-        if(price != 0){
-            updatedProd.setPrice(price);
-        }
-        if(!imgSrc.isBlank()){
-            updatedProd.setImgSrc(imgSrc);
-        }
+//        if(!name.isBlank()){
+//            updatedProd.setName(name);
+//        }
+//        if(!description.isBlank()){
+//            updatedProd.setDescription(description);
+//        }
+//        if(!vendor.isBlank()){
+//            updatedProd.setVendor(vendor);
+//        }
+//        if(!URL.isBlank()){
+//            updatedProd.setURL(URL);
+//        }
+//        if(!SKU.isBlank()){
+//            updatedProd.setSKU(SKU);
+//        }
+//        if(price != 0){
+//            updatedProd.setPrice(price);
+//        }
+//        if(!imgSrc.isBlank()){
+//            updatedProd.setImgSrc(imgSrc);
+//        }
 
         SQLConnector connector = new SQLConnector();
 
@@ -107,22 +107,23 @@ public class Staff extends User{
      * TO-DO
      * @return
      */
-    public File downloadProductCatalog(){
 
+    public File downloadProductCatalog() {
         SQLConnector connector = new SQLConnector();
-        File csvFile = new File("products.csv");
 
-        if (csvFile.exists()) {
+
+        // Specify the CSV file path relative to the web application's context
+        File csvFile = new File("product_catalog.csv");
+
+        if(csvFile.exists()){
             csvFile.delete();
         }
 
-        try{
-            String productsQuery = "SELECT * FROM Products;";
-            PreparedStatement statement = connector.myDbConn.prepareStatement(productsQuery);
-
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM Products");
-
-            BufferedWriter writer = new BufferedWriter(new FileWriter(csvFile));{
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(csvFile))) {
+            String productsQuery = "SELECT * FROM Products";
+            try (Connection connection = connector.myDbConn;
+                 PreparedStatement statement = connection.prepareStatement(productsQuery);
+                 ResultSet resultSet = statement.executeQuery()) {
 
                 // Write the CSV header
                 writer.write("SKU,ProductName,Description,Vendor,URL,Price,ImgSRC");
@@ -135,24 +136,24 @@ public class Staff extends User{
                     String description = resultSet.getString("description");
                     String vendor = resultSet.getString("vendor");
                     String url = resultSet.getString("url_slug");
-                    Double price = resultSet.getDouble("price");
+                    double price = resultSet.getDouble("price");
                     String img = resultSet.getString("imgSrc");
 
-                    String csvRow = String.join(",", sku, productName, description,vendor,url, Double.toString(price), img);
+                    String csvRow = String.join(",", sku, productName, description, vendor, url, Double.toString(price), img);
                     writer.write(csvRow);
                     writer.newLine();
                 }
 
                 System.out.println("Data exported to " + csvFile.getAbsolutePath());
-                connector.closeConnection();
-                return new File("products.csv");
+            } catch (SQLException e) {
+                throw new RuntimeException("SQL Error: " + e.getMessage(), e);
             }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("IOException: " + e.getMessage(), e);
         }
 
+        connector.closeConnection();
+        return csvFile;
     }
 
 

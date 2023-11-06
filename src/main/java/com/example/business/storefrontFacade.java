@@ -43,12 +43,12 @@ public class storefrontFacade {
 
     public Product getProduct(String sku){
         User user = new User();
-        return user.getProduct(connector,sku);
+        return user.getProduct(sku);
     }
 
     public Product getProductBySlug(String slug){
         User user = new User();
-        return user.getProductBySlug(connector,slug);
+        return user.getProductBySlug(slug);
     }
 
     public Cart getCart(User user) {
