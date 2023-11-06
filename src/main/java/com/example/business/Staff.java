@@ -51,27 +51,27 @@ public class Staff extends User{
      * @param imgSrc
      */
     public void updateProduct(Product updatedProd,String name, String description, String vendor, String URL, String SKU, double price, String imgSrc){
-//        if(!name.isBlank()){
-//            updatedProd.setName(name);
-//        }
-//        if(!description.isBlank()){
-//            updatedProd.setDescription(description);
-//        }
-//        if(!vendor.isBlank()){
-//            updatedProd.setVendor(vendor);
-//        }
-//        if(!URL.isBlank()){
-//            updatedProd.setURL(URL);
-//        }
-//        if(!SKU.isBlank()){
-//            updatedProd.setSKU(SKU);
-//        }
-//        if(price != 0){
-//            updatedProd.setPrice(price);
-//        }
-//        if(!imgSrc.isBlank()){
-//            updatedProd.setImgSrc(imgSrc);
-//        }
+        if(!name.isBlank()){
+            updatedProd.setName(name);
+        }
+        if(!description.isBlank()){
+            updatedProd.setDescription(description);
+        }
+        if(!vendor.isBlank()){
+            updatedProd.setVendor(vendor);
+        }
+        if(!URL.isBlank()){
+            updatedProd.setURL(URL);
+        }
+        if(!SKU.isBlank()){
+            updatedProd.setSKU(SKU);
+        }
+        if(price != 0){
+            updatedProd.setPrice(price);
+        }
+        if(!imgSrc.isBlank()){
+            updatedProd.setImgSrc(imgSrc);
+        }
 
         SQLConnector connector = new SQLConnector();
 
