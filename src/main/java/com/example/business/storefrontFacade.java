@@ -1,11 +1,12 @@
 package com.example.business;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.io.File;
-import java.util.HashMap;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.NodeList;
@@ -18,9 +19,9 @@ public class storefrontFacade {
        connector = new SQLConnector();
     }
 
-    public void createProduct(User staff, String sku, String name) {
-        if (staff instanceof Staff) {
-            Staff staffUser = (Staff) staff;
+    public void createProduct(User user, String sku, String name) {
+        if (user instanceof Staff) {
+            Staff staffUser = (Staff) user;
             staffUser.createProduct(sku, name);
         } else {
             // Handle the case where currentUser is not a Staff
@@ -98,6 +99,9 @@ public class storefrontFacade {
         }
     }
 
+    public ArrayList<Product> getAllProducts(User user){
+        return user.getAllProducts();
+    }
 
 
 
@@ -107,7 +111,8 @@ public class storefrontFacade {
 
 
 
-    //functions for when we were using in-app memory
+
+    //functions for when we were using in-app memory A1
     public HashMap<String,Product> productInitialization(String filePath) {
         HashMap<String, Product> productMap = new HashMap<>();
         try {
@@ -170,22 +175,22 @@ public class storefrontFacade {
         }
         return userMap;
     }
-
-    public HashMap<String, Product> getAllProductsSku() {
-        return allProductsSku;
-    }
-
-    public HashMap<String, User> getAllUsers() {
-        return allUsers;
-    }
-
-    public User getCurrentUser() {
-        return currentUser;
-    }
-
-    public void setCurrentUser(User user) {
-        currentUser = user;
-    }
+//
+//    public HashMap<String, Product> getAllProductsSku() {
+//        return allProductsSku;
+//    }
+//
+//    public HashMap<String, User> getAllUsers() {
+//        return allUsers;
+//    }
+//
+//    public User getCurrentUser() {
+//        return currentUser;
+//    }
+//
+//    public void setCurrentUser(User user) {
+//        currentUser = user;
+//    }
 }
 
 

@@ -4,6 +4,8 @@ import com.example.business.Product;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class User {
@@ -99,5 +101,34 @@ public class User {
         }
         return targetProduct;
 
+    }
+
+    public ArrayList<Product> getAllProducts(){
+        ArrayList<Product> productList = new ArrayList<>();
+        SQLConnector connector = new SQLConnector();
+
+        try{
+
+             Statement statement = connector.myDbConn.createStatement();
+             ResultSet resultSet = statement.executeQuery("SELECT * FROM Products");
+
+            while (resultSet.next()) {
+                int productID = resultSet.getInt("ProductID");
+                String productName = resultSet.getString("ProductName");
+                String description = resultSet.getString("Description");
+                double price = resultSet.getDouble("Price");
+                String SKU = resultSet.getString("SKU");
+                String URL = resultSet.getString("url_slug");
+                String vendor = resultSet.getString("vendor");
+                String imgSrc = resultSet.getString("imgSrc");
+
+                Product product = new Product(productName, description, vendor, URL, SKU, price, imgSrc);
+                productList.add(product);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return productList;
     }
 }

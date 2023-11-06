@@ -101,11 +101,18 @@ public class Staff extends User{
         }
     }
 
+    /**
+     * TO-DO
+     * @return
+     */
     public File downloadProductCatalog(){
 
         SQLConnector connector = new SQLConnector();
         File csvFile = new File("products.csv");
 
+        if (csvFile.exists()) {
+            csvFile.delete();
+        }
 
         try{
             String productsQuery = "SELECT * FROM Products;";
@@ -113,21 +120,23 @@ public class Staff extends User{
 
             ResultSet resultSet = statement.executeQuery("SELECT * FROM Products");
 
-            BufferedWriter writer = new BufferedWriter(new FileWriter(csvFile))){
+            BufferedWriter writer = new BufferedWriter(new FileWriter(csvFile));{
 
                 // Write the CSV header
-                writer.write("ProductID,ProductName,Description,Price,SKU");
+                writer.write("SKU,ProductName,Description,Vendor,URL,Price,ImgSRC");
                 writer.newLine();
 
                 // Iterate through the result set and write each row to the CSV file
                 while (resultSet.next()) {
-                    String productID = resultSet.getString("ProductID");
-                    String productName = resultSet.getString("ProductName");
-                    String description = resultSet.getString("Description");
-                    String price = resultSet.getString("Price");
                     String sku = resultSet.getString("SKU");
+                    String productName = resultSet.getString("name");
+                    String description = resultSet.getString("description");
+                    String vendor = resultSet.getString("vendor");
+                    String url = resultSet.getString("url_slug");
+                    Double price = resultSet.getDouble("price");
+                    String img = resultSet.getString("imgSrc");
 
-                    String csvRow = String.join(",", productID, productName, description, price, sku);
+                    String csvRow = String.join(",", sku, productName, description,vendor,url, Double.toString(price), img);
                     writer.write(csvRow);
                     writer.newLine();
                 }
