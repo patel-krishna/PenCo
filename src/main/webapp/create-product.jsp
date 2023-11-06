@@ -10,8 +10,8 @@
 <head>
     <title>Create Product</title>
 
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/index.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/index.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/style.css">
     <meta charset="UTF-8">
     <link rel="preconnect" href="https://fonts.googleapis.com%22%3E/
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
@@ -39,8 +39,8 @@
         <label for="vendor">Vendor:</label>
         <input type="text" id="vendor" name="vendor">
 
-        <label for="url">URL Slug:</label>
-        <input type="text" id="url" name="url">
+        <label for="price">Price:</label>
+        <input type="number" step="0.01" id="price" name="price">
 
         <label for="price">Price:</label>
         <input type="number" step="0.01" id="price" name="price">
