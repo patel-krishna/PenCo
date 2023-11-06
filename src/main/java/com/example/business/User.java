@@ -67,6 +67,7 @@ public class User {
             System.out.println("Object not found");
             // Handle any exceptions (e.g., database connection or query errors)
         }
+        connector.closeConnection();
         return targetProduct;
     }
 
@@ -99,6 +100,7 @@ public class User {
             System.out.println("Object not found");
             // Handle any exceptions (e.g., database connection or query errors)
         }
+        connector.closeConnection();
         return targetProduct;
 
     }
@@ -113,10 +115,9 @@ public class User {
              ResultSet resultSet = statement.executeQuery("SELECT * FROM Products");
 
             while (resultSet.next()) {
-                int productID = resultSet.getInt("ProductID");
-                String productName = resultSet.getString("ProductName");
-                String description = resultSet.getString("Description");
-                double price = resultSet.getDouble("Price");
+                String productName = resultSet.getString("name");
+                String description = resultSet.getString("description");
+                double price = resultSet.getDouble("price");
                 String SKU = resultSet.getString("SKU");
                 String URL = resultSet.getString("url_slug");
                 String vendor = resultSet.getString("vendor");
@@ -128,7 +129,7 @@ public class User {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
+        connector.closeConnection();
         return productList;
     }
 }

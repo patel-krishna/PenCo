@@ -10,8 +10,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    storefrontFacade facade = (storefrontFacade) application.getAttribute("storefrontFacade");
-    User user = facade.getCurrentUser();
+    User user = (User) application.getAttribute("User");
     Product product = (Product) request.getAttribute("product");
 %>
 <html>
@@ -27,6 +26,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 </head>
 <body>
+
 <jsp:include page="navbar.jsp" />
 
     <%
@@ -48,7 +48,9 @@
             %>
             <form action="${pageContext.request.contextPath}/cart/products/<%= product.getURL()%>" method="post">
                 <!-- Hidden field to specify the product slug to be added to the cart -->
-                <input type="hidden" name="slug" value="<%= product.getURL()%>">
+                <input type="hidden" name="slug" value="<%=product.getURL()%>">
+                <label for="quantity">Qty:</label>
+                <input type="number" name="quantity" id="quantity" min="1">
                 <button class="button" type="submit">Add to Cart</button>
             </form>
             <%

@@ -7,7 +7,7 @@ public class Customer extends User {
     private Cart shoppingCart;
 
     //Constructor
-    Customer(String username, String password) {
+    public Customer(String username, String password) {
         super(username, password);
         shoppingCart = new Cart(username);
     }

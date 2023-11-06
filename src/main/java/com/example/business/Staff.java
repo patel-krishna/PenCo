@@ -37,6 +37,7 @@ public class Staff extends User{
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
+        connector.closeConnection();
     }
 
     /**
@@ -99,6 +100,7 @@ public class Staff extends User{
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
+        connector.closeConnection();
     }
 
     /**
@@ -142,6 +144,7 @@ public class Staff extends User{
                 }
 
                 System.out.println("Data exported to " + csvFile.getAbsolutePath());
+                connector.closeConnection();
                 return new File("products.csv");
             }
         } catch (SQLException e) {
@@ -149,6 +152,7 @@ public class Staff extends User{
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
     }
 
 
@@ -188,6 +192,7 @@ public class Staff extends User{
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
 

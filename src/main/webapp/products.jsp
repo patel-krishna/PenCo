@@ -1,5 +1,6 @@
 <%@ page import="com.example.business.*" %>
 <%@ page import="java.util.HashMap" %>
+<%@ page import="java.util.ArrayList" %>
 
 <%--
   Created by IntelliJ IDEA.
@@ -10,8 +11,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    storefrontFacade facade = (storefrontFacade) application.getAttribute("storefrontFacade");
-    User user = facade.getCurrentUser();
+    User user = (User) application.getAttribute("User");
 %>
 <html>
 <head>
@@ -28,21 +28,21 @@
 <h1>All Products</h1>
 
 <% if(user instanceof Staff) { %>
-<a class="button" href="${pageContext.request.contextPath}/products/download">Download Product Catalogue</a>
+    <a class="button" href="${pageContext.request.contextPath}/products/download">Download Product Catalogue</a>
 <% } %>
 
 <ul>
     <%
-        HashMap<String, Product> productMap = (HashMap<String, Product>) request.getAttribute("productMap");
+        ArrayList<Product> productMap = (ArrayList<Product>) request.getAttribute("productMap");
         if (productMap != null) {
-            for (HashMap.Entry<String, Product> entry : productMap.entrySet()) {
+            for (Product entry : productMap) {
     %>
 
     <section class="product-card">
-        <img src="<%= entry.getValue().getImgSrc() %>">
-        <p><%= entry.getValue().getName() %></p>
-        <p class="price">$<%= entry.getValue().getPrice() %></p>
-        <a class="button" href="products/<%= entry.getValue().getURL() %>">View</a>
+        <img src="<%= entry.getImgSrc() %>">
+        <p><%= entry.getName() %></p>
+        <p class="price">$<%= entry.getPrice() %></p>
+        <a class="button" href="products/<%= entry.getURL() %>">View</a>
     </section>
 
     <%

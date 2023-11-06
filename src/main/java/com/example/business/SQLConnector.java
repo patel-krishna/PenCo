@@ -2,9 +2,16 @@ package com.example.business;
 import java.sql.*;
 
 public class SQLConnector {
-     Connection myDbConn;
+     public Connection myDbConn;
 
     public SQLConnector() {
+
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        }catch(ClassNotFoundException e){
+            System.out.print("JDBC NOT FOUNDDD");
+        }
+
         String url = "jdbc:mysql://penco.mysql.database.azure.com:3306/penco?useSSL=true";
         String username = "cuties387";
         String password = "Soen387!";
