@@ -1,10 +1,13 @@
 package com.example.business;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.File;
+import java.sql.*;
 
 public class Staff extends User{
 
@@ -12,9 +15,28 @@ public class Staff extends User{
         super(username, password);
     }
 
-    public void createProduct(HashMap<String, Product> map, String sku, String name){
-        Product temp = new Product(name, "","", "", sku, 0, "");
-        map.put(sku, temp);
+    public void createProduct(String sku, String name){
+        SQLConnector connector = new SQLConnector();
+        try {
+            // Define the SQL insert statement
+            String insertQuery = "INSERT INTO products (SKU, name) VALUES (?, ?)";
+            PreparedStatement preparedStatement = connector.myDbConn.prepareStatement(insertQuery);
+
+            // Set the values for the new product
+            preparedStatement.setString(1, sku);
+            preparedStatement.setString(2, name);
+
+            // Execute the insert
+            int rowsInserted = preparedStatement.executeUpdate();
+
+            if (rowsInserted > 0) {
+                System.out.println("Product created successfully.");
+            } else {
+                System.out.println("Product creation failed.");
+            }
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     /**
@@ -49,15 +71,81 @@ public class Staff extends User{
         if(!imgSrc.isBlank()){
             updatedProd.setImgSrc(imgSrc);
         }
+
+        SQLConnector connector = new SQLConnector();
+
+        try {
+            // Define the SQL update statement
+            String updateQuery = "UPDATE products SET name = ?, description = ?, vendor = ?, url_slug = ?, price = ?, imgSrc = ? WHERE SKU = ? ";
+            PreparedStatement preparedStatement = connector.myDbConn.prepareStatement(updateQuery);
+
+            // Set the values for the product
+            preparedStatement.setString(1, updatedProd.getName());
+            preparedStatement.setString(2, updatedProd.getDescription());
+            preparedStatement.setString(3, updatedProd.getVendor());
+            preparedStatement.setString(4, updatedProd.getURL());
+            preparedStatement.setDouble(5, updatedProd.getPrice());
+            preparedStatement.setString(6, updatedProd.getImgSrc());
+            preparedStatement.setString(7, updatedProd.getSKU());
+
+            // Execute the update
+            int rowsUpdated = preparedStatement.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                System.out.println("Product updated successfully.");
+            } else {
+                System.out.println("Product update failed. No matching SKU found.");
+            }
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
-    public File downloadProductCatalog(HashMap<String, Product> allProductsSku, String filePath){
+    public File downloadProductCatalog(){
 
-        writeProductsToXML(allProductsSku, filePath);
-        return new File(filePath);
+        SQLConnector connector = new SQLConnector();
+        File csvFile = new File("products.csv");
+
+
+        try{
+            String productsQuery = "SELECT * FROM Products;";
+            PreparedStatement statement = connector.myDbConn.prepareStatement(productsQuery);
+
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM Products");
+
+            BufferedWriter writer = new BufferedWriter(new FileWriter(csvFile))){
+
+                // Write the CSV header
+                writer.write("ProductID,ProductName,Description,Price,SKU");
+                writer.newLine();
+
+                // Iterate through the result set and write each row to the CSV file
+                while (resultSet.next()) {
+                    String productID = resultSet.getString("ProductID");
+                    String productName = resultSet.getString("ProductName");
+                    String description = resultSet.getString("Description");
+                    String price = resultSet.getString("Price");
+                    String sku = resultSet.getString("SKU");
+
+                    String csvRow = String.join(",", productID, productName, description, price, sku);
+                    writer.write(csvRow);
+                    writer.newLine();
+                }
+
+                System.out.println("Data exported to " + csvFile.getAbsolutePath());
+                return new File("products.csv");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public static void writeProductsToXML(HashMap<String, Product> productMap, String filePath) {
+
+
+    //OLD FUNCTION FROM ASSIGNMENT 1
+        public static void writeProductsToXML(HashMap<String, Product> productMap, String filePath) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             if(!productMap.isEmpty()){
                 writer.newLine();
