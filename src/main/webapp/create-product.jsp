@@ -37,16 +37,16 @@
         <textarea name="description" id="description"></textarea>
 
         <label for="vendor">Vendor:</label>
-        <input type="text" id="vendor" name="vendor">
+        <input type="text" id="vendor" name="vendor" value="">
 
         <label for="url">URL slug:</label>
-        <input type="text" id="url" name="url">
+        <input type="text" id="url" name="url" value="">
 
         <label for="price">Price:</label>
-        <input type="number" step="0.01" id="price" name="price">
+        <input type="number" step="0.01" id="price" name="price" value=0>
 
         <label for="imgSrc">Image Source:</label>
-        <input type="text" id="imgSrc" name="imgSrc">
+        <input type="text" id="imgSrc" name="imgSrc" value="">
 
         <button class="button" type="submit" class="submit-prod">Create Product</button>
     </form>
