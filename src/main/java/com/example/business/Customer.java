@@ -9,7 +9,7 @@ public class Customer extends User {
     //Constructor
     Customer(String username, String password) {
         super(username, password);
-        shoppingCart = new Cart();
+        shoppingCart = new Cart(username);
     }
 
     //default constructor
@@ -20,20 +20,38 @@ public class Customer extends User {
 
     //Getters and setters
     public Cart getCart() {
-        return this.shoppingCart;
+        return new Cart(this.username);
     }
 
     public void setCart(Cart newCart) {
         this.shoppingCart = newCart;
     }
 
-    //business layer functions
-    public void addProductToCart(Product newProd) {
-        shoppingCart.getShoppingCart().add(newProd);
+    public void setCart() {
+        this.shoppingCart = new Cart(this.username);
     }
 
-    public void removeProductFromCart(Product removeProd) {
-        shoppingCart.getShoppingCart().remove(removeProd);
+    //business layer functions
+    public void addProductToCart(String productSku, int quantity) {
+        shoppingCart.getShoppingCart().put(productSku, quantity);
+
+        // Check if a cart exists for the user in the db
+        int cartId = shoppingCart.getCartIdByUsername(username);
+        if (cartId == -1) {
+            // Create a new cart if it doesn't exist
+            cartId = shoppingCart.createCart(username);
+        }
+
+        // Add the product to the cartItems table
+        shoppingCart.addToCart(cartId, productSku, quantity);
+    }
+
+
+    public void removeProductFromCart(String productSku) {
+        shoppingCart.getShoppingCart().remove(productSku);
+
+        
+
     }
 
 }

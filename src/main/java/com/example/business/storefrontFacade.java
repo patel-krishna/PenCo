@@ -49,22 +49,21 @@ public class storefrontFacade {
         return user.getProductBySlug(connector,slug);
     }
 
-    public Cart getCart() {
-        if (currentUser instanceof Staff) {
+    public Cart getCart(User user) {
+        if (user instanceof Staff) {
             System.out.println("The user is a staff and does not have a cart");
             return null;
 
         } else {
-            Customer customer = (Customer) currentUser;
+            Customer customer = (Customer) user;
             return customer.getCart();
         }
     }
 
-    public void addProductToCart(String sku){
-        Product productToAdd = allProductsSku.get(sku);
-        if(currentUser instanceof Customer){
-            Customer customer = (Customer) currentUser;
-            customer.addProductToCart(productToAdd);
+    public void addProductToCart(User user, String sku, int quantity){
+        if(user instanceof Customer){
+            Customer customer = (Customer) user;
+            customer.addProductToCart(sku,quantity);
         }
     }
 
