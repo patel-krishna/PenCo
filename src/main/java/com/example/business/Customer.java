@@ -37,10 +37,10 @@ public class Customer extends User {
         shoppingCart.getShoppingCart().put(productSku, quantity);
 
         // Check if a cart exists for the user in the db
-        int cartId = shoppingCart.getCartIdByUsername(username);
+        int cartId = shoppingCart.getCartIdByUsername(this.username);
         if (cartId == -1) {
             // Create a new cart if it doesn't exist
-            cartId = shoppingCart.createCart(username);
+            cartId = shoppingCart.createCart(this.username);
         }
 
         // Add the product to the cartItems table

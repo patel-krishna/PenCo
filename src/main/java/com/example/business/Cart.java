@@ -17,7 +17,7 @@ public class Cart {
     }
 
     public HashMap<String, Integer> getShoppingCart() {
-        return shoppingList;
+        return this.shoppingList;
     }
 
     public HashMap<String, Integer> getShoppingCart(String username) {
@@ -60,7 +60,6 @@ public class Cart {
             throw new RuntimeException(e);
         }
 
-        connector.closeConnection();
         return map;
     }
 
@@ -251,7 +250,7 @@ public class Cart {
             productStatement.setString(3, sku);
 
             //execute query
-            productStatement.executeQuery();
+            productStatement.executeUpdate();
 
             } catch (SQLException ex) {
             throw new RuntimeException(ex);

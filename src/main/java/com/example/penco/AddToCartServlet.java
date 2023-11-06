@@ -12,13 +12,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-//@WebServlet(name = "AddToCartServlet", value = "/cart/products/*")
+@WebServlet(name = "AddToCartServlet", value = "/cart/products/*")
 public class AddToCartServlet extends HttpServlet{
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String slug = request.getParameter("slug");
-        int quantity = request.getIntHeader("quantity");
+        String quantityStr = request.getParameter("quantity");
+        int quantity = Integer.parseInt(quantityStr);
 
         ServletContext servletContext = getServletContext();
         Customer user = (Customer) servletContext.getAttribute("User");
@@ -29,18 +30,20 @@ public class AddToCartServlet extends HttpServlet{
             // Product Exists
 
             //if the product is already in the cart
-            if(user.getCart().getShoppingCart().containsKey(slug)){
+            if(user.getCart().getShoppingCart().containsKey(cartProd.getSKU())){
                 //return to page and tell customer
-                response.sendRedirect(request.getContextPath() + "/products/" + slug);
-                request.getSession().setAttribute("successMessage", "Product is already in cart!");
+
+                facade.setProductQuantityInCart(user,cartProd.getSKU(), quantity);
+                response.sendRedirect(request.getContextPath() + "/cart.jsp");
+                request.getSession().setAttribute("successMessage", "Product is already in cart! Quantity updated.");
             }else{
                 //add to cart
                 facade.addProductToCart(user, cartProd.getSKU(),quantity);
 
-                System.out.print("Added to cart");
+                System.out.println("Added to cart");
                 // Redirect to a product page
                 response.sendRedirect(request.getContextPath() + "/products/" + slug);
-                request.getSession().setAttribute("successMessage", "Product added  to cart successfully");
+                request.getSession().setAttribute("successMessage", "Product added to cart successfully");
             }
 
         } else {

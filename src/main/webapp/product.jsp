@@ -50,7 +50,7 @@
                 <!-- Hidden field to specify the product slug to be added to the cart -->
                 <input type="hidden" name="slug" value="<%=product.getURL()%>">
                 <label for="quantity">Qty:</label>
-                <input type="number" name="quantity" id="quantity" min="1">
+                <input type="number" name="quantity" id="quantity" min="1" required placeholder="1">
                 <button class="button" type="submit">Add to Cart</button>
             </form>
             <%
