@@ -1,15 +1,19 @@
 package com.example.business;
+import java.util.HashSet;
 import java.util.Set;
 import com.example.business.Cart;
 
 public class Customer extends User {
 
     private Cart shoppingCart;
+    private Set<Order> orders;
+
 
     //Constructor
     public Customer(String username, String password) {
         super(username, password);
         shoppingCart = new Cart(username);
+        orders = new HashSet<>();
     }
 
     //default constructor
@@ -92,6 +96,15 @@ public class Customer extends User {
         if(cartId != -1){
             shoppingCart.deleteAllCart(cartId);
         }
+    }
+
+
+    public Set<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
     }
 
 }

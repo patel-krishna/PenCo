@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.io.File;
+import java.util.Set;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -112,7 +113,6 @@ public class storefrontFacade {
 
 
 
-
     //functions for when we were using in-app memory A1
     public HashMap<String,Product> productInitialization(String filePath) {
         HashMap<String, Product> productMap = new HashMap<>();
@@ -176,7 +176,58 @@ public class storefrontFacade {
         }
         return userMap;
     }
-//
+      public void createOrder(User user,String shippingAddress){
+        if (user instanceof Customer){
+            Customer customer = (Customer) user;
+            Cart shoppingCart=customer.getCart();
+            
+            if(!shoppingCart.getShoppingCart().isEmpty()){
+                // Generating a customer-unique OrderID
+                Set<Order> customerOrders = customer.getOrders();
+                // If the customer has no orders, set its first Order's OrderID to 1, the next to 2, etc.
+                int currentMax = 0;
+                for(Order o: customerOrders) {
+                    currentMax = Math.max(currentMax, o.getOrderID());
+                }
+                Order order=new Order(currentMax+1, shippingAddress);
+
+                order.setShoppingList(shoppingCart.getShoppingCart());
+                customer.clearCart();
+                customer.getOrders().add(order);
+            }
+        }
+    }
+    public Set<Order> getOrders(User user){
+        if (user instanceof Customer) {
+            Customer customer = (Customer) user;
+            return customer.getOrders();
+        }
+        return null;
+    }
+
+    public Order getOrder(User user, int orderID) throws Exception {
+        if (user instanceof Customer) {
+            Customer customer = (Customer) user;
+            Set<Order> customerOrders = customer.getOrders();
+            for (Order o : customerOrders) {
+                if(o.getOrderID() == orderID) {
+                    return o;
+                }
+            }
+            throw new Exception("User " + user.username + " does not have an order with ID " + orderID);
+        }
+        return null;
+    }
+
+    public void shipOrder(User user, int orderID, int trackingNumber) {
+        try {
+            Order o = getOrder(user, orderID);
+            o.setTrackNumber(trackingNumber);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 //    public HashMap<String, Product> getAllProductsSku() {
 //        return allProductsSku;
 //    }
