@@ -19,13 +19,6 @@ public class Order {
         this.shippingAddress = shippingAddress;
         this.shoppingList = new HashMap<>();
     }
-    public int getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
-    }
 
     public String getShippingAddress() {
         return shippingAddress;
@@ -54,29 +47,38 @@ public class Order {
     public void insertOrderItem(int orderId, String productSku, int quantity, int userId, String shippingAddress) {
         // Establish a database connection
         SQLConnector connector = new SQLConnector();
-
-        // Define the SQL query to insert order details into Orders
-        String insertOrderQuery = "INSERT INTO Orders (user_id, shipping_address) VALUES (?, ?)";
-
-        // Define the SQL query to insert an order item into OrderItems
-        String insertOrderItemQuery = "INSERT INTO OrderItems (order_id, product_sku, quantity) VALUES (?, ?, ?)";
-
-
-        try (PreparedStatement insertOrderItemStatement = connector.myDbConn.prepareStatement(insertOrderItemQuery);
-             PreparedStatement insertOrderStatement = connector.myDbConn.prepareStatement(insertOrderQuery)) {
-
-            insertOrderStatement.setInt(1, userId);
+        try {
+            // Define the SQL query to insert order details into Orders and retrieve the generated order ID
+            String insertOrderQuery = "INSERT INTO Orders (user_id, shipping_address) VALUES (?, ?)";
+            PreparedStatement insertOrderStatement = connector.myDbConn.prepareStatement(insertOrderQuery, Statement.RETURN_GENERATED_KEYS);
+            insertOrderStatement.setInt(1, customer.getUserId());
             insertOrderStatement.setString(2, shippingAddress);
 
-            // Execute the insertOrderItem query to insert order details
-            insertOrderItemStatement.executeUpdate();
+            // Execute the insertOrder query and retrieve the generated keys
+            int affectedRows = insertOrderStatement.executeUpdate();
+
+            if (affectedRows == 0) {
+                throw new SQLException("Creating order failed, no rows affected.");
+            }
+
+            try (ResultSet generatedKeys = insertOrderStatement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    orderId = generatedKeys.getInt(1); // Get the generated order ID
+                } else {
+                    throw new SQLException("Creating order failed, no ID obtained.");
+                }
+            }
+
+            // Define the SQL query to insert an order item into OrderItems
+            String insertOrderItemQuery = "INSERT INTO OrderItems (order_id, product_sku, quantity) VALUES (?, ?, ?)";
+            PreparedStatement insertOrderItemStatement = connector.myDbConn.prepareStatement(insertOrderItemQuery);
 
             insertOrderItemStatement.setInt(1, orderId);
             insertOrderItemStatement.setString(2, productSku);
             insertOrderItemStatement.setInt(3, quantity);
 
-            // Execute the insertOrder query to insert each item
-            insertOrderStatement.executeUpdate();
+            // Execute the insertOrderItem query to insert each item
+            insertOrderItemStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {

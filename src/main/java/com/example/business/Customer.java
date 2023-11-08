@@ -153,6 +153,7 @@ public class Customer extends User {
         for (HashMap.Entry<String, Integer> entry : shoppingCart.entrySet()) {
             String productSku = entry.getKey();
             int quantity = entry.getValue();
+            System.out.println("Product SKU: " + productSku + ", Quantity: " + quantity);
             newOrder.insertOrderItem(this.getOrderId(), productSku, quantity, this.getUserId(), shippingAddress);
         }
         // Optionally, you can clear the customer's shopping cart

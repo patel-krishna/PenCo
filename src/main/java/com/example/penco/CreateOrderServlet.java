@@ -34,6 +34,9 @@ public class CreateOrderServlet extends HttpServlet {
         newOrder.setShoppingList(cart.getShoppingCart());
         facade.createOrder(user, shippingAddress);
 
+        // Add user and shipping address to the request attributes
+        request.setAttribute("user", user);
+        request.setAttribute("shippingAddress", shippingAddress);
 
 
         // Clear users cart after order is placed

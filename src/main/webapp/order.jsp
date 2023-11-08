@@ -20,41 +20,15 @@
 <body>
 <jsp:include page="navbar.jsp" />
 
-#DISPLAYS ORDER DETAILS, ALL PRODUCTS + CUSTOMER INFORMATION
-<%
-  Customer user = (Customer) application.getAttribute("User");
-  Cart cart = user.getCart();
-  storefrontFacade facade = new storefrontFacade();
-%>
-%>
-<h1>Thank you for your order <%=user.getUsername()%></h1>
+<h1>Thank you for your order</h1>
 <h2>Your Order Details:</h2>
 
-#DISPLAY CUSTOMERS ORDERED ITEMS
 <%
-  for (String key : cart.getShoppingCart().keySet()) {
-      System.out.println(key);
-      Product product = facade.getProduct(key);
+  Customer user = (Customer) application.getAttribute("User");
+  String shippingAddress = (String) request.getAttribute("shippingAddress");
 %>
-<%--<table>--%>
-<%--  <thead>--%>
-<%--  <tr>--%>
-<%--    <th>Order Items:</th>--%>
-<%--  </tr>--%>
-<%--  </thead>--%>
-<%--  <tbody>--%>
-<%--  <tr>--%>
-<%--    <td><img src="<%=product.getImgSrc()%>" alt="<%=product.getName()%>"></td>--%>
-<%--    <td><%=product.getName()%></td>--%>
-<%--    <td>$<%=product.getPrice()%></td>--%>
-<%--  </tr>--%>
-<%--  </tbody>--%>
-<%--</table>--%>
-<%--<%--%>
-<%--  }--%>
-<%--%>--%>
-#DISPLAY CUSTOMER SHIPPING INFO
 
-
+<p>User: <%= user.getUsername() %></p>
+<p>Shipping Address: <%= shippingAddress %></p>
 </body>
 </html>
