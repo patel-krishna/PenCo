@@ -1,10 +1,14 @@
 package com.example.business;
 import java.util.Set;
 import com.example.business.Cart;
+import java.util.HashMap;
+import java.util.HashSet;
 
 public class Customer extends User {
 
     private Cart shoppingCart;
+    private Set<Order> orders;
+
 
     //Constructor
     public Customer(String username, String password) {
@@ -92,6 +96,33 @@ public class Customer extends User {
         if(cartId != -1){
             shoppingCart.deleteAllCart(cartId);
         }
+    }
+
+    public Set<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
+    }
+
+    public void createOrder(User user,String shippingAddress) {
+        Cart cart = getCart();
+
+        // Get the shopping list from the cart
+        HashMap<String, Integer> shoppingList = cart.getShoppingCart();
+
+        // Create a new order with the given shipping address
+        Order newOrder = new Order(this, shippingAddress);
+
+        // Set the shopping list from the cart into the order
+        newOrder.setShoppingList(shoppingList);
+
+        // Add the order to the user's order history
+        if (getOrders() == null) {
+            setOrders(new HashSet<Order>());
+        }
+        getOrders().add(newOrder);
     }
 
 }

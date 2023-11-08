@@ -60,7 +60,6 @@
       <%
     }
 %>
-
     <section class="checkout-section">
         <a href="${pageContext.request.contextPath}/checkout.jsp"><button>Checkout Order</button></a>
     </section>

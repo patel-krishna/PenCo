@@ -20,6 +20,7 @@ public class storefrontFacade {
        connector = new SQLConnector();
     }
 
+
     public void createProduct(User user, String sku, String name) {
         if (user instanceof Staff) {
             Staff staffUser = (Staff) user;
@@ -104,7 +105,15 @@ public class storefrontFacade {
         return user.getAllProducts();
     }
 
-
+    public void createOrder(User user, String address) {
+        if (user instanceof Customer) {
+            Customer customerUser = (Customer) user;
+            customerUser.createOrder(address);
+        } else {
+            System.out.println("Cannot create an order for a non-customer user.");
+            // You can handle or log this case accordingly.
+        }
+    }
 
 
 
