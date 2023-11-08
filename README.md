@@ -1,6 +1,9 @@
 # PenCo
 
-PenCo is a storefront for stationnary. Built using Java and JSP for SOEN-387 Assignment 1. 
+PenCo is a storefront for stationery. Built using Java and JSP for SOEN-387 Assignment 1. 
+
+### Important
+In order to run the project properly on your machine, the file paths of the XML which contain the data must but updated accordingly to the file paths of the machine it's being run on. This can be done in the class under the business package named storeFrontFacade where there are two Strings set as global variables named filePathProducts and filePathUsers.
 
 
 ## Authors
@@ -12,6 +15,10 @@ PenCo is a storefront for stationnary. Built using Java and JSP for SOEN-387 Ass
 
 ## Documentation
 
-[UML Diagram](///www.plantuml.com/plantuml/png/PP7FReCm3CRlVeg84uXnsBMTfcgLTjfX4ji3PCHbQFc3dAHTLVhk8pG1r5qWjd-nl_ZRMSV9UIK16icjPUzaX6_S1Q3INE66rOuwtK8bq3RKzQupUaaUKGj3I-n9rjAtIyB--2NegMl6ZiBuBubGTQgjgPdBS8KaujCY1GL-_4ygvWvZzMH8B9VA5btKd8_38bciyo_de2ctGLWgNzEelRVEA2I6lmwrIBCh-stwVaJtdDo6XU-MJKt3CI-WjF7OJ42DxYcEUowsK78XOlXX9Ymk8eeZLEQ8aNWbesOc8Ol2sl73uKuUb0qXT_Z_vGyiBYnEyhrOSQasWMj7KouQciBaPuhNSsvktimi69J2dBGqFBrxpnsNflMOhxVDoQsM-zRPkzrjMO03nhB7Z0r3LPaBonJNvun5299dCp8Cqp5S0u0TQk6L_0C0)
+[UML Diagram Assignment 1](///www.plantuml.com/plantuml/png/PP7FReCm3CRlVeg84uXnsBMTfcgLTjfX4ji3PCHbQFc3dAHTLVhk8pG1r5qWjd-nl_ZRMSV9UIK16icjPUzaX6_S1Q3INE66rOuwtK8bq3RKzQupUaaUKGj3I-n9rjAtIyB--2NegMl6ZiBuBubGTQgjgPdBS8KaujCY1GL-_4ygvWvZzMH8B9VA5btKd8_38bciyo_de2ctGLWgNzEelRVEA2I6lmwrIBCh-stwVaJtdDo6XU-MJKt3CI-WjF7OJ42DxYcEUowsK78XOlXX9Ymk8eeZLEQ8aNWbesOc8Ol2sl73uKuUb0qXT_Z_vGyiBYnEyhrOSQasWMj7KouQciBaPuhNSsvktimi69J2dBGqFBrxpnsNflMOhxVDoQsM-zRPkzrjMO03nhB7Z0r3LPaBonJNvun5299dCp8Cqp5S0u0TQk6L_0C0)
 
-[Report](https://docs.google.com/document/d/1K8LCU9RUE3pjI2XqLroWjZwkdRQp9RriOmjA8pQSMpU/edit?usp=sharing)
+[Report Assignment 1](https://docs.google.com/document/d/1K8LCU9RUE3pjI2XqLroWjZwkdRQp9RriOmjA8pQSMpU/edit?usp=sharing)
+
+[Document Assignment 2](https://docs.google.com/document/d/1BFC3u1E0YlqBDw7po3DwNITLkzO6NHQW_37v-X0vJR4/edit?usp=sharing)
+
+[UML Diagram Assignment 2](//www.plantuml.com/plantuml/png/pLNDRXiX4Bxp5CWdMp67NfqgIfkgKgIgFtBx06GPEoWBR8SXhHNttRiGCDIRMf5wQ2x8C_FDy0tVZFVIaqGAfcTTBxtddz6fqD43Oy9A0ok-9jHsouG2tw4UI3jRdVTWbSDg1-pNVTXMXxyBrHXGTsD5vS9D3qneirrZTmYpNonp-EO18u7W0VyaCOpX7mxL4qbNmPCpW1n-4bXLgWX_wuPXX5v9f1MFvpbdmg42_A0zZPM0Nd-AvWKxsm95n7p1pgHI-Is-kkHhMXd32CRTGqQyHsUUm7YW3FWIf2LDksjx35loxpcsujhIcDNr8B6mw10aGQ8tzxSwTV96AGJlwqMHTeBuUMFCKu_NxqhTc3uDB3cXxEu-1dC3cA67DrsJt6oE7ZHJoesbLaedIQi3gJ2e1bTY2TZEKl7bKIfccQHYj_Sypj7Z62ruEmCIgP6ywfjPN9pp_oPiPPb4E4sJYLOZ9luYFHF7uiN7ADevX0qwInlPIGKlKRaugrCwYzR_TXUBpNsjkAXh6dniEyxbT67Rw98_H-Cf_gJU9QN9EBtJKyhjThUtFsVJApwx9rN-OVyZLJvxDUFxlH3kWS-CjBjP-JYmybzxWEptwMTCgy5fVhgUfVD4zKkmAfZ-Dm00)

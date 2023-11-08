@@ -18,11 +18,12 @@ public class RemoveFromCartServlet extends HttpServlet {
         String sku = request.getParameter("sku");
 
         ServletContext servletContext = getServletContext();
-        storefrontFacade facade = (storefrontFacade) servletContext.getAttribute("storefrontFacade");
+        storefrontFacade facade = new storefrontFacade();
+        User user = (User) servletContext.getAttribute("User");
 
         if (sku != null) {
 
-            facade.removeProductFromCart(sku);
+            facade.removeProductFromCart(user,sku);
 
             // Redirect to a welcome or home page
             response.sendRedirect("cart.jsp");

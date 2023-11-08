@@ -25,16 +25,15 @@ public class CreateProductServlet extends HttpServlet {
         String img = request.getParameter("imgSrc");
 
         ServletContext servletContext = getServletContext();
-        storefrontFacade facade = (storefrontFacade) servletContext.getAttribute("storefrontFacade");
-        HashMap<String,Product> map = facade.getAllProductsSku();
-        User user = facade.getCurrentUser();
+        storefrontFacade facade = new storefrontFacade();
+        User user = (User) servletContext.getAttribute("User");
 
         //create a product with only sku and name, added to the HashMap
         facade.createProduct((Staff) user, sku, name);
 
         //Get this new product and update its attributes with the rest of the info
-        Product product = map.get(sku);
-        facade.updateProduct(product,name,description,vendor,url,sku,price,img);
+        Product product = facade.getProduct(sku);
+        facade.updateProduct(user,product,name,description,vendor,url,sku,price,img);
 
         response.sendRedirect(request.getContextPath() + "/products/" + url);
         request.getSession().setAttribute("successMessage", "Product has been created!");

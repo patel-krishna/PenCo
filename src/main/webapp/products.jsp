@@ -1,5 +1,6 @@
 <%@ page import="com.example.business.*" %>
 <%@ page import="java.util.HashMap" %>
+<%@ page import="java.util.ArrayList" %>
 
 <%--
   Created by IntelliJ IDEA.
@@ -10,14 +11,12 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-  storefrontFacade facade = (storefrontFacade) application.getAttribute("storefrontFacade");
-  User user = facade.getCurrentUser();
+    User user = (User) application.getAttribute("User");
 %>
 <html>
 <head>
     <title>Products</title>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/index.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/style.css">
     <meta charset="UTF-8">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,24 +28,27 @@
 <h1>All Products</h1>
 
 <% if(user instanceof Staff) { %>
-  <a href="${pageContext.request.contextPath}/products/download">Download Product Catalogue</a>
+    <a class="button" href="${pageContext.request.contextPath}/products/download">Download Product Catalogue</a>
 <% } %>
 
 <ul>
-  <%
-    HashMap<String, Product> productMap = (HashMap<String, Product>) request.getAttribute("productMap");
-    if (productMap != null) {
-      for (HashMap.Entry<String, Product> entry : productMap.entrySet()) {
-  %>
-  <li class="product-card"><%= entry.getKey() %>
-    - <%= entry.getValue().getName() %>
-    - $<%= entry.getValue().getPrice() %>
-    - <img src="<%= entry.getValue().getImgSrc() %>" alt="Image Description">
-    - <a href="products/<%= entry.getValue().getURL() %>">View</a></li>
-  <%
-      }
-    }
-  %>
+    <%
+        ArrayList<Product> productMap = (ArrayList<Product>) request.getAttribute("productMap");
+        if (productMap != null) {
+            for (Product entry : productMap) {
+    %>
+
+    <section class="product-card">
+        <img src="<%= entry.getImgSrc() %>">
+        <p><%= entry.getName() %></p>
+        <p class="price">$<%= entry.getPrice() %></p>
+        <a class="button" href="products/<%= entry.getURL() %>">View</a>
+    </section>
+
+    <%
+            }
+        }
+    %>
 </ul>
 <style>
     .product-card {
@@ -57,17 +59,31 @@
         padding: 10px;
         text-align: center;
         background-color: #f5f5f5;
+        float: left;
+    }
+
+    .product-card a {
+        color: #333;
+        text-decoration: none;
+        border: 2px solid #ccc;
+        padding: 5px 10px;
+        border-radius: 10px;
+        background-color: #f5f5f5;
+        display: inline-block;
     }
     img {
-        width: 200px;
-        height: 150px;
+        width: 100%;
     }
-    ul {
-        list-style: none;
-    }
-    li {
-        float: left;
-        margin-right: 10px; /* Add some spacing between list items */
+
+    .button {
+        color: #333;
+        text-decoration: none;
+        border: 2px solid #ccc;
+        padding: 5px 10px;
+        border-radius: 10px;
+        background-color: #f5f5f5;
+        display: inline-block;
+
     }
 </style>
 </body>

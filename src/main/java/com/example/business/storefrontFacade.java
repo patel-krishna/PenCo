@@ -1,98 +1,128 @@
 package com.example.business;
+import java.sql.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.io.File;
-import java.util.HashMap;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.NodeList;
 
 public class storefrontFacade {
-    public static HashMap<String,Product> allProductsSku;
 
-    final String filePathProducts = "//Users//briannam//Documents//GitHub//PenCo//src//main//resources//products.xml";
-    final String filePathUsers = "//Users//briannam//Documents//GitHub//PenCo//src//main//resources//users.xml";
-
-    static HashMap<String, User> allUsers;
-    static User currentUser;
+    public SQLConnector connector;
 
     public storefrontFacade(){
-        allProductsSku = productInitialization(filePathProducts);
-        allUsers = userInitialization(filePathUsers);
-        currentUser = new User();
+       connector = new SQLConnector();
     }
 
-    public void createProduct(Staff staff, String sku, String name) {
-        if (currentUser instanceof Staff) {
-            Staff staffUser = (Staff) currentUser;
-            staffUser.createProduct(allProductsSku, sku, name);
+
+    public void createProduct(User user, String sku, String name) {
+        if (user instanceof Staff) {
+            Staff staffUser = (Staff) user;
+            staffUser.createProduct(sku, name);
         } else {
             // Handle the case where currentUser is not a Staff
-            // You could throw an exception or handle it in some other way
             System.out.println("The user is not a staff and cannot update product inventory");
 
         }
     }
-    public void updateProduct(Product updatedProd, String name, String description, String vendor, String URL, String SKU, double price, String imgSrc){
-        if (currentUser instanceof Staff) {
-            Staff staffUser = (Staff) currentUser;
+    public void updateProduct(User staff, Product updatedProd, String name, String description, String vendor, String URL, String SKU, double price, String imgSrc){
+        if (staff instanceof Staff) {
+            Staff staffUser = (Staff) staff;
             staffUser.updateProduct(updatedProd, name, description, vendor, URL, SKU, price, imgSrc);
         } else {
             // Handle the case where currentUser is not a Staff
-            // You could throw an exception or handle it in some other way
             System.out.println("The user is not a staff and cannot update product inventory");
 
         }
     }
 
     public Product getProduct(String sku){
-       return currentUser.getProduct(allProductsSku, sku);
+        User user = new User();
+        return user.getProduct(sku);
     }
 
     public Product getProductBySlug(String slug){
-        return currentUser.getProductBySlug(allProductsSku,slug);
+        User user = new User();
+        return user.getProductBySlug(slug);
     }
 
-    public Cart getCart() {
-        if (currentUser instanceof Staff) {
+    public Cart getCart(User user) {
+        if (user instanceof Staff) {
             System.out.println("The user is a staff and does not have a cart");
             return null;
 
         } else {
-            Customer customer = (Customer) currentUser;
+            Customer customer = (Customer) user;
             return customer.getCart();
         }
     }
 
-    public void addProductToCart(String sku){
-        Product productToAdd = allProductsSku.get(sku);
-        if(currentUser instanceof Customer){
-            Customer customer = (Customer) currentUser;
-            customer.addProductToCart(productToAdd);
+    public void addProductToCart(User user, String sku, int quantity){
+        if(user instanceof Customer){
+            Customer customer = (Customer) user;
+            customer.addProductToCart(sku,quantity);
         }
     }
 
-    public void removeProductFromCart(String sku){
-        Product productToRemove = this.getAllProductsSku().get(sku);
-        if(currentUser instanceof Customer){
-            Customer customer = (Customer) currentUser;
-            customer.removeProductFromCart(productToRemove);
+    public void removeProductFromCart(User user, String sku){
+        if(user instanceof Customer){
+            Customer customer = (Customer) user;
+            customer.removeProductFromCart(sku);
         }
     }
 
-    public File downloadProductCatalogue(){
-        if(currentUser instanceof Staff){
-            Staff staff = (Staff) currentUser;
-            return staff.downloadProductCatalog(allProductsSku, filePathProducts);
+    public void setProductQuantityInCart(User user, String sku, int qty){
+        if(user instanceof Customer){
+            Customer customer = (Customer) user;
+            customer.setProductQuantityInCart(sku,qty);
+        }
+    }
+
+    public void clearCart(User user){
+        if(user instanceof Customer){
+            Customer customer = (Customer) user;
+            customer.clearCart();
+        }
+    }
+
+    public File downloadProductCatalogue(User user){
+        if(user instanceof Staff){
+            Staff staff = (Staff) user;
+            return staff.downloadProductCatalog();
         }else{
             System.out.println("Not a staff, cannot download catalogue.");
             return null;
         }
     }
 
+    public ArrayList<Product> getAllProducts(User user){
+        return user.getAllProducts();
+    }
+
+    public void createOrder(User user, String address) {
+        if (user instanceof Customer) {
+            Customer customer = (Customer) user;
+            customer.createOrder(customer, address);
+        } else {
+            System.out.println("Cannot create an order for a non-customer user.");
+        }
+    }
+
+
+
+
+
+
+
+
+
+    //functions for when we were using in-app memory A1
     public HashMap<String,Product> productInitialization(String filePath) {
         HashMap<String, Product> productMap = new HashMap<>();
         try {
@@ -155,22 +185,20 @@ public class storefrontFacade {
         }
         return userMap;
     }
-
-    public HashMap<String, Product> getAllProductsSku() {
-        return allProductsSku;
-    }
-
-    public HashMap<String, User> getAllUsers() {
-        return allUsers;
-    }
-
-    public User getCurrentUser() {
-        return currentUser;
-    }
-
-    public void setCurrentUser(User user) {
-        currentUser = user;
-    }
+//
+//    public HashMap<String, Product> getAllProductsSku() {
+//        return allProductsSku;
+//    }
+//
+//    public HashMap<String, User> getAllUsers() {
+//        return allUsers;
+//    }
+//
+//    public User getCurrentUser() {
+//        return currentUser;
+//    }
+//
+//    public void setCurrentUser(User user) {
+//        currentUser = user;
+//    }
 }
-
-
