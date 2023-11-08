@@ -44,7 +44,7 @@ public class Order {
         this.shoppingList = shoppingList;
     }
 
-    public void insertOrderInfo(int userId, String shippingAddress) {
+    public int insertOrderInfo(int userId, String shippingAddress) {
         SQLConnector connector = new SQLConnector();
         int orderId = -1; // Initialize orderId to -1
 
@@ -74,6 +74,7 @@ public class Order {
         } finally {
             connector.closeConnection();
         }
+        return orderId;
     }
 
     public void insertOrderItems(int orderId) {

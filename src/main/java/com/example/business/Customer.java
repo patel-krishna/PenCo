@@ -127,16 +127,11 @@ public class Customer extends User {
         Order newOrder = new Order(this, shippingAddress);
         newOrder.setShoppingList(shoppingCart);
 
-        //setorderid
+        // Insert order info get the generated orderId
         int orderId = newOrder.insertOrderInfo(this.getUserId(), shippingAddress);
 
-
-
-        // Insert order items & order info into the database
-        newOrder.insertOrderInfo(this.getUserId(), shippingAddress);
-
-        System.out.println(orderID);
-        newOrder.insertOrderItems(orderID);
+        // Insert order items
+        newOrder.insertOrderItems(orderId);
 
         this.clearCart();
 
