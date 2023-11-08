@@ -133,4 +133,35 @@ public class User {
         connector.closeConnection();
         return productList;
     }
+
+    public static int getOrderId(int userId, String shippingAddress) {
+        int orderId = -1;
+
+        SQLConnector connector = new SQLConnector();
+
+        try {
+            String query = "SELECT MAX(order_id) FROM orders WHERE user_id=? AND shipping_address=?";
+
+            try (PreparedStatement statement = connector.myDbConn.prepareStatement(query)) {
+                statement.setInt(1, userId);
+                statement.setString(2, shippingAddress);
+
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    if (resultSet.next()) {
+                        orderId = resultSet.getInt(1);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        } finally {
+            connector.closeConnection();
+        }
+
+        return orderId;
+    }
+
+
+
 }

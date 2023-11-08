@@ -76,7 +76,7 @@ public class Order {
         }
     }
 
-    public void insertOrderItems() {
+    public void insertOrderItems(int orderId) {
         SQLConnector connector = new SQLConnector();
 
         try {
