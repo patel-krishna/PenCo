@@ -134,7 +134,7 @@ public class User {
         return productList;
     }
 
-    public static int getOrderId(int userId, String shippingAddress) {
+    public int getOrderId(int userId, String shippingAddress) {
         int orderId = -1;
 
         SQLConnector connector = new SQLConnector();

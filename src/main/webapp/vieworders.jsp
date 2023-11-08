@@ -1,22 +1,31 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: briannam
-  Date: 2023-11-08
-  Time: 11:43 a.m.
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ page import="com.example.business.*" %>
+<%@ page import="java.util.List" %>
 
-<%--STAFF ONLY PAGE--%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    List<Order> orders = DatabaseHelper.getOrdersFromDatabase();
+%>
+
+<!DOCTYPE html>
 <html>
 <head>
     <title>View Orders</title>
 </head>
 <body>
-<table>
-
+<h1>Orders List</h1>
+<table border="1">
+    <tr>
+        <th>Order ID</th>
+        <th>Customer ID</th>
+        <th>Shipping Address</th>
+    </tr>
+    <c:forEach items="${orders}" var="order">
+        <tr>
+            <td>${order.getOrderId()}</td>
+            <td>${order.getCustomerId()}</td>
+            <td>${order.getShippingAddress()}</td>
+        </tr>
+    </c:forEach>
 </table>
-
-
 </body>
 </html>
