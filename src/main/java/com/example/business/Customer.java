@@ -149,14 +149,10 @@ public class Customer extends User {
         newOrder.setShoppingList(shoppingCart);
 
 
-        // Insert order items into the database
-        for (HashMap.Entry<String, Integer> entry : shoppingCart.entrySet()) {
-            String productSku = entry.getKey();
-            int quantity = entry.getValue();
-            System.out.println("Product SKU: " + productSku + ", Quantity: " + quantity);
-            newOrder.insertOrderItem(this.getOrderId(), productSku, quantity, this.getUserId(), shippingAddress);
-        }
-        // Optionally, you can clear the customer's shopping cart
+        // Insert order items & order info into the database
+        newOrder.insertOrderInfo(this.getUserId(), shippingAddress);
+        newOrder.insertOrderItems();
+
         this.clearCart();
 
         // Add the new order to the customer's order history (you can do this if you have an orders collection)
