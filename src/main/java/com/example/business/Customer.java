@@ -43,29 +43,7 @@ public class Customer extends User {
         int userId = shoppingCart.getUserIdByUsername(this.username);
         return userId;
     }
-    public int getOrderId() {
-        int orderId = -1;
 
-        SQLConnector connector = new SQLConnector();
-
-        try {
-            String query = "SELECT MAX(order_id) FROM orders";
-
-            try (Statement statement = connector.myDbConn.createStatement();
-                 ResultSet resultSet = statement.executeQuery(query)) {
-                if (resultSet.next()) {
-                    orderId = resultSet.getInt(1);
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
-        } finally {
-            connector.closeConnection();
-        }
-
-        return orderId;
-    }
 
     //business layer functions
     public void addProductToCart(String productSku, int quantity) {
@@ -139,19 +117,26 @@ public class Customer extends User {
     }
 
     public void createOrder(Customer user,String shippingAddress) {
-        HashMap<String, Integer> shoppingCart = this.getCart().getShoppingCart();
+        HashMap<String, Integer> shoppingCart = this.getCart().getShoppingCart(user.getUsername());
         if (shoppingCart.isEmpty()) {
             System.out.println("Cannot create an order because the shopping cart is empty.");
+            return;
         }
 
         //create new order with inputted shipping address
         Order newOrder = new Order(this, shippingAddress);
         newOrder.setShoppingList(shoppingCart);
 
+        //setorderid
+        int orderId = newOrder.insertOrderInfo(this.getUserId(), shippingAddress);
+
+
 
         // Insert order items & order info into the database
         newOrder.insertOrderInfo(this.getUserId(), shippingAddress);
-        newOrder.insertOrderItems();
+
+        System.out.println(orderID);
+        newOrder.insertOrderItems(orderID);
 
         this.clearCart();
 
