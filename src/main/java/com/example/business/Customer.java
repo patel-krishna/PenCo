@@ -102,6 +102,7 @@ public class Customer extends User {
 
         //get the cart from username
         int cartId = shoppingCart.getCartIdByUsername(this.username);
+
         //if cart exists
         if(cartId != -1){
             shoppingCart.deleteAllCart(cartId);
@@ -133,7 +134,7 @@ public class Customer extends User {
         // Insert order items
         newOrder.insertOrderItems(orderId);
 
-        this.clearCart();
+        //user.clearCart();
 
         // Add the new order to the customer's order history (you can do this if you have an orders collection)
         if (orders == null) {

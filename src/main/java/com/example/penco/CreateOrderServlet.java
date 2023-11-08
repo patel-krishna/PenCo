@@ -27,11 +27,12 @@ public class CreateOrderServlet extends HttpServlet {
         Cart cart = facade.getCart(user);
 
         // Get shipping address from form
-        String shippingAddress = request.getParameter("shipping_address");
+        String shippingAddress = request.getParameter("shipping-address");
+        System.out.println("Shipping: "+shippingAddress);
 
         //create new order with given user and inputted shipping address
-        Order newOrder = new Order(user, shippingAddress);
-        newOrder.setShoppingList(cart.getShoppingCart());
+        //Order newOrder = new Order(user, shippingAddress);
+        //newOrder.setShoppingList(cart.getShoppingCart());
         facade.createOrder(user, shippingAddress);
 
         // Add user and shipping address to the request attributes
@@ -40,7 +41,7 @@ public class CreateOrderServlet extends HttpServlet {
 
 
         // Clear users cart after order is placed
-        user.clearCart();
+        facade.clearCart(user);
 
         request.getRequestDispatcher("/order.jsp").forward(request, response);
     }

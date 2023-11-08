@@ -18,17 +18,19 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 </head>
 <body>
-<jsp:include page="navbar.jsp" />
-
-<h1>Thank you for your order</h1>
-<h2>Your Order Details:</h2>
 
 <%
   Customer user = (Customer) application.getAttribute("User");
+  Cart cart = user.getCart();
+  storefrontFacade facade = new storefrontFacade();
   String shippingAddress = (String) request.getAttribute("shippingAddress");
 %>
+<jsp:include page="navbar.jsp" />
 
-<p>User: <%= user.getUsername() %></p>
-<p>Shipping Address: <%= shippingAddress %></p>
+<h1>Thank you for your order <%= user.getUsername() %> ! </h1>
+
+
+<h2>Shipping Details:</h2>
+<h3>Shipping Address: <%= shippingAddress %></h3>
 </body>
 </html>

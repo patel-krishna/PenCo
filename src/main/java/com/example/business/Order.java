@@ -65,6 +65,7 @@ public class Order {
             try (ResultSet generatedKeys = insertOrderStatement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
                     orderId = generatedKeys.getInt(1); // Get the generated order ID
+                    return orderId;
                 } else {
                     throw new SQLException("Creating order failed, no ID obtained.");
                 }

@@ -13,6 +13,9 @@
     <title>View Orders</title>
 </head>
 <body>
+<table>
+
+</table>
 
 
 </body>
