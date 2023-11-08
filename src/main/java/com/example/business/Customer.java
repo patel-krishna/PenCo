@@ -1,8 +1,12 @@
 package com.example.business;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Set;
 import com.example.business.Cart;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.sql.Statement;
 
 public class Customer extends User {
 
@@ -33,6 +37,34 @@ public class Customer extends User {
 
     public void setCart() {
         this.shoppingCart = new Cart(this.username);
+    }
+
+    public int getUserId() {
+        int userId = shoppingCart.getUserIdByUsername(this.username);
+        return userId;
+    }
+    public int getOrderId() {
+        int orderId = -1;
+
+        SQLConnector connector = new SQLConnector();
+
+        try {
+            String query = "SELECT MAX(order_id) FROM orders";
+
+            try (Statement statement = connector.myDbConn.createStatement();
+                 ResultSet resultSet = statement.executeQuery(query)) {
+                if (resultSet.next()) {
+                    orderId = resultSet.getInt(1);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        } finally {
+            connector.closeConnection();
+        }
+
+        return orderId;
     }
 
     //business layer functions
@@ -106,23 +138,30 @@ public class Customer extends User {
         this.orders = orders;
     }
 
-    public void createOrder(User user,String shippingAddress) {
-        Cart cart = getCart();
-
-        // Get the shopping list from the cart
-        HashMap<String, Integer> shoppingList = cart.getShoppingCart();
-
-        // Create a new order with the given shipping address
-        Order newOrder = new Order(this, shippingAddress);
-
-        // Set the shopping list from the cart into the order
-        newOrder.setShoppingList(shoppingList);
-
-        // Add the order to the user's order history
-        if (getOrders() == null) {
-            setOrders(new HashSet<Order>());
+    public void createOrder(Customer user,String shippingAddress) {
+        HashMap<String, Integer> shoppingCart = this.getCart().getShoppingCart();
+        if (shoppingCart.isEmpty()) {
+            System.out.println("Cannot create an order because the shopping cart is empty.");
         }
-        getOrders().add(newOrder);
-    }
 
+        //create new order with inputted shipping address
+        Order newOrder = new Order(this, shippingAddress);
+        newOrder.setShoppingList(shoppingCart);
+
+
+        // Insert order items into the database
+        for (HashMap.Entry<String, Integer> entry : shoppingCart.entrySet()) {
+            String productSku = entry.getKey();
+            int quantity = entry.getValue();
+            newOrder.insertOrderItem(this.getOrderId(), productSku, quantity, this.getUserId(), shippingAddress);
+        }
+        // Optionally, you can clear the customer's shopping cart
+        this.clearCart();
+
+        // Add the new order to the customer's order history (you can do this if you have an orders collection)
+        if (orders == null) {
+            orders = new HashSet<Order>();
+        }
+        orders.add(newOrder);
+    }
 }

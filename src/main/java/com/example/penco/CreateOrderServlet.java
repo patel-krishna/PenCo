@@ -26,14 +26,15 @@ public class CreateOrderServlet extends HttpServlet {
         Customer user = (Customer) servletContext.getAttribute("User");
         Cart cart = facade.getCart(user);
 
-        // Get shipping address from the form
+        // Get shipping address from form
         String shippingAddress = request.getParameter("shipping_address");
 
-        // Create order with shipping address
-        user.createOrder(user,shippingAddress);
-
-        // Store the new order in the database
+        //create new order with given user and inputted shipping address
+        Order newOrder = new Order(user, shippingAddress);
+        newOrder.setShoppingList(cart.getShoppingCart());
         facade.createOrder(user, shippingAddress);
+
+
 
         // Clear users cart after order is placed
         user.clearCart();

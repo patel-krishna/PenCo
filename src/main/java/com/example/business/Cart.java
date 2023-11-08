@@ -145,7 +145,7 @@ public class Cart {
             return -1;
     }
 
-    private int getUserIdByUsername(String username) {
+    int getUserIdByUsername(String username) {
         int userId = -1;
 
         SQLConnector connector = new SQLConnector();
