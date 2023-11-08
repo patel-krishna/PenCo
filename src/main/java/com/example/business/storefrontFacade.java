@@ -1,9 +1,9 @@
 package com.example.business;
-import java.sql.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.io.File;
+import java.util.List;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -114,8 +114,16 @@ public class storefrontFacade {
         }
     }
 
-    public List<Order> getOrders(User user){
+    public List<Integer> getOrders(User user){
+        if (user instanceof Customer) {
+            Customer customer = (Customer) user;
+            return customer.getOrders2(customer);
+        }if (user instanceof Staff){
+            Staff staff = (Staff) user;
+            return staff.getOrders2(staff);
+        }
 
+        return null;
     }
 
 

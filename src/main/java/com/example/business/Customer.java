@@ -144,6 +144,42 @@ public class Customer extends User {
         return orders;
     }
 
+
+    public List<Integer> getOrders2(Customer user) {
+        List<Integer> order_ids = new ArrayList<>();
+
+        SQLConnector connector = new SQLConnector();
+
+        int userId = user.getUserId();
+
+        if (userId != -1) {
+            // Make a database connection using your SQLConnector class
+            try {
+                String query = "SELECT * FROM Orders WHERE user_id = ?";
+
+                try (PreparedStatement statement = connector.myDbConn.prepareStatement(query)) {
+                    statement.setInt(1, userId);
+
+                    try (ResultSet resultSet = statement.executeQuery()) {
+                        while (resultSet.next()) {
+                            int orderId = resultSet.getInt("order_id");
+                            String shippingAddress = resultSet.getString("shipping_address");
+
+                            // Create an Order object and add it to the list
+                            Order order = new Order(user, shippingAddress);
+                            order_ids.add(orderId);
+                        }
+                    }
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return order_ids;
+    }
+
+
     public void setOrders(Set<Order> orders) {
         this.orders = orders;
     }
