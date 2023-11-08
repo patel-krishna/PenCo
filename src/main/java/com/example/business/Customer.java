@@ -7,11 +7,12 @@ import com.example.business.Cart;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.sql.Statement;
+import java.util.*;
 
 public class Customer extends User {
 
     private Cart shoppingCart;
-    private Set<Order> orders;
+    private Set<Order> orders = new HashSet<>();
 
 
     //Constructor
@@ -102,18 +103,53 @@ public class Customer extends User {
 
         //get the cart from username
         int cartId = shoppingCart.getCartIdByUsername(this.username);
+
         //if cart exists
         if(cartId != -1){
             shoppingCart.deleteAllCart(cartId);
         }
     }
 
-    public Set<Order> getOrders() {
+    public List<Order> GetOrders(Customer user) {
+        List<Order> orders = new ArrayList<>();
+
+        SQLConnector connector = new SQLConnector();
+
+        int userId = user.getUserId();
+
+        if (userId != -1) {
+            // Make a database connection using your SQLConnector class
+            try {
+                String query = "SELECT * FROM Orders WHERE user_id = ?";
+
+                try (PreparedStatement statement = connector.myDbConn.prepareStatement(query)) {
+                    statement.setInt(1, userId);
+
+                    try (ResultSet resultSet = statement.executeQuery()) {
+                        while (resultSet.next()) {
+                            int orderId = resultSet.getInt("order_id");
+                            String shippingAddress = resultSet.getString("shipping_address");
+
+                            // Create an Order object and add it to the list
+                            Order order = new Order(user, shippingAddress);
+                            orders.add(order);
+                        }
+                    }
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
         return orders;
     }
 
     public void setOrders(Set<Order> orders) {
         this.orders = orders;
+    }
+
+    public void addOrder(Order order) {
+        orders.add(order); //how to link user
     }
 
     public void createOrder(Customer user,String shippingAddress) {
@@ -127,23 +163,18 @@ public class Customer extends User {
         Order newOrder = new Order(this, shippingAddress);
         newOrder.setShoppingList(shoppingCart);
 
-        //setorderid
+        // Insert order info get the generated orderId
         int orderId = newOrder.insertOrderInfo(this.getUserId(), shippingAddress);
 
+        // Insert order items
+        newOrder.insertOrderItems(orderId);
 
-
-        // Insert order items & order info into the database
-        newOrder.insertOrderInfo(this.getUserId(), shippingAddress);
-
-        System.out.println(orderID);
-        newOrder.insertOrderItems(orderID);
-
-        this.clearCart();
+        //user.clearCart();
 
         // Add the new order to the customer's order history (you can do this if you have an orders collection)
         if (orders == null) {
             orders = new HashSet<Order>();
         }
-        orders.add(newOrder);
+        this.addOrder(newOrder);
     }
 }

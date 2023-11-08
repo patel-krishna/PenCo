@@ -2,7 +2,7 @@ package com.example.business;
 import java.sql.*;
 
 public class SQLConnector {
-     public Connection myDbConn;
+    public Connection myDbConn;
 
     public SQLConnector() {
 
@@ -23,7 +23,6 @@ public class SQLConnector {
         }
     }
 
-    // Add methods for performing database operations using 'myDbConn'
 
     public void closeConnection() {
         try {

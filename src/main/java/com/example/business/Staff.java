@@ -2,12 +2,14 @@ package com.example.business;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.File;
 import java.sql.*;
+import java.util.List;
 
 public class Staff extends User{
 
@@ -154,6 +156,41 @@ public class Staff extends User{
 
         connector.closeConnection();
         return csvFile;
+    }
+
+    public List<Order> GetOrders(Customer user) {
+        List<Order> orders = new ArrayList<>();
+
+        SQLConnector connector = new SQLConnector();
+
+        int userId = user.getUserId();
+
+        if (userId != -1) {
+            // Make a database connection using your SQLConnector class
+            try {
+                String query = "SELECT * FROM Orders";
+
+                try (PreparedStatement statement = connector.myDbConn.prepareStatement(query)) {
+                    statement.setInt(1, userId);
+
+                    try (ResultSet resultSet = statement.executeQuery()) {
+                        while (resultSet.next()) {
+                            int orderId = resultSet.getInt("order_id");
+                            String shippingAddress = resultSet.getString("shipping_address");
+
+                            // Create an Order object and add it to the list
+                            //Order order = new Order(user, shippingAddress);
+                            //orders.add(order);
+
+                        }
+                    }
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return orders;
     }
 
 

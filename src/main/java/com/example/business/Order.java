@@ -44,7 +44,7 @@ public class Order {
         this.shoppingList = shoppingList;
     }
 
-    public void insertOrderInfo(int userId, String shippingAddress) {
+    public int insertOrderInfo(int userId, String shippingAddress) {
         SQLConnector connector = new SQLConnector();
         int orderId = -1; // Initialize orderId to -1
 
@@ -65,6 +65,7 @@ public class Order {
             try (ResultSet generatedKeys = insertOrderStatement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
                     orderId = generatedKeys.getInt(1); // Get the generated order ID
+                    return orderId;
                 } else {
                     throw new SQLException("Creating order failed, no ID obtained.");
                 }
@@ -74,6 +75,7 @@ public class Order {
         } finally {
             connector.closeConnection();
         }
+        return orderId;
     }
 
     public void insertOrderItems(int orderId) {
