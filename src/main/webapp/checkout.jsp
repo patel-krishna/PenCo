@@ -55,7 +55,7 @@
   <label for="address">Address Line:</label>
   <input type="text" id="address" name="shipping-address" required><br>
 
-  <button type="submit" class="submit-order">Submit Order</button>
+  <a href="order.jsp"><button type="submit" class="submit-order">Submit Order</button></a>
 </form>
 </body>
 
