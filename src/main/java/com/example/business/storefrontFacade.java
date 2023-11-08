@@ -209,9 +209,9 @@ public class storefrontFacade {
         if (user instanceof Customer) {
             Customer customer = (Customer) user;
             Set<Order> customerOrders = customer.getOrders();
-            for (Order o : customerOrders) {
-                if(o.getOrderID() == orderID) {
-                    return o;
+            for (Order order : customerOrders) {
+                if(order.getOrderID() == orderID) {
+                    return order;
                 }
             }
             throw new Exception("User " + user.username + " does not have an order with ID " + orderID);

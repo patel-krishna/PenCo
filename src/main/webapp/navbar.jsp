@@ -39,6 +39,7 @@
             <li><a href="${pageContext.request.contextPath}/index.jsp">Home</a></li>
             <li><a href="${pageContext.request.contextPath}/products">All Products</a></li>
             <li><a href="${pageContext.request.contextPath}/create-product.jsp">Create Product</a></li>
+            <li><a href="${pageContext.request.contextPath}/view-order.jsp">View Order</a></li>
             <li>Welcome, staff member <%=user.getUsername()%>!</li>
         </ul>
     </div>

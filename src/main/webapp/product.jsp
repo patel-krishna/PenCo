@@ -144,6 +144,7 @@
 
   }
 
+
     /*Styling for Poduct Card*/
     .container {
         display: flex;
