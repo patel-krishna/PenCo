@@ -54,15 +54,17 @@
     </form>
 
 </section>
+    <section class="checkout-section">
+        <a href="${pageContext.request.contextPath}/checkout.jsp"><button class="button">Checkout Order</button></a>
+    </section>
+
 <%}
     }else{ %>
         <h2>Cart Is Empty</h2>
       <%
     }
 %>
-    <section class="checkout-section">
-        <a href="${pageContext.request.contextPath}/checkout.jsp"><button>Checkout Order</button></a>
-    </section>
+
 </main>
 
 <style>

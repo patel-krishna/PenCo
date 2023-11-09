@@ -22,23 +22,45 @@ public class ViewOrderServlet extends HttpServlet{
             throws ServletException, IOException {
 
         String pathInfo = request.getPathInfo();
+        try {
+            int orderID = Integer.parseInt(pathInfo.substring(1));
+
+            ServletContext servletContext = getServletContext();
+            User user = (User) servletContext.getAttribute("User");
+
+            storefrontFacade facade = new storefrontFacade();
+            Order order = facade.getOrder(user, orderID);
+
+            // Set the products list as an attribute in the request
+            request.setAttribute("order", order);
+            request.setAttribute("order_id", orderID);
+
+            // Forward the request to the JSP page responsible for displaying the products
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/vieworder.jsp");
+            dispatcher.forward(request, response);
+        } catch (NumberFormatException e) {
+            // Handle the case where the pathInfo does not represent a valid integer
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid order ID");
+        }
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        int order_id = Integer.parseInt(request.getParameter("orderID"));
+
+        String pathInfo = request.getPathInfo();
         int orderID = Integer.parseInt(pathInfo.substring(1));
-        System.out.println(orderID);
 
         ServletContext servletContext = getServletContext();
-        User user = (User) servletContext.getAttribute("User");
-
+        Staff user = (Staff) servletContext.getAttribute("User");
         storefrontFacade facade = new storefrontFacade();
-        Order order = facade.getOrder(user, orderID);
+        int trackingNum = Math.abs(facade.generateUniqueTrackingNumber());
 
-        // Set the products list as an attribute in the request
-        request.setAttribute("order", order);
-        request.setAttribute("order_id", orderID);
+        facade.shipOrder(user,order_id,trackingNum);
 
-        // Forward the request to the JSP page responsible for displaying the products
-        // Forward the request to the JSP page while keeping the URL as "/products"
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/vieworder.jsp");
-        dispatcher.forward(request, response);
+        response.sendRedirect(request.getContextPath() + "/orders/" + order_id);
+        request.getSession().setAttribute("successMessage", "Order has been shipped!");
+
     }
 
 }

@@ -162,6 +162,35 @@ public class User {
         return orderId;
     }
 
+    public int getTrackingNumber(int orderID) {
+        SQLConnector connector = new SQLConnector();
+        int trackingNumber = -1; // Default value if not found
 
+        try {
+            // Define the SQL select statement
+            String selectOrderQuery = "SELECT tracking_number FROM shipped_orders WHERE order_id = ?";
+            PreparedStatement preparedStatement = connector.myDbConn.prepareStatement(selectOrderQuery);
+
+            // Set the value for the order ID
+            preparedStatement.setInt(1, orderID);
+
+            // Execute the query
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            // Check if a row is found
+            if (resultSet.next()) {
+                // Retrieve the tracking number from the result set
+                trackingNumber = resultSet.getInt("tracking_number");
+            }
+
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        } finally {
+            // Close the database connection (if needed)
+            connector.closeConnection();
+        }
+
+        return trackingNumber;
+    }
 
 }

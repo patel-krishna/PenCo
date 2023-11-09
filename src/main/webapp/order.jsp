@@ -12,6 +12,7 @@
   <title>Order Page</title>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/style/style.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/style/index.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap" rel="stylesheet">
@@ -26,11 +27,11 @@
   String shippingAddress = (String) request.getAttribute("shippingAddress");
 %>
 <jsp:include page="navbar.jsp" />
+<header>
+  <h2>Thank you for your order <%= user.getUsername() %> ! </h2>
+  <h3>Your Shipping Address: <%= shippingAddress %></h3>
+</header>
 
-<h1>Thank you for your order <%= user.getUsername() %> ! </h1>
-
-
-<h2>Shipping Details:</h2>
-<h3>Shipping Address: <%= shippingAddress %></h3>
 </body>
+
 </html>

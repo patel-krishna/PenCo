@@ -36,7 +36,8 @@ public class ViewOrdersServlet extends HttpServlet {
         }
 
         // Forward to your JSP page for displaying orders
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/viewOrders.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/vieworders.jsp");
         dispatcher.forward(request, response);
     }
+
 }
