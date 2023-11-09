@@ -40,29 +40,10 @@
 
     <tr>
         <td><%=order_ids.get(i)%></td>
-        <td>
-
-            <form>
-                <form action="${pageContext.request.contextPath}/orders/<%=order_ids.get(i)%>" method="post">
-                    <!-- Hidden field to specify the product slug to be added to the cart -->
-                    <input type="hidden" name="order_id" value="<%=order_ids.get(i)%>">
-                    <button class="button" type="submit">View Order Details</button>
-                </form>
-            </form>
-
-        </td>
+        <td><a class="button" href="orders/<%=order_ids.get(i)%>">View Order</a>
     </tr>
     <% } %>
 
-
-    <%--    --%>
-    <%--    <c:forEach items="${order_ids}" var="order">--%>
-    <%--        <tr>--%>
-    <%--            <td>${order.getOrderId()}</td>--%>
-    <%--            <td>${order.getCustomerId()}</td>--%>
-    <%--            <td>${order.getShippingAddress()}</td>--%>
-    <%--        </tr>--%>
-    <%--    </c:forEach>--%>
 </table>
 </body>
 </html>

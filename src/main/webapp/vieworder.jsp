@@ -9,35 +9,38 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.example.business.*" %>
+<%@ page import="java.util.HashMap" %>
+<%@ page import="java.util.Map" %>
 
 <%
 
   User user = (User) application.getAttribute("User");
-  List<Integer> orderIds = ((Customer) user).getOrders2((Customer) user);
-
-  //girl idk
-  //List<Order> orderlist = (List<Order>) request.getAttribute("order_id");
-
-  for (int orderId : orderIds) {
-    Order displayOrder = ((Customer) user).getOrder((Customer) user, orderId);
+  Order order = (Order) request.getAttribute("order");
+  int order_id = (int) request.getAttribute("order_id");
 %>
 
-<h2>Order ID: <%= displayOrder.getOrderIdByUserId((Customer) user) %></h2>
+<h2>Order ID: <%=order_id%></h2>
+<h3>Shipping address: <%=order.getShippingAddress()%> </h3>
 
+<table border="1">
+  <tr>
+    <th>Product</th>
+    <th>Quantity</th>
+  </tr>
 
-<%
-  // Assuming you have a method to get order items for the current order
-  List<Order> orderItems = ((Customer) user).getOrderItems(displayOrder.getOrderId());
+  <%
+    // Retrieve the productMap from the request
+    HashMap<String, Integer> productMap = order.getShoppingList();
 
-  // Display order items
-  for (Order orderItem : orderItems) {
-%>
-<p>Product SKU: <%= orderItem.getProductSku() %></p>
-<p>Quantity: <%= orderItem.getQuantity() %></p>
-<!-- Add other order item details as needed -->
-<%
-  }
-%>
-<%
-  }
-%>
+    // Iterate over the map and print table rows
+    for (Map.Entry<String, Integer> entry : productMap.entrySet()) {
+  %>
+  <tr>
+    <td><%= entry.getKey() %></td>
+    <td><%= entry.getValue() %></td>
+  </tr>
+  <%
+    }
+  %>
+
+</table>

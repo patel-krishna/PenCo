@@ -11,8 +11,6 @@ public class Order {
     private int orderId;
     private Customer customer;
     private String shippingAddress;
-    private int trackNumber;
-    private String productSku;
     private HashMap<String, Integer> shoppingList; // Map of product SKU to quantity
 
     public Order(HashMap<String,Integer> products, String shippingAddress) {
@@ -32,14 +30,6 @@ public class Order {
 
     public void setShippingAddress(String shippingAddress) {
         this.shippingAddress = shippingAddress;
-    }
-
-    public int getTrackNumber() {
-        return trackNumber;
-    }
-
-    public void setTrackNumber(int trackNumber) {
-        this.trackNumber = trackNumber;
     }
 
     public HashMap<String, Integer> getShoppingList() {

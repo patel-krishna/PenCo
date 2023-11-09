@@ -242,8 +242,8 @@ public class Customer extends User {
         }
 
         //create new order with inputted shipping address
-        Order newOrder = new Order(this, shippingAddress);
-        newOrder.setShoppingList(shoppingCart);
+        Order newOrder = new Order(user, shippingAddress,shoppingCart);
+       // newOrder.setShoppingList(shoppingCart);
 
         // Insert order info get the generated orderId
         int orderId = newOrder.insertOrderInfo(this.getUserId(), shippingAddress);
