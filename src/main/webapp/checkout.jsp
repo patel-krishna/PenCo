@@ -20,11 +20,8 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 </head>
 <body>
-<<<<<<< HEAD
 <jsp:include page="navbar.jsp"/>
-=======
-<jsp:include page="navbar.jsp" />
->>>>>>> main
+
 <%
   Customer user = (Customer) application.getAttribute("User");
   Cart cart = user.getCart();
