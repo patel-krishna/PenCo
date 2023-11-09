@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `penco` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `penco`;
 -- MySQL dump 10.13  Distrib 8.0.34, for Win64 (x86_64)
 --
 -- Host: penco.mysql.database.azure.com    Database: penco
@@ -34,7 +32,7 @@ CREATE TABLE `orderitems` (
   KEY `product_sku` (`product_sku`),
   CONSTRAINT `orderitems_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`),
   CONSTRAINT `orderitems_ibfk_2` FOREIGN KEY (`product_sku`) REFERENCES `products` (`SKU`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,7 +41,7 @@ CREATE TABLE `orderitems` (
 
 LOCK TABLES `orderitems` WRITE;
 /*!40000 ALTER TABLE `orderitems` DISABLE KEYS */;
-INSERT INTO `orderitems` VALUES (4,1,'SKU567123',3),(5,2,'SKU123890',2),(6,3,'SKU345678',4),(7,4,'SKU456789',2),(8,5,'SKU789012',3),(9,5,'SKU345678',2),(26,22,'SKU234567',12),(27,22,'SKU123456',5),(28,23,'SKU234567',12),(29,23,'SKU123456',5),(30,24,'SKU234567',12),(31,24,'SKU123456',5),(32,25,'SKU123456',17),(33,26,'SKU456789',3);
+INSERT INTO `orderitems` VALUES (34,27,'SKU123456',2),(35,28,'SKU123890',2),(36,28,'SKU456789',3);
 /*!40000 ALTER TABLE `orderitems` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -56,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-08 22:33:12
+-- Dump completed on 2023-11-09 12:51:01
