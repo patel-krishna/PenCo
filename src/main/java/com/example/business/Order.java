@@ -11,8 +11,6 @@ public class Order {
     private int orderId;
     private Customer customer;
     private String shippingAddress;
-    private int trackNumber;
-    private String productSku;
     private HashMap<String, Integer> shoppingList; // Map of product SKU to quantity
 
     public Order(HashMap<String,Integer> products, String shippingAddress) {
@@ -32,14 +30,6 @@ public class Order {
 
     public void setShippingAddress(String shippingAddress) {
         this.shippingAddress = shippingAddress;
-    }
-
-    public int getTrackNumber() {
-        return trackNumber;
-    }
-
-    public void setTrackNumber(int trackNumber) {
-        this.trackNumber = trackNumber;
     }
 
     public HashMap<String, Integer> getShoppingList() {
@@ -135,7 +125,33 @@ public class Order {
         }
     }
 
+    public boolean isOrderShipped(int orderID) {
+        SQLConnector connector = new SQLConnector();
 
+        try {
+            // Define the SQL select statement to check if the order has been shipped
+            String selectOrderQuery = "SELECT COUNT(*) FROM shipped_orders WHERE order_id = ?";
+            PreparedStatement preparedStatement = connector.myDbConn.prepareStatement(selectOrderQuery);
+
+            // Set the value for the orderID
+            preparedStatement.setInt(1, orderID);
+
+            // Execute the select
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            // Check if any rows are returned (order has been shipped)
+            if (resultSet.next()) {
+                int count = resultSet.getInt(1);
+                return count > 0;
+            }
+
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+
+        // Default to false if an exception occurs
+        return false;
+    }
 
 
 }

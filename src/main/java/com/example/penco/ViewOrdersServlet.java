@@ -38,4 +38,5 @@ public class ViewOrdersServlet extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/vieworders.jsp");
         dispatcher.forward(request, response);
     }
+
 }

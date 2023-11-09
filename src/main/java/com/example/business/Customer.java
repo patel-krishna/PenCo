@@ -205,20 +205,26 @@ public class Customer extends User {
             PreparedStatement shippingStatement = connector.myDbConn.prepareStatement(getShippingQuery);
 
             shippingStatement.setInt(1, orderId);
-            ResultSet shippingAddressResult = preparedStatement.executeQuery();
+            ResultSet shippingAddressResult = shippingStatement.executeQuery();
 
-            String shippingAddress = null;
+// Check if the result set has any rows
             if (shippingAddressResult.next()) {
                 // Retrieve the shipping address
-                shippingAddress = shippingAddressResult.getString("shipping_address");
+                String shippingAddress = shippingAddressResult.getString("shipping_address");
 
                 // Do something with the shipping address, for example, print it
                 System.out.println("Shipping Address: " + shippingAddress);
+
+                Order order = new Order((Customer) user, shippingAddress, products);
+                return order;
+                // Do something with the order
+            } else {
+                // Handle the case where no shipping address was found
+                System.out.println("No shipping address found for order ID: " + orderId);
             }
 
-            Order order = new Order((Customer) user, shippingAddress, products);
 
-            return order;
+            return null;
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
@@ -242,7 +248,8 @@ public class Customer extends User {
         }
 
         //create new order with inputted shipping address
-        Order newOrder = new Order(shoppingCart,shippingAddress);
+        Order newOrder = new Order(user, shippingAddress,shoppingCart);
+       // newOrder.setShoppingList(shoppingCart);
 
         // Insert order info get the generated orderId
         int orderId = newOrder.insertOrderInfo(this.getUserId(), shippingAddress);

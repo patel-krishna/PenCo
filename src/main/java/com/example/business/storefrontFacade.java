@@ -1,9 +1,11 @@
 package com.example.business;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.io.File;
 import java.util.List;
+import java.util.Random;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -137,7 +139,7 @@ public class storefrontFacade {
         }
         if (user instanceof Staff) {
             Staff staff = (Staff) user;
-            return staff.getOrder(user, orderId);
+            return staff.getOrder(orderId);
         }
         return order;
     }
@@ -146,7 +148,17 @@ public void shipOrder(User user, int orderID, int trackingNumber){
         if(user instanceof Staff){
             Staff staff = (Staff) user;
             staff.shipOrder(orderID, trackingNumber);
+        }else{
+            System.out.println("You cannot ship an order! You're not a staff");
         }
+}
+
+//helper method to randomly generate tracking numbers
+public int generateUniqueTrackingNumber() {
+    // Generate a unique tracking number using a combination of timestamp and random component
+    long timestamp = System.currentTimeMillis();
+    int randomComponent = new Random().nextInt(1000000); // Adjust the range as needed
+    return Math.abs((int) (timestamp % Integer.MAX_VALUE) * 1_000_000 + randomComponent);
 }
 
 }
