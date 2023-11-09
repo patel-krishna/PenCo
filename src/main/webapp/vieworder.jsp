@@ -11,18 +11,11 @@
 <%@ page import="com.example.business.*" %>
 
 <%
-
   User user = (User) application.getAttribute("User");
-  List<Integer> orderIds = ((Customer) user).getOrders2((Customer) user);
-
-  //girl idk
-  //List<Order> orderlist = (List<Order>) request.getAttribute("order_id");
-
-  for (int orderId : orderIds) {
-    Order displayOrder = ((Customer) user).getOrder((Customer) user, orderId);
+  Product product = (Product) request.getAttribute("product");
 %>
 
-<h2>Order ID: <%= displayOrder.getOrderIdByUserId((Customer) user) %></h2>
+<h2>Order ID: </h2>
 
 
 <%

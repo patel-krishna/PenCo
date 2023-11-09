@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 
-@WebServlet(name="viewOrders", value="/orders")
+@WebServlet(name="vieworders", value="/orders")
 public class ViewOrdersServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -35,7 +35,7 @@ public class ViewOrdersServlet extends HttpServlet {
             request.setAttribute("orders", orders);
         }
 
-        // Forward to your JSP page for displaying order details
+        // Forward to your JSP page for displaying orders
         RequestDispatcher dispatcher = request.getRequestDispatcher("/viewOrders.jsp");
         dispatcher.forward(request, response);
     }
