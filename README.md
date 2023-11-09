@@ -3,7 +3,13 @@
 PenCo is a storefront for stationery. Built using Java and JSP for SOEN-387 Assignment 1. 
 
 ### Important
-In order to run the project properly on your machine, the file paths of the XML which contain the data must but updated accordingly to the file paths of the machine it's being run on. This can be done in the class under the business package named storeFrontFacade where there are two Strings set as global variables named filePathProducts and filePathUsers.
+##### Staff login: 
+`-username: staff
+-password: password `
+
+##### User login:
+`-username: user
+-password: password `
 
 
 ## Authors
