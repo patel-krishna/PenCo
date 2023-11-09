@@ -13,7 +13,6 @@
 <%@ page import="java.util.Map" %>
 
 <%
-
   User user = (User) application.getAttribute("User");
   Order order = (Order) request.getAttribute("order");
   int order_id = (int) request.getAttribute("order_id");

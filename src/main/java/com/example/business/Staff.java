@@ -261,7 +261,7 @@ public class Staff extends User{
 
         return order_ids;
     }
-    public Order getOrder(int orderId) {
+    public Order getOrder(User user,int orderId) {
 
         //from order id get all order items --> get the product_sku and quantiy
             //add this information into a temporary hashmap

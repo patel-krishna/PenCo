@@ -3,11 +3,8 @@
 <%@ page import="java.util.List" %>
 
 <%
-    List<Order> orders = DatabaseHelper.getOrdersFromDatabase();
-%>
-<%
     User user = (User) application.getAttribute("User");
-    List<Integer> order_ids = (List<Integer>) request.getAttribute("order_ids");
+    List<Integer> order_ids = (List<Integer>) request.getAttribute("orders");
 %>
 <!DOCTYPE html>
 <html>
@@ -29,11 +26,8 @@
 <h1>Orders List</h1>
 <table border="1">
     <tr>
-
         <th>Order ID</th>
         <th>View Order</th>
-        <%--        <th>Customer ID</th>--%>
-        <%--        <th>Shipping Address</th>--%>
     </tr>
 
     <% for (int i=0; i<order_ids.size(); i++){ %>
@@ -43,7 +37,6 @@
         <td><a class="button" href="orders/<%=order_ids.get(i)%>">View Order</a>
     </tr>
     <% } %>
-
 </table>
 </body>
 </html>

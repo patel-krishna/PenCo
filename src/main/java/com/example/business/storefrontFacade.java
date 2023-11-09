@@ -137,7 +137,7 @@ public class storefrontFacade {
         }
         if (user instanceof Staff) {
             Staff staff = (Staff) user;
-            return staff.getOrder(orderId);
+            return staff.getOrder(user, orderId);
         }
         return order;
     }
