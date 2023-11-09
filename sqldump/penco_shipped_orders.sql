@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `penco` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `penco`;
 -- MySQL dump 10.13  Distrib 8.0.34, for Win64 (x86_64)
 --
 -- Host: penco.mysql.database.azure.com    Database: penco
@@ -31,7 +29,7 @@ CREATE TABLE `shipped_orders` (
   PRIMARY KEY (`shipping_id`),
   KEY `order_id` (`order_id`),
   CONSTRAINT `shipped_orders_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,6 +38,7 @@ CREATE TABLE `shipped_orders` (
 
 LOCK TABLES `shipped_orders` WRITE;
 /*!40000 ALTER TABLE `shipped_orders` DISABLE KEYS */;
+INSERT INTO `shipped_orders` VALUES (5,27,-1153218854);
 /*!40000 ALTER TABLE `shipped_orders` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-08 22:33:05
+-- Dump completed on 2023-11-09 12:51:07
