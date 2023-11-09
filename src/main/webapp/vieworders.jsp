@@ -14,6 +14,23 @@
 <head>
     <title>View Orders</title>
     <meta charset="UTF-8">
+    <style>
+        table, td, th {
+            border: 1px solid black;
+
+
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 30%;
+            margin: 0 auto; /* This will center the table horizontally */
+        }
+
+
+
+
+    </style>
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/style/style.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/style/index.css">
@@ -39,19 +56,18 @@
     <% for (int i=0; i<order_ids.size(); i++){ %>
 
     <tr>
-        <td><%=order_ids.get(i)%></td>
-        <td>
-
-            <form>
-                <form action="${pageContext.request.contextPath}/orders/<%=order_ids.get(i)%>" method="post">
-                    <!-- Hidden field to specify the product slug to be added to the cart -->
-                    <input type="hidden" name="order_id" value="<%=order_ids.get(i)%>">
-                    <button class="button" type="submit">View Order Details</button>
-                </form>
+        <td style="text-align: center;"><%=order_ids.get(i)%></td>
+        <td style="text-align: center;"> <!-- Add this style for center alignment -->
+            <form action="${pageContext.request.contextPath}/orders/<%=order_ids.get(i)%>" method="post">
+                <!-- Hidden field to specify the product slug to be added to the cart -->
+                <input type="hidden" name="order_id" value="<%=order_ids.get(i)%>">
+                <button class="button" type="submit">View Order Details</button>
             </form>
-
         </td>
     </tr>
+
+
+
     <% } %>
 
 
