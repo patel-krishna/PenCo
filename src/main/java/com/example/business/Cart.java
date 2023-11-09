@@ -145,7 +145,7 @@ public class Cart {
             return -1;
     }
 
-    private int getUserIdByUsername(String username) {
+    int getUserIdByUsername(String username) {
         int userId = -1;
 
         SQLConnector connector = new SQLConnector();
@@ -272,6 +272,7 @@ public class Cart {
             //delete cart from Carts
             String deleteCartQuery = "DELETE FROM Carts WHERE cart_id = ?";
             PreparedStatement deleteCartStatement = connector.myDbConn.prepareStatement(deleteCartQuery);
+            deleteCartStatement.setInt(1, cartID);
 
             rowsAffected = deleteCartStatement.executeUpdate();
             System.out.println(rowsAffected + " row(s) deleted from Carts with cart_id = " + cartID);

@@ -23,6 +23,7 @@
         <ul class="nav-links">
             <li><a href="${pageContext.request.contextPath}/index.jsp">Home</a></li>
             <li><a href="${pageContext.request.contextPath}/products">All Products</a></li>
+            <li><a href="${pageContext.request.contextPath}/orders">View Your Orders</a></li>
             <li><a href="${pageContext.request.contextPath}/cart.jsp">Cart</a></li>
             <li>Welcome, <%=user.getUsername()%> </li>
         </ul>
@@ -39,6 +40,7 @@
             <li><a href="${pageContext.request.contextPath}/index.jsp">Home</a></li>
             <li><a href="${pageContext.request.contextPath}/products">All Products</a></li>
             <li><a href="${pageContext.request.contextPath}/create-product.jsp">Create Product</a></li>
+            <li><a href="${pageContext.request.contextPath}/orders">View Orders</a></li>
             <li>Welcome, staff member <%=user.getUsername()%>!</li>
         </ul>
     </div>
