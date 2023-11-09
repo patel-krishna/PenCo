@@ -1,5 +1,4 @@
 package com.example.penco;
-package com.example.penco;
 
 import com.example.business.*;
 import jakarta.servlet.RequestDispatcher;
@@ -7,27 +6,31 @@ import jakarta.servlet.ServletContext;
 import jakarta.servlet.annotation.WebServlet;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-@WebServlet(name = "viewOrders", value = "/view-order")
+
+
+@WebServlet(name="viewOrders", value="/orders")
 public class ViewOrdersServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int userID = Integer.parseInt(request.getParameter("userID"));
-        int orderID = Integer.parseInt(request.getParameter("orderID"));
-        String shippingAddress = request.getParameter("shippingAddress");
+        List<Order> orders = DatabaseHelper.getOrdersFromDatabase();
+        request.setAttribute("orders", orders);
 
-        request.setAttribute("orders", getOrders());
+        ServletContext servletContext = getServletContext();
+        User user = (User) servletContext.getAttribute("User");
 
-        // Forward the request to the view orders JSP page
-        request.getRequestDispatcher("/view-orders.jsp").forward(request, response);
+        storefrontFacade facade = new storefrontFacade();
+
+        List<Integer> order_ids = facade.getOrders(user);
+
+        request.setAttribute("order_ids", order_ids);
+
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/vieworders.jsp");
+        dispatcher.forward(request, response);
     }
-
-    private Object getOrders() {
-        // Implement logic to retrieve orders data
-        // For simplicity, I'm returning a dummy data
-        // You should replace this with your actual logic to fetch orders from the database
-        return null;
-    }
+}

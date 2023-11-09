@@ -4,8 +4,8 @@ CREATE TABLE Products (
     description TEXT,
     vendor VARCHAR(100),
     url_slug VARCHAR(100),
-    price DECIMAL(10, 2) NOT NULL,
-    imgSrc VARCHAR(1000) NOT NULL
+    price DECIMAL(10, 2) NULL,
+    imgSrc VARCHAR(1000) NULL
 );
 
 
@@ -70,3 +70,4 @@ INSERT INTO Users (username, password, is_staff) VALUES
             ('staff', 'password', true),
             ('robert_brown', 'password', true),
             ('sarah_jones', 'password', false);
+

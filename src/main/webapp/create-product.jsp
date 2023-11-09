@@ -13,13 +13,12 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/index.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/style.css">
     <meta charset="UTF-8">
-    <link rel="preconnect" href="https://fonts.googleapis.com%22%3E/
+    <link rel="preconnect" href="https://fonts.googleapis.com%22%3E/" >
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 
 </head>
-
 <body>
 <jsp:include page="navbar.jsp" />
 <h2>Create Product Form</h2>
@@ -50,6 +49,6 @@
 
         <button class="button" type="submit" class="submit-prod">Create Product</button>
     </form>
-</div>>
+</div>
 </body>
 </html>

@@ -1,10 +1,9 @@
 package com.example.business;
-import java.sql.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.io.File;
-import java.util.Set;
+import java.util.List;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -17,9 +16,10 @@ public class storefrontFacade {
 
     public SQLConnector connector;
 
-    public storefrontFacade(){
-       connector = new SQLConnector();
+    public storefrontFacade() {
+        connector = new SQLConnector();
     }
+
 
     public void createProduct(User user, String sku, String name) {
         if (user instanceof Staff) {
@@ -31,7 +31,8 @@ public class storefrontFacade {
 
         }
     }
-    public void updateProduct(User staff, Product updatedProd, String name, String description, String vendor, String URL, String SKU, double price, String imgSrc){
+
+    public void updateProduct(User staff, Product updatedProd, String name, String description, String vendor, String URL, String SKU, double price, String imgSrc) {
         if (staff instanceof Staff) {
             Staff staffUser = (Staff) staff;
             staffUser.updateProduct(updatedProd, name, description, vendor, URL, SKU, price, imgSrc);
@@ -42,12 +43,12 @@ public class storefrontFacade {
         }
     }
 
-    public Product getProduct(String sku){
+    public Product getProduct(String sku) {
         User user = new User();
         return user.getProduct(sku);
     }
 
-    public Product getProductBySlug(String slug){
+    public Product getProductBySlug(String slug) {
         User user = new User();
         return user.getProductBySlug(slug);
     }
@@ -63,186 +64,89 @@ public class storefrontFacade {
         }
     }
 
-    public void addProductToCart(User user, String sku, int quantity){
-        if(user instanceof Customer){
+    public void addProductToCart(User user, String sku, int quantity) {
+        if (user instanceof Customer) {
             Customer customer = (Customer) user;
-            customer.addProductToCart(sku,quantity);
+            customer.addProductToCart(sku, quantity);
         }
     }
 
-    public void removeProductFromCart(User user, String sku){
-        if(user instanceof Customer){
+    public void removeProductFromCart(User user, String sku) {
+        if (user instanceof Customer) {
             Customer customer = (Customer) user;
             customer.removeProductFromCart(sku);
         }
     }
 
-    public void setProductQuantityInCart(User user, String sku, int qty){
-        if(user instanceof Customer){
+    public void setProductQuantityInCart(User user, String sku, int qty) {
+        if (user instanceof Customer) {
             Customer customer = (Customer) user;
-            customer.setProductQuantityInCart(sku,qty);
+            customer.setProductQuantityInCart(sku, qty);
         }
     }
 
-    public void clearCart(User user){
-        if(user instanceof Customer){
+    public void clearCart(User user) {
+        if (user instanceof Customer) {
             Customer customer = (Customer) user;
             customer.clearCart();
         }
     }
 
-    public File downloadProductCatalogue(User user){
-        if(user instanceof Staff){
+    public File downloadProductCatalogue(User user) {
+        if (user instanceof Staff) {
             Staff staff = (Staff) user;
             return staff.downloadProductCatalog();
-        }else{
+        } else {
             System.out.println("Not a staff, cannot download catalogue.");
             return null;
         }
     }
 
-    public ArrayList<Product> getAllProducts(User user){
+    public ArrayList<Product> getAllProducts(User user) {
         return user.getAllProducts();
     }
 
-
-
-
-
-
-
-
-
-    //functions for when we were using in-app memory A1
-    public HashMap<String,Product> productInitialization(String filePath) {
-        HashMap<String, Product> productMap = new HashMap<>();
-        try {
-            File xmlFile = new File(filePath);
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(xmlFile);
-            doc.getDocumentElement().normalize();
-
-
-            NodeList productList = doc.getElementsByTagName("product");
-
-            for (int i = 0; i < productList.getLength(); i++) {
-                Element productElement = (Element) productList.item(i);
-                String sku = productElement.getElementsByTagName("sku").item(0).getTextContent();
-                String name = productElement.getElementsByTagName("name").item(0).getTextContent();
-                String description = productElement.getElementsByTagName("description").item(0).getTextContent();
-                String vendor = productElement.getElementsByTagName("vendor").item(0).getTextContent();
-                String slug = productElement.getElementsByTagName("slug").item(0).getTextContent();
-                double price = Double.parseDouble(productElement.getElementsByTagName("price").item(0).getTextContent());
-                String img = productElement.getElementsByTagName("img").item(0).getTextContent();
-
-                Product product = new Product(name, description, vendor, slug, sku, price, img);
-                productMap.put(sku, product);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return productMap;
-    }
-
-    public static HashMap<String, User> userInitialization(String filePath) {
-        HashMap<String, User> userMap = new HashMap<>();
-        try {
-            File xmlFile = new File(filePath);
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(xmlFile);
-            doc.getDocumentElement().normalize();
-
-            NodeList userList = doc.getElementsByTagName("user");
-
-            for (int i = 0; i < userList.getLength(); i++) {
-                Element userElement = (Element) userList.item(i);
-                String username = userElement.getElementsByTagName("username").item(0).getTextContent();
-                String password = userElement.getElementsByTagName("password").item(0).getTextContent();
-                String role = userElement.getElementsByTagName("role").item(0).getTextContent();
-
-                User user;
-                if ("customer".equals(role)) {
-                    user = new Customer(username, password);
-                } else {
-                    user = new Staff(username, password);
-                }
-                userMap.put(username, user);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return userMap;
-    }
-      public void createOrder(User user,String shippingAddress){
-        if (user instanceof Customer){
-            Customer customer = (Customer) user;
-            Cart shoppingCart=customer.getCart();
-            
-            if(!shoppingCart.getShoppingCart().isEmpty()){
-                // Generating a customer-unique OrderID
-                Set<Order> customerOrders = customer.getOrders();
-                // If the customer has no orders, set its first Order's OrderID to 1, the next to 2, etc.
-                int currentMax = 0;
-                for(Order o: customerOrders) {
-                    currentMax = Math.max(currentMax, o.getOrderID());
-                }
-                Order order=new Order(currentMax+1, shippingAddress);
-
-                order.setShoppingList(shoppingCart.getShoppingCart());
-                customer.clearCart();
-                customer.getOrders().add(order);
-            }
-        }
-    }
-    public Set<Order> getOrders(User user){
+    public void createOrder(User user, String address) {
         if (user instanceof Customer) {
             Customer customer = (Customer) user;
-            return customer.getOrders();
+            customer.createOrder(customer, address);
+        } else {
+            System.out.println("Cannot create an order for a non-customer user.");
         }
+    }
+
+    public List<Integer> getOrders(User user) {
+        if (user instanceof Customer) {
+            Customer customer = (Customer) user;
+            return customer.getOrders(customer);
+        }
+        if (user instanceof Staff) {
+            Staff staff = (Staff) user;
+            return staff.getOrders(staff);
+        }
+
         return null;
     }
 
-    public Order getOrder(User user, int orderID) throws Exception {
+    public Order getOrder(User user, int orderId) {
+        Order order=null;
         if (user instanceof Customer) {
             Customer customer = (Customer) user;
-            Set<Order> customerOrders = customer.getOrders();
-            for (Order order : customerOrders) {
-                if(order.getOrderID() == orderID) {
-                    return order;
-                }
-            }
-            throw new Exception("User " + user.username + " does not have an order with ID " + orderID);
+            int orderID = orderId;
+            return customer.getOrder(customer, orderID);
         }
-        return null;
+        if (user instanceof Staff) {
+            Staff staff = (Staff) user;
+            return staff.getOrder(orderId);
+        }
+        return order;
     }
 
-    public void shipOrder(User user, int orderID, int trackingNumber) {
-        try {
-            Order o = getOrder(user, orderID);
-            o.setTrackNumber(trackingNumber);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+public void shipOrder(User user, int orderID, int trackingNumber){
+        if(user instanceof Staff){
+            Staff staff = (Staff) user;
+            staff.shipOrder(orderID, trackingNumber);
         }
-    }
-
-//    public HashMap<String, Product> getAllProductsSku() {
-//        return allProductsSku;
-//    }
-//
-//    public HashMap<String, User> getAllUsers() {
-//        return allUsers;
-//    }
-//
-//    public User getCurrentUser() {
-//        return currentUser;
-//    }
-//
-//    public void setCurrentUser(User user) {
-//        currentUser = user;
-//    }
 }
 
-
+}
