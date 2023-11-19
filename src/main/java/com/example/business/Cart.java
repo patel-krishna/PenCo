@@ -20,17 +20,17 @@ public class Cart {
         return this.shoppingList;
     }
 
-    public HashMap<String, Integer> getShoppingCart(String username) {
+    public HashMap<String, Integer> getShoppingCart(String passcode) {
         HashMap<String, Integer> map = new HashMap<String, Integer>();
         SQLConnector connector = new SQLConnector();
         int userId = -1;
 
         try{
 
-            String userQuery = "SELECT user_id FROM Users WHERE username = ?";
+            String userQuery = "SELECT user_id FROM Users WHERE passcode = ?";
             PreparedStatement userStatement = connector.myDbConn.prepareStatement(userQuery);
 
-            userStatement.setString(1, username);
+            userStatement.setString(1, passcode);
 
             try (ResultSet userResult = userStatement.executeQuery()) {
                 if (userResult.next()) {
@@ -68,7 +68,7 @@ public class Cart {
     }
 
 
-    public int getCartIdByUsername(String username) {
+    public int getCartIdByPasscode(String passcode) {
         // Implement the logic to retrieve the cart ID for the given username
         // You can use a SQL query to fetch the cart ID based on the user's username
         // Return the cart ID if found, or -1 if not found
@@ -79,10 +79,10 @@ public class Cart {
         SQLConnector connector = new SQLConnector();
 
         try {
-            String userQuery = "SELECT user_id FROM Users WHERE username = ?";
+            String userQuery = "SELECT user_id FROM Users WHERE passcode = ?";
             PreparedStatement userStatement = connector.myDbConn.prepareStatement(userQuery);
 
-            userStatement.setString(1, username);
+            userStatement.setString(1, passcode);
 
             try (ResultSet userResult = userStatement.executeQuery()) {
                 if (userResult.next()) {
@@ -107,12 +107,12 @@ public class Cart {
         return cartId;
     }
 
-    public int createCart(String username) {
+    public int createCart(String passcode) {
         // Implement the logic to create a new cart and return its cart ID
         // You can use a SQL query to insert a new cart with the user's user_id
         // Return the generated cart ID if the cart is successfully created
 
-            int userId = getUserIdByUsername(username);
+            int userId = getUserIdByPasscode(passcode);
 
             if (userId != -1) {
                 SQLConnector connector = new SQLConnector();
@@ -145,16 +145,16 @@ public class Cart {
             return -1;
     }
 
-    int getUserIdByUsername(String username) {
+    int getUserIdByPasscode(String passcode) {
         int userId = -1;
 
         SQLConnector connector = new SQLConnector();
 
         try {
-            String userQuery = "SELECT user_id FROM Users WHERE username = ?";
+            String userQuery = "SELECT user_id FROM Users WHERE passcode = ?";
             PreparedStatement userStatement = connector.myDbConn.prepareStatement(userQuery);
 
-            userStatement.setString(1, username);
+            userStatement.setString(1, passcode);
 
             try (ResultSet userResult = userStatement.executeQuery()) {
                 if (userResult.next()) {

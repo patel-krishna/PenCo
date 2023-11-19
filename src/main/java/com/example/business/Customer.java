@@ -11,25 +11,27 @@ import java.util.*;
 
 public class Customer extends User {
 
+    String passcode;
+
     private Cart shoppingCart;
     private Set<Order> orders = new HashSet<>();
 
 
     //Constructor
     public Customer(String username, String password) {
-        super(username, password);
+        this.passcode = passcode;
         shoppingCart = new Cart(username);
     }
 
     //default constructor
     Customer() {
-        super(null, null);
+        this.passcode = passcode;
         shoppingCart = new Cart();
     }
 
     //Getters and setters
     public Cart getCart() {
-        return new Cart(this.username);
+        return new Cart(this.passcode);
     }
 
     public void setCart(Cart newCart) {
@@ -37,11 +39,19 @@ public class Customer extends User {
     }
 
     public void setCart() {
-        this.shoppingCart = new Cart(this.username);
+        this.shoppingCart = new Cart(this.passcode);
+    }
+
+    public String getPasscode() {
+        return this.passcode;
+    }
+
+    public void setPasscode(String passcode) {
+        this.passcode = passcode;
     }
 
     public int getUserId() {
-        int userId = shoppingCart.getUserIdByUsername(this.username);
+        int userId = shoppingCart.getUserIdByPasscode(this.passcode);
         return userId;
     }
 
@@ -52,10 +62,10 @@ public class Customer extends User {
         shoppingCart.getShoppingCart().put(productSku, quantity);
 
         // Check if a cart exists for the user in the db
-        int cartId = shoppingCart.getCartIdByUsername(this.username);
+        int cartId = shoppingCart.getCartIdByPasscode(this.passcode);
         if (cartId == -1) {
             // Create a new cart if it doesn't exist
-            cartId = shoppingCart.createCart(this.username);
+            cartId = shoppingCart.createCart(this.passcode);
         }
 
         // Add the product to the cartItems table
@@ -67,7 +77,7 @@ public class Customer extends User {
 
         shoppingCart.getShoppingCart().remove(productSku);
 
-        int cartId = shoppingCart.getCartIdByUsername(this.username);
+        int cartId = shoppingCart.getCartIdByPasscode(this.passcode);
         if (cartId != -1) {
             // Cart exists so we must drop all rows with that id in cartItems
             shoppingCart.deleteCartItem(cartId,productSku);
@@ -78,10 +88,10 @@ public class Customer extends User {
     public void setProductQuantityInCart(String sku, int qty){
         shoppingCart.getShoppingCart().put(sku, qty);
 
-        int cartId = shoppingCart.getCartIdByUsername(this.username);
+        int cartId = shoppingCart.getCartIdByPasscode(this.passcode);
         if (cartId == -1) {
             //create a cart as it doesnt exist yet
-            cartId = shoppingCart.createCart(username);
+            cartId = shoppingCart.createCart(this.passcode);
             shoppingCart.addToCart(cartId, sku, qty);
         }else{
             //there is already a cart check if the product is in the cart already
@@ -102,47 +112,13 @@ public class Customer extends User {
         shoppingCart.getShoppingCart().clear();
 
         //get the cart from username
-        int cartId = shoppingCart.getCartIdByUsername(this.username);
+        int cartId = shoppingCart.getCartIdByPasscode(this.passcode);
 
         //if cart exists
         if(cartId != -1){
             shoppingCart.deleteAllCart(cartId);
         }
     }
-
-//    public List<Order> getOrders(Customer user) {
-//        List<Order> orders = new ArrayList<>();
-//
-//        SQLConnector connector = new SQLConnector();
-//
-//        int userId = user.getUserId();
-//
-//        if (userId != -1) {
-//            // Make a database connection using your SQLConnector class
-//            try {
-//                String query = "SELECT * FROM Orders WHERE user_id = ?";
-//
-//                try (PreparedStatement statement = connector.myDbConn.prepareStatement(query)) {
-//                    statement.setInt(1, userId);
-//
-//                    try (ResultSet resultSet = statement.executeQuery()) {
-//                        while (resultSet.next()) {
-//                            int orderId = resultSet.getInt("order_id");
-//                            String shippingAddress = resultSet.getString("shipping_address");
-//
-//                            // Create an Order object and add it to the list
-//                            Order order = new Order(user, shippingAddress);
-//                            orders.add(order);
-//                        }
-//                    }
-//                }
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//
-//        return orders;
-//    }
 
 
     public List<Integer> getOrders(Customer user) {
@@ -241,7 +217,7 @@ public class Customer extends User {
     }
 
     public void createOrder(Customer user,String shippingAddress) {
-        HashMap<String, Integer> shoppingCart = this.getCart().getShoppingCart(user.getUsername());
+        HashMap<String, Integer> shoppingCart = this.getCart().getShoppingCart(this.passcode);
         if (shoppingCart.isEmpty()) {
             System.out.println("Cannot create an order because the shopping cart is empty.");
             return;

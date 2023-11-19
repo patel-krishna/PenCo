@@ -16,11 +16,11 @@ import org.w3c.dom.NodeList;
 
 public class storefrontFacade {
 
-    public SQLConnector connector;
-
-    public storefrontFacade() {
-        connector = new SQLConnector();
-    }
+//    public SQLConnector connector;
+//
+//    public storefrontFacade() {
+//        connector = new SQLConnector();
+//    }
 
 
     public void createProduct(User user, String sku, String name) {
@@ -34,10 +34,10 @@ public class storefrontFacade {
         }
     }
 
-    public void updateProduct(User staff, Product updatedProd, String name, String description, String vendor, String URL, String SKU, double price, String imgSrc) {
-        if (staff instanceof Staff) {
-            Staff staffUser = (Staff) staff;
-            staffUser.updateProduct(updatedProd, name, description, vendor, URL, SKU, price, imgSrc);
+    public void updateProduct(User user, Product updatedProd, String name, String description, String vendor, String URL, String SKU, double price, String imgSrc) {
+        if (user instanceof Staff) {
+            Staff staff = (Staff) user;
+            staff.updateProduct(updatedProd, name, description, vendor, URL, SKU, price, imgSrc);
         } else {
             // Handle the case where currentUser is not a Staff
             System.out.println("The user is not a staff and cannot update product inventory");

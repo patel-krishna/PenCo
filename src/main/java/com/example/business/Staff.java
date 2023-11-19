@@ -13,8 +13,18 @@ import java.util.List;
 
 public class Staff extends User{
 
-    public Staff(String username, String password){
-        super(username, password);
+    private String passcode;
+
+    public Staff(String passcode){
+        this.passcode = passcode;
+    }
+
+    public String getPasscode() {
+        return this.passcode;
+    }
+
+    public void setPasscode(String passcode) {
+        this.passcode = passcode;
     }
 
     public void createProduct(String sku, String name){

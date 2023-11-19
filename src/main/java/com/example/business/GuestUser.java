@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
-public class GuestUser {
+public class GuestUser extends User {
 
     private Cart tempCart;
     private Order tempOrder;
@@ -34,14 +34,12 @@ public class GuestUser {
 
     //business layer functions
     public void addProductToCart(String productSku, int quantity) {
-
         tempCart.getShoppingCart().put(productSku, quantity);
 
     }
 
 
     public void removeProductFromCart(String productSku) {
-
         tempCart.getShoppingCart().remove(productSku);
 
     }
@@ -66,7 +64,7 @@ public class GuestUser {
         Order newOrder = new Order(shoppingCart, shippingAddress);
 
         // Insert order info get the generated orderId
-        int orderId = newOrder.insertOrderInfo(null, shippingAddress);
+        int orderId = newOrder.insertOrderInfo(0, shippingAddress);
 
         // Insert order items
         newOrder.insertOrderItems(orderId);
