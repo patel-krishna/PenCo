@@ -19,7 +19,7 @@ public class AppInitializer implements ServletContextListener {
 
         // Initialize your storefrontFacade and set it as an attribute in the servlet context
         storefrontFacade facade = new storefrontFacade();
-        context.setAttribute("User", new User());
+        context.setAttribute("User", new GuestUser());
     }
 
     @Override
