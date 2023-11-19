@@ -22,30 +22,58 @@ public class AddToCartServlet extends HttpServlet{
         int quantity = Integer.parseInt(quantityStr);
 
         ServletContext servletContext = getServletContext();
-        Customer user = (Customer) servletContext.getAttribute("User");
+        User user = (User) servletContext.getAttribute("User");
         storefrontFacade facade = new storefrontFacade();
         Product cartProd = facade.getProductBySlug(slug);
+
+
 
         if (cartProd != null) {
             // Product Exists
 
-            //if the product is already in the cart
-            if(user.getCart().getShoppingCart().containsKey(cartProd.getSKU())){
-                //return to page and tell customer
+            //if its a customer
+            if(user instanceof Customer){
+                Customer customer = (Customer) user;
 
-                facade.setProductQuantityInCart(user,cartProd.getSKU(), quantity);
-                response.sendRedirect(request.getContextPath() + "/cart.jsp");
-                request.getSession().setAttribute("successMessage", "Product is already in cart! Quantity updated.");
-            }else{
-                //add to cart
-                facade.addProductToCart(user, cartProd.getSKU(),quantity);
+                //if the product is already in the cart
+                if(customer.getCart().getShoppingCart().containsKey(cartProd.getSKU())){
+                    //return to page and tell customer
 
-                System.out.println("Added to cart");
-                // Redirect to a product page
-                response.sendRedirect(request.getContextPath() + "/products/" + slug);
-                request.getSession().setAttribute("successMessage", "Product added to cart successfully");
+                    facade.setProductQuantityInCart(user,cartProd.getSKU(), quantity);
+                    response.sendRedirect(request.getContextPath() + "/cart.jsp");
+                    request.getSession().setAttribute("successMessage", "Product is already in cart! Quantity updated.");
+                }else{
+                    //add to cart
+                    facade.addProductToCart(user, cartProd.getSKU(),quantity);
+
+                    System.out.println("Added to cart");
+                    // Redirect to a product page
+                    response.sendRedirect(request.getContextPath() + "/products/" + slug);
+                    request.getSession().setAttribute("successMessage", "Product added to cart successfully");
+                }
+
+                //if its a guest
+            }else if(user instanceof GuestUser){
+                GuestUser guest = (GuestUser) user;
+
+                //if the product is already in the cart
+                if(guest.getTempCart().getShoppingCart().containsKey(cartProd.getSKU())){
+                    //return to page and tell customer
+
+                    facade.setProductQuantityInCart(user,cartProd.getSKU(), quantity);
+                    response.sendRedirect(request.getContextPath() + "/cart.jsp");
+                    request.getSession().setAttribute("successMessage", "Product is already in cart! Quantity updated.");
+                }else{
+                    //add to cart
+                    facade.addProductToCart(user, cartProd.getSKU(),quantity);
+
+                    System.out.println("Added to cart");
+                    // Redirect to a product page
+                    response.sendRedirect(request.getContextPath() + "/products/" + slug);
+                    request.getSession().setAttribute("successMessage", "Product added to cart successfully");
+                }
+
             }
-
         } else {
             // Authentication failed
             request.setAttribute("error", "Adding to cart failed. Please try again.");

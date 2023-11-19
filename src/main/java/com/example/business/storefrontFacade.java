@@ -60,9 +60,12 @@ public class storefrontFacade {
             System.out.println("The user is a staff and does not have a cart");
             return null;
 
-        } else {
+        } else if(user instanceof Customer) {
             Customer customer = (Customer) user;
             return customer.getCart();
+        } else{
+            GuestUser guest = (GuestUser) user;
+            return guest.getTempCart();
         }
     }
 
@@ -71,12 +74,20 @@ public class storefrontFacade {
             Customer customer = (Customer) user;
             customer.addProductToCart(sku, quantity);
         }
+        if(user instanceof GuestUser){
+            GuestUser guest = (GuestUser) user;
+            guest.addProductToCart(sku, quantity);
+        }
     }
 
     public void removeProductFromCart(User user, String sku) {
         if (user instanceof Customer) {
             Customer customer = (Customer) user;
             customer.removeProductFromCart(sku);
+        }
+        if(user instanceof GuestUser){
+            GuestUser guest = (GuestUser) user;
+            guest.removeProductFromCart(sku);
         }
     }
 
@@ -85,12 +96,20 @@ public class storefrontFacade {
             Customer customer = (Customer) user;
             customer.setProductQuantityInCart(sku, qty);
         }
+        if(user instanceof GuestUser){
+            GuestUser guest = (GuestUser) user;
+            guest.setProductQuantityInCart(sku,qty);
+        }
     }
 
     public void clearCart(User user) {
         if (user instanceof Customer) {
             Customer customer = (Customer) user;
             customer.clearCart();
+        }
+        if(user instanceof GuestUser){
+            GuestUser guest = (GuestUser) user;
+            guest.clearCart();
         }
     }
 
@@ -112,7 +131,12 @@ public class storefrontFacade {
         if (user instanceof Customer) {
             Customer customer = (Customer) user;
             customer.createOrder(customer, address);
-        } else {
+
+        }else if(user instanceof GuestUser){
+            GuestUser guest = (GuestUser) user;
+            guest.createOrder(guest,address);
+
+        }else {
             System.out.println("Cannot create an order for a non-customer user.");
         }
     }

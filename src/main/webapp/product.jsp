@@ -44,7 +44,7 @@
             <p><strong>Vendor: </strong> <%= product.getVendor() %></p>
 <%--            USER CONTROLS BASED ON USER--%>
             <%
-            if(user instanceof Customer) {
+            if(user instanceof Customer || user instanceof GuestUser) {
             %>
             <form action="${pageContext.request.contextPath}/cart/products/<%= product.getURL()%>" method="post">
                 <!-- Hidden field to specify the product slug to be added to the cart -->
@@ -86,7 +86,7 @@
             <%
             }else{
             %>
-            <a class="si-prod" href="${pageContext.request.contextPath}/sign-in.jsp">Please sign in to add item to cart!</a>
+            <a class="button" href="${pageContext.request.contextPath}/sign-in.jsp">Please sign in to add item to cart!</a>
             <%
                 }
             %>
