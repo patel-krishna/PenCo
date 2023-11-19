@@ -161,4 +161,17 @@ public int generateUniqueTrackingNumber() {
     return Math.abs((int) (timestamp % Integer.MAX_VALUE) * 1_000_000 + randomComponent);
 }
 
+
+public void setOrderOwner(int orderID, String userpasscode){
+        //TO-DO
+}
+
+public void setPasscode(User user, String newpasscode){
+        //TO-DO
+}
+
+public void changePermission(User user, User changedUser, String role){
+        //TO-DO
+}
+
 }

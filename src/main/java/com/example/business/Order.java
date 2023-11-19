@@ -17,11 +17,14 @@ public class Order {
         this.shippingAddress = shippingAddress;
         this.shoppingList = products;
     }
+
+    //Constructor for Customer
     public Order(Customer customer, String shippingAddress, HashMap<String,Integer> products ) {
         this.customer = customer;
         this.shippingAddress = shippingAddress;
         this.shoppingList = products;
     }
+
 
 
     public String getShippingAddress() {
