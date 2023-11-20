@@ -19,6 +19,27 @@
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 </head>
+<body>
+<jsp:include page="navbar.jsp" />
+    <div class="container">
+        <div class="content">
+            <h2>Orders List</h2>
+                <table border="1">
+                    <tr>
+                        <th>Order ID</th>
+                        <th>View Order</th>
+                    </tr>
+                    <% for (int i=0; i<order_ids.size(); i++){ %>
+                    <tr>
+                        <td><%=order_ids.get(i)%></td>
+                        <td><a class="button" href="orders/<%=order_ids.get(i)%>">View Order</a></td>
+                    </tr>
+                    <% } %>
+                </table>
+        </div>
+    </div>
+</body>
+
 <style>
     .container {
         display: flex;
@@ -75,25 +96,4 @@
         text-align: center;
     }
 </style>
-
-<jsp:include page="navbar.jsp" />
-<body>
-    <div class="container">
-        <div class="content">
-            <h2>Orders List</h2>
-                <table border="1">
-                    <tr>
-                        <th>Order ID</th>
-                        <th>View Order</th>
-                    </tr>
-                    <% for (int i=0; i<order_ids.size(); i++){ %>
-                    <tr>
-                        <td><%=order_ids.get(i)%></td>
-                        <td><a class="button" href="orders/<%=order_ids.get(i)%>">View Order</a></td>
-                    </tr>
-                    <% } %>
-                </table>
-        </div>
-    </div>
-</body>
 </html>
