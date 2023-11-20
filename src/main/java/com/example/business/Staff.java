@@ -48,8 +48,9 @@ public class Staff extends User{
             }
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
+        }finally {
+            connector.closeConnection(); // Add a method to close the database connection in your SQLConnector class
         }
-        connector.closeConnection();
     }
 
     /**
@@ -111,6 +112,8 @@ public class Staff extends User{
             }
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
+        }finally {
+            connector.closeConnection(); // Add a method to close the database connection in your SQLConnector class
         }
         connector.closeConnection();
     }
@@ -197,6 +200,8 @@ public class Staff extends User{
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
+            }finally {
+                connector.closeConnection(); // Add a method to close the database connection in your SQLConnector class
             }
         }
 
@@ -243,14 +248,14 @@ public class Staff extends User{
 
     }
 
-    public List<Integer> getOrders(User user) {
+    public List<Integer> getOrders() {
         List<Integer> order_ids = new ArrayList<>();
 
         SQLConnector connector = new SQLConnector();
 
             // Make a database connection using your SQLConnector class
             try {
-                String query = "SELECT * FROM Orders";
+                String query = "SELECT * FROM Orders WHERE user_id IS NOT NULL;";
 
                 try (PreparedStatement statement = connector.myDbConn.prepareStatement(query)) {
 
@@ -267,7 +272,9 @@ public class Staff extends User{
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
-            }
+            } finally {
+        connector.closeConnection(); // Add a method to close the database connection in your SQLConnector class
+    }
 
         return order_ids;
     }
@@ -333,23 +340,22 @@ public class Staff extends User{
 
     public void shipOrder(int orderID, int trackingNumber) {
         SQLConnector connector = new SQLConnector();
-
         try {
             // Define the SQL insert statement
             String insertOrderQuery = "INSERT INTO ShippedOrders (order_id, tracking_number) VALUES (?,?)";
-            PreparedStatement preparedStatement = connector.myDbConn.prepareStatement(insertOrderQuery);
+            try (PreparedStatement preparedStatement = connector.myDbConn.prepareStatement(insertOrderQuery)) {
+                // Set the values for object
+                preparedStatement.setInt(1, orderID);
+                preparedStatement.setInt(2, trackingNumber);
 
-            // Set the values for object
-            preparedStatement.setInt(1, orderID);
-            preparedStatement.setInt(2, trackingNumber);
-
-            // Execute the insert
-            preparedStatement.executeUpdate();
-
+                // Execute the insert
+                preparedStatement.executeUpdate();
+            }
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
+        } finally {
+            connector.closeConnection(); // Add a method to close the database connection in your SQLConnector class
         }
     }
-
 
 }

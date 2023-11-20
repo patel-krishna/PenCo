@@ -72,7 +72,8 @@
         display: inline-block;
     }
     img {
-        width: 100%;
+        width: 300px;
+        height: 300px;
     }
 
     .button {

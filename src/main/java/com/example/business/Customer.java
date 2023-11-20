@@ -145,6 +145,8 @@ public class Customer extends User {
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
+            }finally {
+                connector.closeConnection(); // Add a method to close the database connection in your SQLConnector class
             }
         }
 
@@ -203,6 +205,8 @@ public class Customer extends User {
             return null;
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
+        }finally {
+            connector.closeConnection(); // Add a method to close the database connection in your SQLConnector class
         }
     }
 
