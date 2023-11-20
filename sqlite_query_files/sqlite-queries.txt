@@ -4,6 +4,7 @@ CREATE TABLE "Users" (
 	"passcode"	TEXT NOT NULL UNIQUE,
 	"isStaff"	INTEGER,
 	PRIMARY KEY("user_id" AUTOINCREMENT)
+
 );
 
 CREATE TABLE "Products" (
@@ -59,3 +60,4 @@ CREATE TABLE "ShippedOrders" (
 	FOREIGN KEY("order_id") REFERENCES "Orders"("order_id"),
 	PRIMARY KEY("shipping_id" AUTOINCREMENT)
 );
+
