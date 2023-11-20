@@ -15,4 +15,5 @@ INSERT INTO 'products' VALUES ('SKU123456','Ballpoint Pen','A classic ballpoint 
 ('SKU890123','Correction Tape','White correction tape for neatly fixing mistakes in documents and notes.','Stationery Solutions','correction-tape-white',2.29,'https://muji.ca/cdn/shop/products/correctiontape_700x.jpg?v=1611777244'),
 ('SKU901234','Pencil Set','A set of 12 high-quality pencils for drawing and sketching.','Artistic Creations','pencil-set-12pcs',7.99,'https://muji.ca/cdn/shop/products/12pkcolourpencils_700x.jpg?v=1644510839');
 
-INSERT INTO Orders (order_id) VALUES (1000);
+-- Making sure that order_ids are bigger than 5 digits
+INSERT INTO Orders (order_id) VALUES (9999);
