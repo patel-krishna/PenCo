@@ -11,6 +11,8 @@ public class Order {
     private int orderId;
     private Customer customer;
     private String shippingAddress;
+
+    private int trackingNumber;
     private HashMap<String, Integer> shoppingList; // Map of product SKU to quantity
 
     public Order(HashMap<String,Integer> products, String shippingAddress) {
@@ -25,7 +27,13 @@ public class Order {
         this.shoppingList = products;
     }
 
+    public int getTrackingNumber(){
+        return trackingNumber;
+    }
 
+    public void setTrackingNumber(int number){
+        this.trackingNumber = number;
+    }
 
     public String getShippingAddress() {
         return shippingAddress;
@@ -158,5 +166,37 @@ public class Order {
         return false;
     }
 
+    public static int getTrackingNumber(int orderId) throws SQLException {
+        SQLConnector connector = new SQLConnector();
+
+        try {
+            String getNumberQuery = "SELECT tracking_number FROM ShippedOrders WHERE order_id=?";
+            PreparedStatement numberStatement = connector.myDbConn.prepareStatement(getNumberQuery);
+
+            numberStatement.setInt(1, orderId);
+            ResultSet numberResult = numberStatement.executeQuery();
+
+            // Check if the result set has any rows
+            if (numberResult.next()) {
+                // Retrieve the shipping address
+                int number = numberResult.getInt("tracking_number");
+
+                // Do something with the shipping address, for example, print it
+                System.out.println("Shipping Address: " + number);
+
+                return number;
+                // Do something with the order
+            } else {
+                // Handle the case where no shipping address was found
+                System.out.println("No shipping address found for order ID: " + orderId);
+            }
+
+            return 0;
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        } finally {
+            connector.closeConnection(); // Add a method to close the database connection in your SQLConnector class
+        }
+    }
 
 }

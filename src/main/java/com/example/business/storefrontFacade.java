@@ -1,5 +1,6 @@
 package com.example.business;
 
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -177,6 +178,14 @@ public void shipOrder(User user, int orderID, int trackingNumber){
         }else{
             System.out.println("You cannot ship an order! You're not a staff");
         }
+}
+
+public int getTrackingNumber(int order_id) {
+    try {
+        return Order.getTrackingNumber(order_id);
+    } catch (SQLException e) {
+        throw new RuntimeException(e);
+    }
 }
 
 //helper method to randomly generate tracking numbers

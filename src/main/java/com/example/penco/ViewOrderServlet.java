@@ -30,10 +30,12 @@ public class ViewOrderServlet extends HttpServlet{
 
             storefrontFacade facade = new storefrontFacade();
             Order order = facade.getOrder(user, orderID);
+            int trackingNum = facade.getTrackingNumber(orderID);
 
             // Set the products list as an attribute in the request
             request.setAttribute("order", order);
             request.setAttribute("order_id", orderID);
+            request.setAttribute("trackingNumber", trackingNum);
 
             // Forward the request to the JSP page responsible for displaying the products
             RequestDispatcher dispatcher = request.getRequestDispatcher("/vieworder.jsp");

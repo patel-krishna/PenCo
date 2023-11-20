@@ -26,6 +26,7 @@
   User user = (User) application.getAttribute("User");
   Order order = (Order) request.getAttribute("order");
   int order_id = (int) request.getAttribute("order_id");
+  int trackingNum = (int) request.getAttribute("trackingNumber");
 
   boolean isStaff = (user != null && (user instanceof Staff));
   boolean orderShipped =  order.isOrderShipped(order_id);
@@ -64,6 +65,7 @@
         if (orderShipped) {
       %>
       <h3>Order has been shipped!</h3>
+      <h3>Tracking #: <%=trackingNum%> </h3>
       <%
         }
       %>
