@@ -62,6 +62,8 @@ public class LoginServlet extends HttpServlet {
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            connector.closeConnection(); // Add a method to close the database connection in your SQLConnector class
         }
     }
 }

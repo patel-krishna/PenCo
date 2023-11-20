@@ -150,7 +150,7 @@ public class storefrontFacade {
         }
         if (user instanceof Staff) {
             Staff staff = (Staff) user;
-            return staff.getOrders(staff);
+            return staff.getOrders();
         }
 
         return null;
