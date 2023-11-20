@@ -336,7 +336,7 @@ public class Staff extends User{
 
         try {
             // Define the SQL insert statement
-            String insertOrderQuery = "INSERT INTO shipped_orders (order_id, tracking_number) VALUES (?,?)";
+            String insertOrderQuery = "INSERT INTO ShippedOrders (order_id, tracking_number) VALUES (?,?)";
             PreparedStatement preparedStatement = connector.myDbConn.prepareStatement(insertOrderQuery);
 
             // Set the values for object

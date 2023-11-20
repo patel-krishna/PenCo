@@ -53,11 +53,11 @@ public class GuestUser extends User {
     }
 
 
-    public void createOrder(GuestUser user,String shippingAddress) {
+    public int createOrder(GuestUser user,String shippingAddress) {
         HashMap<String, Integer> shoppingCart = this.tempCart.getShoppingCart();;
         if (shoppingCart.isEmpty()) {
             System.out.println("Cannot create an order because the shopping cart is empty.");
-            return;
+            return 0;
         }
 
         //create new order with inputted shipping address
@@ -69,6 +69,8 @@ public class GuestUser extends User {
 
         // Insert order items
         newOrder.insertOrderItems(orderId);
+
+        return orderId;
 
     }
 }

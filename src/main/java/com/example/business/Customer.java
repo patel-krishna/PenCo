@@ -216,11 +216,11 @@ public class Customer extends User {
         orders.add(order); //how to link user
     }
 
-    public void createOrder(Customer user,String shippingAddress) {
+    public int createOrder(Customer user,String shippingAddress) {
         HashMap<String, Integer> shoppingCart = this.getCart().getShoppingCart(this.passcode);
         if (shoppingCart.isEmpty()) {
             System.out.println("Cannot create an order because the shopping cart is empty.");
-            return;
+            return 0;
         }
 
         //create new order with inputted shipping address
@@ -240,5 +240,7 @@ public class Customer extends User {
             orders = new HashSet<Order>();
         }
         this.addOrder(newOrder);
+
+        return orderId;
     }
 }

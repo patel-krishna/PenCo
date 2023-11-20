@@ -36,10 +36,13 @@
 
   storefrontFacade facade = new storefrontFacade();
   String shippingAddress = (String) request.getAttribute("shippingAddress");
+  int order_id = (int) request.getAttribute("order_id");
 %>
 <jsp:include page="navbar.jsp" />
 <header>
   <h2>Thank you for your order! </h2>
+  <br>
+  <h3>Your Order ID, please take note for safekeeping: <%= order_id %></h3>
   <h3>Your Shipping Address: <%= shippingAddress %></h3>
 </header>
 

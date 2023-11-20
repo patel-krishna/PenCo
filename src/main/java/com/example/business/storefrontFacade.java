@@ -127,18 +127,20 @@ public class storefrontFacade {
         return user.getAllProducts();
     }
 
-    public void createOrder(User user, String address) {
+    public int createOrder(User user, String address) {
+        //make the function return the orderID of the order created
         if (user instanceof Customer) {
             Customer customer = (Customer) user;
-            customer.createOrder(customer, address);
+            return customer.createOrder(customer, address);
 
         }else if(user instanceof GuestUser){
             GuestUser guest = (GuestUser) user;
-            guest.createOrder(guest,address);
+            return guest.createOrder(guest,address);
 
         }else {
             System.out.println("Cannot create an order for a non-customer user.");
         }
+        return 0;
     }
 
     public List<Integer> getOrders(User user) {

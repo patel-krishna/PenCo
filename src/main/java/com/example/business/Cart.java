@@ -90,7 +90,7 @@ public class Cart {
                 }
             }
 
-            String cartQuery = "SELECT cart_id FROM carts WHERE user_id =?";
+            String cartQuery = "SELECT cart_id FROM Carts WHERE user_id =?";
             PreparedStatement cartStatement = connector.myDbConn.prepareStatement(cartQuery);
 
             cartStatement.setInt(1, userId);

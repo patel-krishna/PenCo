@@ -139,7 +139,7 @@ public class User {
 
         try {
             // Define the SQL select statement
-            String selectOrderQuery = "SELECT tracking_number FROM shipped_orders WHERE order_id = ?";
+            String selectOrderQuery = "SELECT tracking_number FROM ShippedOrders WHERE order_id = ?";
             PreparedStatement preparedStatement = connector.myDbConn.prepareStatement(selectOrderQuery);
 
             // Set the value for the order ID
@@ -163,5 +163,4 @@ public class User {
 
         return trackingNumber;
     }
-
 }
