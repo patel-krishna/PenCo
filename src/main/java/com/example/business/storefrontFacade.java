@@ -16,11 +16,11 @@ import org.w3c.dom.NodeList;
 
 public class storefrontFacade {
 
-    public SQLConnector connector;
-
-    public storefrontFacade() {
-        connector = new SQLConnector();
-    }
+//    public SQLConnector connector;
+//
+//    public storefrontFacade() {
+//        connector = new SQLConnector();
+//    }
 
 
     public void createProduct(User user, String sku, String name) {
@@ -34,10 +34,10 @@ public class storefrontFacade {
         }
     }
 
-    public void updateProduct(User staff, Product updatedProd, String name, String description, String vendor, String URL, String SKU, double price, String imgSrc) {
-        if (staff instanceof Staff) {
-            Staff staffUser = (Staff) staff;
-            staffUser.updateProduct(updatedProd, name, description, vendor, URL, SKU, price, imgSrc);
+    public void updateProduct(User user, Product updatedProd, String name, String description, String vendor, String URL, String SKU, double price, String imgSrc) {
+        if (user instanceof Staff) {
+            Staff staff = (Staff) user;
+            staff.updateProduct(updatedProd, name, description, vendor, URL, SKU, price, imgSrc);
         } else {
             // Handle the case where currentUser is not a Staff
             System.out.println("The user is not a staff and cannot update product inventory");
@@ -60,9 +60,12 @@ public class storefrontFacade {
             System.out.println("The user is a staff and does not have a cart");
             return null;
 
-        } else {
+        } else if(user instanceof Customer) {
             Customer customer = (Customer) user;
             return customer.getCart();
+        } else{
+            GuestUser guest = (GuestUser) user;
+            return guest.getTempCart();
         }
     }
 
@@ -71,12 +74,20 @@ public class storefrontFacade {
             Customer customer = (Customer) user;
             customer.addProductToCart(sku, quantity);
         }
+        if(user instanceof GuestUser){
+            GuestUser guest = (GuestUser) user;
+            guest.addProductToCart(sku, quantity);
+        }
     }
 
     public void removeProductFromCart(User user, String sku) {
         if (user instanceof Customer) {
             Customer customer = (Customer) user;
             customer.removeProductFromCart(sku);
+        }
+        if(user instanceof GuestUser){
+            GuestUser guest = (GuestUser) user;
+            guest.removeProductFromCart(sku);
         }
     }
 
@@ -85,12 +96,20 @@ public class storefrontFacade {
             Customer customer = (Customer) user;
             customer.setProductQuantityInCart(sku, qty);
         }
+        if(user instanceof GuestUser){
+            GuestUser guest = (GuestUser) user;
+            guest.setProductQuantityInCart(sku,qty);
+        }
     }
 
     public void clearCart(User user) {
         if (user instanceof Customer) {
             Customer customer = (Customer) user;
             customer.clearCart();
+        }
+        if(user instanceof GuestUser){
+            GuestUser guest = (GuestUser) user;
+            guest.clearCart();
         }
     }
 
@@ -108,13 +127,20 @@ public class storefrontFacade {
         return user.getAllProducts();
     }
 
-    public void createOrder(User user, String address) {
+    public int createOrder(User user, String address) {
+        //make the function return the orderID of the order created
         if (user instanceof Customer) {
             Customer customer = (Customer) user;
-            customer.createOrder(customer, address);
-        } else {
+            return customer.createOrder(customer, address);
+
+        }else if(user instanceof GuestUser){
+            GuestUser guest = (GuestUser) user;
+            return guest.createOrder(guest,address);
+
+        }else {
             System.out.println("Cannot create an order for a non-customer user.");
         }
+        return 0;
     }
 
     public List<Integer> getOrders(User user) {
@@ -159,6 +185,19 @@ public int generateUniqueTrackingNumber() {
     long timestamp = System.currentTimeMillis();
     int randomComponent = new Random().nextInt(1000000); // Adjust the range as needed
     return Math.abs((int) (timestamp % Integer.MAX_VALUE) * 1_000_000 + randomComponent);
+}
+
+
+public void setOrderOwner(int orderID, String userpasscode){
+        //TO-DO
+}
+
+public void setPasscode(User user, String newpasscode){
+        //TO-DO
+}
+
+public void changePermission(User user, User changedUser, String role){
+        //TO-DO
 }
 
 }

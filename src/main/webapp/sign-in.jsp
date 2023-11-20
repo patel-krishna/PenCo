@@ -24,10 +24,10 @@
 <h1>Sign-In</h1>
 <form id="form" action="LoginServlet" method="post">
 
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" required><br>
+<%--    <label for="username">Username:</label>--%>
+<%--    <input type="text" id="username" name="username" required><br>--%>
 
-    <label for="password">Password:</label>
+    <label for="password">User Passcode:</label>
     <input type="password" id="password" name="password" required><br>
 
     <input type="submit" value="Sign In">

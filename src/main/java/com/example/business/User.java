@@ -9,35 +9,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class User {
-    String username;
-    String password;
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-
-        this.password = password;
-    }
-
-    public User(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
-
-    public User(){
-        username = null;
-        password = null;
-    }
 
     public Product getProduct(String SKU){
         SQLConnector connector = new SQLConnector();
@@ -168,7 +139,7 @@ public class User {
 
         try {
             // Define the SQL select statement
-            String selectOrderQuery = "SELECT tracking_number FROM shipped_orders WHERE order_id = ?";
+            String selectOrderQuery = "SELECT tracking_number FROM ShippedOrders WHERE order_id = ?";
             PreparedStatement preparedStatement = connector.myDbConn.prepareStatement(selectOrderQuery);
 
             // Set the value for the order ID
@@ -192,5 +163,4 @@ public class User {
 
         return trackingNumber;
     }
-
 }

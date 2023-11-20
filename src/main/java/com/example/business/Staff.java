@@ -13,8 +13,18 @@ import java.util.List;
 
 public class Staff extends User{
 
-    public Staff(String username, String password){
-        super(username, password);
+    private String passcode;
+
+    public Staff(String passcode){
+        this.passcode = passcode;
+    }
+
+    public String getPasscode() {
+        return this.passcode;
+    }
+
+    public void setPasscode(String passcode) {
+        this.passcode = passcode;
     }
 
     public void createProduct(String sku, String name){
@@ -326,7 +336,7 @@ public class Staff extends User{
 
         try {
             // Define the SQL insert statement
-            String insertOrderQuery = "INSERT INTO shipped_orders (order_id, tracking_number) VALUES (?,?)";
+            String insertOrderQuery = "INSERT INTO ShippedOrders (order_id, tracking_number) VALUES (?,?)";
             PreparedStatement preparedStatement = connector.myDbConn.prepareStatement(insertOrderQuery);
 
             // Set the values for object

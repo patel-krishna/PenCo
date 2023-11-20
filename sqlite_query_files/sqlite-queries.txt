@@ -1,8 +1,10 @@
 
 CREATE TABLE "Users" (
+	"user_id" INTEGER NOT NULL UNIQUE,
 	"passcode"	TEXT NOT NULL UNIQUE,
 	"isStaff"	INTEGER,
-	PRIMARY KEY("passcode")
+	PRIMARY KEY("user_id" AUTOINCREMENT)
+
 );
 
 CREATE TABLE "Products" (
@@ -18,8 +20,8 @@ CREATE TABLE "Products" (
 
 CREATE TABLE "Carts" (
 	"cart_id"	INTEGER,
-	"passcode"	TEXT,
-	FOREIGN KEY("passcode") REFERENCES "Users"("passcode"),
+	"user_id"	INT,
+	FOREIGN KEY("user_id") REFERENCES "Users"("user_id"),
 	PRIMARY KEY("cart_id" AUTOINCREMENT)
 );
 
@@ -35,10 +37,10 @@ CREATE TABLE "CartItems" (
 
 CREATE TABLE "Orders" (
 	"order_id"	INTEGER,
-	"passcode"	TEXT,
+	"user_id"	INTEGER,
 	"shipping_address"	TEXT,
-	FOREIGN KEY("passcode") REFERENCES "Users"("passcode"),
-	PRIMARY KEY("order_id")
+	FOREIGN KEY("user_id") REFERENCES "Users"("user_id"),
+	PRIMARY KEY("order_id" AUTOINCREMENT)
 );
 
 CREATE TABLE "OrderItems" (
@@ -58,3 +60,4 @@ CREATE TABLE "ShippedOrders" (
 	FOREIGN KEY("order_id") REFERENCES "Orders"("order_id"),
 	PRIMARY KEY("shipping_id" AUTOINCREMENT)
 );
+

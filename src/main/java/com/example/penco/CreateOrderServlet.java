@@ -22,9 +22,11 @@ public class CreateOrderServlet extends HttpServlet {
         ServletContext servletContext = getServletContext();
         storefrontFacade facade = new storefrontFacade();
 
-        // Get user's cart
-        Customer user = (Customer) servletContext.getAttribute("User");
+        User user = (User) servletContext.getAttribute("User");
+
+
         Cart cart = facade.getCart(user);
+
 
         // Get shipping address from form
         String shippingAddress = request.getParameter("shipping-address");
@@ -33,11 +35,12 @@ public class CreateOrderServlet extends HttpServlet {
         //create new order with given user and inputted shipping address
         //Order newOrder = new Order(user, shippingAddress);
         //newOrder.setShoppingList(cart.getShoppingCart());
-        facade.createOrder(user, shippingAddress);
+        int order_id = facade.createOrder(user, shippingAddress);
 
         // Add user and shipping address to the request attributes
         request.setAttribute("user", user);
         request.setAttribute("shippingAddress", shippingAddress);
+        request.setAttribute("order_id", order_id);
 
 
         // Clear users cart after order is placed

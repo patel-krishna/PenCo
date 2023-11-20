@@ -17,11 +17,14 @@ public class Order {
         this.shippingAddress = shippingAddress;
         this.shoppingList = products;
     }
+
+    //Constructor for Customer
     public Order(Customer customer, String shippingAddress, HashMap<String,Integer> products ) {
         this.customer = customer;
         this.shippingAddress = shippingAddress;
         this.shoppingList = products;
     }
+
 
 
     public String getShippingAddress() {
@@ -130,7 +133,7 @@ public class Order {
 
         try {
             // Define the SQL select statement to check if the order has been shipped
-            String selectOrderQuery = "SELECT COUNT(*) FROM shipped_orders WHERE order_id = ?";
+            String selectOrderQuery = "SELECT COUNT(*) FROM ShippedOrders WHERE order_id = ?";
             PreparedStatement preparedStatement = connector.myDbConn.prepareStatement(selectOrderQuery);
 
             // Set the value for the orderID
