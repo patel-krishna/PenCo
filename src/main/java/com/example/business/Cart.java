@@ -145,7 +145,7 @@ public class Cart {
             return -1;
     }
 
-    int getUserIdByPasscode(String passcode) {
+    public static int getUserIdByPasscode(String passcode) {
         int userId = -1;
 
         SQLConnector connector = new SQLConnector();

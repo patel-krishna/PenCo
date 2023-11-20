@@ -1,7 +1,6 @@
 package com.example.business;
 
-import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.io.File;
@@ -206,7 +205,56 @@ public void setPasscode(User user, String newpasscode){
 }
 
 public void changePermission(User user, User changedUser, String role){
-        //TO-DO
+    if(user instanceof Staff){
+        Staff staff = (Staff) user;
+        staff.changePermission(changedUser,role);
+    }else{
+        System.out.println("You are not a Staff, you cannot upgrade or revoke access.");
+    }
+}
+public ArrayList<User> getAllUsers(User user) {
+    if(user instanceof Staff){
+        Staff staff = (Staff) user;
+       return staff.getAllUsers();
+    }else{
+        System.out.println("You are not a Staff, you cannot get User info.");
+    }
+    return null;
+    }
+
+public User getUserById(int user_id){
+    SQLConnector connector = new SQLConnector();
+
+    try{
+
+        String userQuery = "SELECT * FROM Users WHERE user_id = ?";
+        PreparedStatement userStatement = connector.myDbConn.prepareStatement(userQuery);
+
+        userStatement.setInt(1, user_id);
+
+        try (ResultSet userResult = userStatement.executeQuery()) {
+            if (userResult.next()) {
+                int userID = userResult.getInt("user_id");
+                String passcode = userResult.getString("passcode");
+                int isStaff = userResult.getInt("isStaff");
+
+                if(isStaff == 0){
+                    Customer customer = new Customer(passcode);
+                    return customer;
+                }
+                if(isStaff == 1){
+                    Staff staff = new Staff(passcode);
+                    return staff;
+                }
+            }
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }finally {
+        connector.closeConnection();
+    }
+    return null;
 }
 
 }
