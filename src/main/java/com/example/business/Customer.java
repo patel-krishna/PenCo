@@ -18,9 +18,9 @@ public class Customer extends User {
 
 
     //Constructor
-    public Customer(String username, String password) {
+    public Customer(String passcode) {
         this.passcode = passcode;
-        shoppingCart = new Cart(username);
+        shoppingCart = new Cart(passcode);
     }
 
     //default constructor

@@ -26,8 +26,6 @@ public class AddToCartServlet extends HttpServlet{
         storefrontFacade facade = new storefrontFacade();
         Product cartProd = facade.getProductBySlug(slug);
 
-
-
         if (cartProd != null) {
             // Product Exists
 

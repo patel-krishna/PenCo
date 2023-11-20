@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="penco@penco.mysql.database.azure.com" uuid="9cad74dc-451d-425d-8963-5477055ac8a9">
-      <driver-ref>mysql.8</driver-ref>
+    <data-source source="LOCAL" name="penco.sqlite" uuid="467a5b4e-efac-48e0-be8b-cbbdf4dec5e9">
+      <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
-      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://penco.mysql.database.azure.com:3306/penco</jdbc-url>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/src/main/webapp/WEB-INF/penco.sqlite</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>

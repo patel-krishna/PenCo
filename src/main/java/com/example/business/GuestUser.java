@@ -54,7 +54,7 @@ public class GuestUser extends User {
 
 
     public void createOrder(GuestUser user,String shippingAddress) {
-        HashMap<String, Integer> shoppingCart = this.getTempCart().getShoppingCart();
+        HashMap<String, Integer> shoppingCart = this.tempCart.getShoppingCart();;
         if (shoppingCart.isEmpty()) {
             System.out.println("Cannot create an order because the shopping cart is empty.");
             return;
@@ -62,11 +62,13 @@ public class GuestUser extends User {
 
         //create new order with inputted shipping address
         Order newOrder = new Order(shoppingCart, shippingAddress);
+        // newOrder.setShoppingList(shoppingCart);
 
         // Insert order info get the generated orderId
         int orderId = newOrder.insertOrderInfo(0, shippingAddress);
 
         // Insert order items
         newOrder.insertOrderItems(orderId);
+
     }
 }

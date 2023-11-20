@@ -50,7 +50,7 @@ public class Order {
         SQLConnector connector = new SQLConnector();
 
         try {
-            String orderQuery = "SELECT order_id FROM Orders WHERE user_id = ?";
+            String orderQuery = "SELECT order_id FROM Orders WHERE passcode = ?";
             PreparedStatement orderStatement = connector.myDbConn.prepareStatement(orderQuery);
 
             orderStatement.setInt(1, userId);
@@ -75,7 +75,7 @@ public class Order {
 
         try {
             // Define the SQL query to insert order details into Orders and retrieve the generated order ID
-            String insertOrderQuery = "INSERT INTO Orders (user_id, shipping_address) VALUES (?, ?)";
+            String insertOrderQuery = "INSERT INTO Orders (passcode, shipping_address) VALUES (?, ?)";
             PreparedStatement insertOrderStatement = connector.myDbConn.prepareStatement(insertOrderQuery, Statement.RETURN_GENERATED_KEYS);
             insertOrderStatement.setInt(1, userId);
             insertOrderStatement.setString(2, shippingAddress);
@@ -133,7 +133,7 @@ public class Order {
 
         try {
             // Define the SQL select statement to check if the order has been shipped
-            String selectOrderQuery = "SELECT COUNT(*) FROM shipped_orders WHERE order_id = ?";
+            String selectOrderQuery = "SELECT COUNT(*) FROM ShippedOrders WHERE order_id = ?";
             PreparedStatement preparedStatement = connector.myDbConn.prepareStatement(selectOrderQuery);
 
             // Set the value for the orderID

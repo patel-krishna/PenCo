@@ -28,7 +28,7 @@
 %>
 <jsp:include page="navbar.jsp" />
 <header>
-  <h2>Thank you for your order <%= user.getUsername() %> ! </h2>
+  <h2>Thank you for your order! </h2>
   <h3>Your Shipping Address: <%= shippingAddress %></h3>
 </header>
 
