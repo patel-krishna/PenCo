@@ -4,12 +4,10 @@ PenCo is a storefront for stationery. Built using Java and JSP for SOEN-387 Assi
 
 ### Important
 ##### Staff login: 
-`-username: staff
--password: password `
+`-user passcode: staff1 `
 
 ##### User login:
-`-username: user
--password: password `
+`-user passcode: user1 `
 
 
 ## Authors
@@ -30,3 +28,5 @@ PenCo is a storefront for stationery. Built using Java and JSP for SOEN-387 Assi
 [Report Assignment 2](https://docs.google.com/document/d/14Bwe9ac5dJp5BO2Nni2ttOooCQ2fp_lng6MRKyAN07o/edit?usp=sharing)
 
 [Notes for Assignment 2-3](https://docs.google.com/document/d/1BFC3u1E0YlqBDw7po3DwNITLkzO6NHQW_37v-X0vJR4/edit?usp=sharing)
+
+[Report Assignment 3](https://docs.google.com/document/d/1q6VkEgDkAHDTXJ6v9UjvE7ry1IUBOmiMPCiQ1X_JQrI/edit?usp=sharing)
