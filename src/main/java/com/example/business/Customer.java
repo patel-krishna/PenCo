@@ -185,7 +185,7 @@ public class Customer extends User {
             shippingStatement.setInt(1, orderId);
             ResultSet shippingAddressResult = shippingStatement.executeQuery();
 
-// Check if the result set has any rows
+            // Check if the result set has any rows
             if (shippingAddressResult.next()) {
                 // Retrieve the shipping address
                 String shippingAddress = shippingAddressResult.getString("shipping_address");

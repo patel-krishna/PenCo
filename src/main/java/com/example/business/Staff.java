@@ -307,7 +307,7 @@ public class Staff extends User{
                 products.put(productSku, quantity);
             }
 
-            String getShippingQuery = "SELECT shipping_address FROM orders WHERE order_id=?";
+            String getShippingQuery = "SELECT (shipping_address) FROM orders WHERE order_id=?";
             PreparedStatement shippingStatement = connector.myDbConn.prepareStatement(getShippingQuery);
 
             shippingStatement.setInt(1, orderId);
