@@ -37,6 +37,11 @@
                     <% } %>
                 </table>
         </div>
+        <h3>Claim order by entering Order id: </h3>
+        <form id="claimOrder" action="claimOrder" method="post">
+            <input type="text" id="orderId" name="orderId" required>
+            <button type="submit">Claim order</button>
+        </form>
     </div>
 </body>
 
