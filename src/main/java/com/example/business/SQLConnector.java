@@ -12,7 +12,7 @@ public class SQLConnector {
             System.out.print("JDBC NOT FOUND");
         }
 
-        String url = "jdbc:sqlite:/Users/briannam/Documents/GitHub/PenCo/src/main/webapp/WEB-INF/penco.sqlite";
+        String url = "jdbc:sqlite:/Users/briannam/SOEN 387/PenCo/src/main/resources/penco2.sqlite";
         //String username = "cuties387";
         //String password = "Soen387!";
 
