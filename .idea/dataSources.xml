@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="penco.sqlite" uuid="c4a7a980-7f04-46b1-8c15-923fa43f2b19">
+    <data-source source="LOCAL" name="penco.sqlite" uuid="4e080820-1483-4b5d-b691-e4e8d8beb466">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>

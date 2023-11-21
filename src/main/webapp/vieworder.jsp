@@ -61,6 +61,11 @@
         <% } %>
       </table>
 
+      <h3>Claim order by entering Order id: </h3>
+      <form id="claimOrder" action="claimOrder" method="post">
+        <input type="text" id="orderId" name="orderId" required>
+        <button type="submit">Claim order</button>
+      </form>
       <%
         if (orderShipped) {
       %>
@@ -106,6 +111,8 @@
     // Clear the success message from the session to prevent it from showing again
     <% request.getSession().removeAttribute("successMessage"); %>
   }
+
+
 </script>
 
 <style>
