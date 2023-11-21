@@ -25,7 +25,7 @@ public class ClaimOrderServlet extends HttpServlet{
         ServletContext servletContext = getServletContext();
         storefrontFacade facade = new storefrontFacade();
 
-        User user = (Customer) request.getSession().getAttribute("User");
+        User user = (Customer) servletContext.getAttribute("User");
 
         // get orderId from form
         int orderId = Integer.parseInt(request.getParameter("orderId"));
@@ -33,7 +33,7 @@ public class ClaimOrderServlet extends HttpServlet{
         facade.claimOrder(user, orderId);
 
         //redirect to vieworder page where user will see claimed order
-        response.sendRedirect("vieworder.jsp");
+        response.sendRedirect(request.getContextPath() + "/orders" );
         request.getSession().setAttribute("successMessage", "Order is now claimed!");
     }
 }
