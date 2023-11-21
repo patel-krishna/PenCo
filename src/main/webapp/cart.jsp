@@ -22,8 +22,18 @@
 <body>
 
 <%
-    Customer user = (Customer) application.getAttribute("User");
-    Cart cart = user.getCart();
+    User user = (User) application.getAttribute("User");
+    Cart cart = null;
+
+    if(user instanceof Customer){
+        Customer customer = (Customer) user;
+        cart = customer.getCart();
+    }
+
+    if(user instanceof GuestUser){
+        GuestUser guest = (GuestUser) user;
+        cart = guest.getTempCart();
+    }
     storefrontFacade facade = new storefrontFacade();
 %>
 
@@ -52,17 +62,20 @@
     <input type="hidden" name="sku" value="<%=product.getSKU()%>">
     <button class="button" type="submit">Remove</button>
     </form>
-
 </section>
-<%}
+
+    <%}%>
+    <section class="checkout-section">
+        <a href="${pageContext.request.contextPath}/checkout.jsp"><button class="button">Checkout Order</button></a>
+    </section>
+
+<%
     }else{ %>
         <h2>Cart Is Empty</h2>
       <%
     }
 %>
-    <section class="checkout-section">
-        <a href="${pageContext.request.contextPath}/checkout.jsp"><button>Checkout Order</button></a>
-    </section>
+
 </main>
 
 <style>

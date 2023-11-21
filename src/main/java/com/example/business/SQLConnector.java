@@ -7,17 +7,17 @@ public class SQLConnector {
     public SQLConnector() {
 
         try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            Class.forName("org.sqlite.JDBC");
         }catch(ClassNotFoundException e){
-            System.out.print("JDBC NOT FOUNDDD");
+            System.out.print("JDBC NOT FOUND");
         }
 
-        String url = "jdbc:mysql://penco.mysql.database.azure.com:3306/penco?useSSL=true";
-        String username = "cuties387";
-        String password = "Soen387!";
+        String url = "jdbc:sqlite:C:/Users/Krish/Documents/School/Concordia/Projects/PenCo/src/main/webapp/WEB-INF/penco.sqlite";
+        //String username = "cuties387";
+        //String password = "Soen387!";
 
         try {
-            myDbConn = DriverManager.getConnection(url, username, password);
+            myDbConn = DriverManager.getConnection(url);
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }

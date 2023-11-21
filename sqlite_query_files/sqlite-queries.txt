@@ -1,0 +1,63 @@
+
+CREATE TABLE "Users" (
+	"user_id" INTEGER NOT NULL UNIQUE,
+	"passcode"	TEXT NOT NULL UNIQUE,
+	"isStaff"	INTEGER,
+	PRIMARY KEY("user_id" AUTOINCREMENT)
+
+);
+
+CREATE TABLE "Products" (
+	"SKU"	TEXT NOT NULL UNIQUE,
+	"name"	TEXT,
+	"description"	TEXT,
+	"vendor"	TEXT,
+	"url_slug"	TEXT,
+	"price"	NUMERIC,
+	"imgSrc"	TEXT,
+	PRIMARY KEY("SKU")
+);
+
+CREATE TABLE "Carts" (
+	"cart_id"	INTEGER,
+	"user_id"	INT,
+	FOREIGN KEY("user_id") REFERENCES "Users"("user_id"),
+	PRIMARY KEY("cart_id" AUTOINCREMENT)
+);
+
+CREATE TABLE "CartItems" (
+	"cart_item_id"	INTEGER,
+	"cart_id"	INTEGER,
+	"product_sku"	TEXT,
+	"quantity"	INTEGER,
+	FOREIGN KEY("product_sku") REFERENCES "Products"("SKU"),
+	FOREIGN KEY("cart_id") REFERENCES "Carts"("cart_id"),
+	PRIMARY KEY("cart_item_id" AUTOINCREMENT)
+);
+
+CREATE TABLE "Orders" (
+	"order_id"	INTEGER,
+	"user_id"	INTEGER,
+	"shipping_address"	TEXT,
+	FOREIGN KEY("user_id") REFERENCES "Users"("user_id"),
+	PRIMARY KEY("order_id" AUTOINCREMENT)
+);
+
+CREATE TABLE "OrderItems" (
+	"order_item_id"	INTEGER,
+	"order_id"	INTEGER,
+	"product_sku"	TEXT,
+	"quantity"	INTEGER,
+	FOREIGN KEY("product_sku") REFERENCES "Products"("SKU"),
+	FOREIGN KEY("order_id") REFERENCES "Orders"("order_id"),
+	PRIMARY KEY("order_item_id" AUTOINCREMENT)
+);
+
+CREATE TABLE "ShippedOrders" (
+	"shipping_id"	INTEGER,
+	"order_id"	INTEGER,
+	"tracking_number"	INTEGER,
+	FOREIGN KEY("order_id") REFERENCES "Orders"("order_id"),
+	PRIMARY KEY("shipping_id" AUTOINCREMENT)
+);
+

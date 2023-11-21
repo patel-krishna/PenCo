@@ -12,25 +12,25 @@ public class Cart {
         this.shoppingList = new HashMap<String, Integer>();
     }
 
-    public Cart(String username){
-        this.shoppingList = getShoppingCart(username);
+    public Cart(String passcode){
+        this.shoppingList = getShoppingCart(passcode);
     }
 
     public HashMap<String, Integer> getShoppingCart() {
         return this.shoppingList;
     }
 
-    public HashMap<String, Integer> getShoppingCart(String username) {
+    public HashMap<String, Integer> getShoppingCart(String passcode) {
         HashMap<String, Integer> map = new HashMap<String, Integer>();
         SQLConnector connector = new SQLConnector();
         int userId = -1;
 
         try{
 
-            String userQuery = "SELECT user_id FROM Users WHERE username = ?";
+            String userQuery = "SELECT user_id FROM Users WHERE passcode = ?";
             PreparedStatement userStatement = connector.myDbConn.prepareStatement(userQuery);
 
-            userStatement.setString(1, username);
+            userStatement.setString(1, passcode);
 
             try (ResultSet userResult = userStatement.executeQuery()) {
                 if (userResult.next()) {
@@ -58,8 +58,11 @@ public class Cart {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            connector.closeConnection(); // Add a method to close the database connection in your SQLConnector class
         }
 
+        connector.closeConnection();
         return map;
     }
 
@@ -68,7 +71,7 @@ public class Cart {
     }
 
 
-    public int getCartIdByUsername(String username) {
+    public int getCartIdByPasscode(String passcode) {
         // Implement the logic to retrieve the cart ID for the given username
         // You can use a SQL query to fetch the cart ID based on the user's username
         // Return the cart ID if found, or -1 if not found
@@ -79,10 +82,10 @@ public class Cart {
         SQLConnector connector = new SQLConnector();
 
         try {
-            String userQuery = "SELECT user_id FROM Users WHERE username = ?";
+            String userQuery = "SELECT user_id FROM Users WHERE passcode = ?";
             PreparedStatement userStatement = connector.myDbConn.prepareStatement(userQuery);
 
-            userStatement.setString(1, username);
+            userStatement.setString(1, passcode);
 
             try (ResultSet userResult = userStatement.executeQuery()) {
                 if (userResult.next()) {
@@ -90,7 +93,7 @@ public class Cart {
                 }
             }
 
-            String cartQuery = "SELECT cart_id FROM carts WHERE user_id =?";
+            String cartQuery = "SELECT cart_id FROM Carts WHERE user_id =?";
             PreparedStatement cartStatement = connector.myDbConn.prepareStatement(cartQuery);
 
             cartStatement.setInt(1, userId);
@@ -102,17 +105,20 @@ public class Cart {
         } catch (SQLException e) {
             System.out.println(e);
             throw new RuntimeException(e);
+        }finally {
+            connector.closeConnection(); // Add a method to close the database connection in your SQLConnector class
         }
+
         connector.closeConnection();
         return cartId;
     }
 
-    public int createCart(String username) {
+    public int createCart(String passcode) {
         // Implement the logic to create a new cart and return its cart ID
         // You can use a SQL query to insert a new cart with the user's user_id
         // Return the generated cart ID if the cart is successfully created
 
-            int userId = getUserIdByUsername(username);
+            int userId = getUserIdByPasscode(passcode);
 
             if (userId != -1) {
                 SQLConnector connector = new SQLConnector();
@@ -137,6 +143,8 @@ public class Cart {
                 } catch (SQLException e) {
                     e.printStackTrace();
                     // Handle any exceptions (e.g., database connection or query errors)
+                }finally {
+                    connector.closeConnection();
                 }
 
                 connector.closeConnection();
@@ -145,16 +153,16 @@ public class Cart {
             return -1;
     }
 
-    int getUserIdByUsername(String username) {
+    public static int getUserIdByPasscode(String passcode) {
         int userId = -1;
 
         SQLConnector connector = new SQLConnector();
 
         try {
-            String userQuery = "SELECT user_id FROM Users WHERE username = ?";
+            String userQuery = "SELECT user_id FROM Users WHERE passcode = ?";
             PreparedStatement userStatement = connector.myDbConn.prepareStatement(userQuery);
 
-            userStatement.setString(1, username);
+            userStatement.setString(1, passcode);
 
             try (ResultSet userResult = userStatement.executeQuery()) {
                 if (userResult.next()) {
@@ -164,7 +172,10 @@ public class Cart {
             }
     } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            connector.closeConnection(); // Add a method to close the database connection in your SQLConnector class
         }
+
         connector.closeConnection();
         return userId;
 
@@ -191,6 +202,8 @@ public class Cart {
         } catch (SQLException e) {
             e.printStackTrace();
             // Handle any exceptions (e.g., database connection or query errors)
+        }finally {
+            connector.closeConnection(); // Add a method to close the database connection in your SQLConnector class
         }
 
         connector.closeConnection();
@@ -212,8 +225,11 @@ public class Cart {
         } catch (SQLException e) {
             e.printStackTrace();
             // Handle any exceptions (e.g., database connection or query errors)
+        }finally {
+            connector.closeConnection(); // Add a method to close the database connection in your SQLConnector class
         }
-    }
+
+        connector.closeConnection();    }
 
     public boolean productExistsInCart(int cartID, String sku){
 
@@ -234,6 +250,8 @@ public class Cart {
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            connector.closeConnection(); // Add a method to close the database connection in your SQLConnector class
         }
         return false;
     }
@@ -254,6 +272,8 @@ public class Cart {
 
             } catch (SQLException ex) {
             throw new RuntimeException(ex);
+        }finally {
+            connector.closeConnection(); // Add a method to close the database connection in your SQLConnector class
         }
     }
 
@@ -279,6 +299,8 @@ public class Cart {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            connector.closeConnection(); // Add a method to close the database connection in your SQLConnector class
         }
     }
 }

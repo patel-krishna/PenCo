@@ -18,7 +18,7 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet(name = "LoginServlet", value = "/LoginServlet")
 public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String username = request.getParameter("username");
+//        String username = request.getParameter("username");
         String password = request.getParameter("password");
 
         ServletContext servletContext = getServletContext();
@@ -27,11 +27,11 @@ public class LoginServlet extends HttpServlet {
         SQLConnector connector = new SQLConnector();
 
         try{
-            String query = "SELECT * FROM users WHERE username=? AND password=?";
+            String query = "SELECT * FROM users WHERE passcode=?";
             PreparedStatement loginStatement = connector.myDbConn.prepareStatement(query);
 
-            loginStatement.setString(1,username);
-            loginStatement.setString(2,password);
+//            loginStatement.setString(1,username);
+            loginStatement.setString(1,password);
 
             ResultSet resultSet = loginStatement.executeQuery();
 
@@ -40,13 +40,13 @@ public class LoginServlet extends HttpServlet {
                 // For example, you can set a session attribute or redirect to a success page.
                 // Authentication successful
 
-                boolean isstaff = resultSet.getBoolean("is_staff");
+                int isstaff = resultSet.getInt("isStaff");
                 User loggedUser;
 
-                if(isstaff){
-                    loggedUser = new Staff(username,password);
+                if(isstaff == 1){
+                    loggedUser = new Staff(password);
                 }else{
-                    loggedUser = new Customer(username,password);
+                    loggedUser = new Customer(password);
                 }
 
                 //set in the session the User
@@ -62,6 +62,8 @@ public class LoginServlet extends HttpServlet {
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            connector.closeConnection(); // Add a method to close the database connection in your SQLConnector class
         }
     }
 }

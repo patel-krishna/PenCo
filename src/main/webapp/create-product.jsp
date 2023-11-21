@@ -1,10 +1,11 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Krish
-  Date: 10/26/2023
-  Time: 12:21 AM
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="com.example.business.*" %>
+
+<%--  Created by IntelliJ IDEA.--%>
+<%--  User: Krish--%>
+<%--  Date: 10/26/2023--%>
+<%--  Time: 12:21 AM--%>
+<%--  To change this template use File | Settings | File Templates.--%>
+<%--&ndash;%&gt;--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -21,6 +22,11 @@
 </head>
 <body>
 <jsp:include page="navbar.jsp" />
+<%
+    User user = (User) application.getAttribute("User");
+
+    if (user instanceof Staff) {
+%>
 <h2>Create Product Form</h2>
 <div id="wrapper">
 
@@ -50,5 +56,13 @@
         <button class="button" type="submit" class="submit-prod">Create Product</button>
     </form>
 </div>
+
+<%
+    } else {
+%>
+    <h2>Sorry, you do not have access to this form.</h2>
+<%
+    }
+%>
 </body>
 </html>

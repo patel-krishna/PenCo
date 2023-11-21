@@ -3,11 +3,8 @@
 <%@ page import="java.util.List" %>
 
 <%
-    List<Order> orders = DatabaseHelper.getOrdersFromDatabase();
-%>
-<%
     User user = (User) application.getAttribute("User");
-    List<Integer> order_ids = (List<Integer>) request.getAttribute("order_ids");
+    List<Integer> order_ids = (List<Integer>) request.getAttribute("orders");
 %>
 <!DOCTYPE html>
 <html>
@@ -40,8 +37,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 </head>
 <body>
-
 <jsp:include page="navbar.jsp" />
+
 <body>
 <h1>Orders List</h1>
 <table border="1">
@@ -81,4 +78,61 @@
     <%--    </c:forEach>--%>
 </table>
 </body>
+
+<style>
+    .container {
+        display: flex;
+        justify-content: center; /* Center horizontally */
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        background-color: rgba(255, 255, 255, 0.8); /* White with 80% opacity */
+        padding: 20px;
+        border-radius: 10px;
+        margin: 20px;
+    }
+
+    table {
+        background-color: white;
+        border-collapse: collapse;
+        width: 50vh;
+        border-radius: 10px;
+        /*margin-left: 10%;*/
+        padding: 10px;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    button:disabled {
+        background-color: #ddd;
+        cursor: not-allowed;
+    }
+
+    .button {
+        display: block;
+        margin-top: 20px;
+        text-align: center;
+    }
+</style>
 </html>

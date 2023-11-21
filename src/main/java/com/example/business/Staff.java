@@ -13,8 +13,23 @@ import java.util.List;
 
 public class Staff extends User{
 
-    public Staff(String username, String password){
-        super(username, password);
+    private String passcode;
+
+    public Staff(String passcode){
+        this.passcode = passcode;
+    }
+
+    public String getPasscode() {
+        return this.passcode;
+    }
+
+    public void setPasscode(String passcode) {
+        this.passcode = passcode;
+    }
+
+    public int getUserId() {
+        int userId = Cart.getUserIdByPasscode(this.passcode);
+        return userId;
     }
 
     public void createProduct(String sku, String name){
@@ -38,8 +53,9 @@ public class Staff extends User{
             }
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
+        }finally {
+            connector.closeConnection(); // Add a method to close the database connection in your SQLConnector class
         }
-        connector.closeConnection();
     }
 
     /**
@@ -101,6 +117,8 @@ public class Staff extends User{
             }
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
+        }finally {
+            connector.closeConnection(); // Add a method to close the database connection in your SQLConnector class
         }
         connector.closeConnection();
     }
@@ -187,6 +205,8 @@ public class Staff extends User{
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
+            }finally {
+                connector.closeConnection(); // Add a method to close the database connection in your SQLConnector class
             }
         }
 
@@ -233,14 +253,14 @@ public class Staff extends User{
 
     }
 
-    public List<Integer> getOrders(User user) {
+    public List<Integer> getOrders() {
         List<Integer> order_ids = new ArrayList<>();
 
         SQLConnector connector = new SQLConnector();
 
             // Make a database connection using your SQLConnector class
             try {
-                String query = "SELECT * FROM Orders";
+                String query = "SELECT * FROM Orders WHERE user_id IS NOT NULL;";
 
                 try (PreparedStatement statement = connector.myDbConn.prepareStatement(query)) {
 
@@ -257,7 +277,9 @@ public class Staff extends User{
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
-            }
+            } finally {
+        connector.closeConnection(); // Add a method to close the database connection in your SQLConnector class
+    }
 
         return order_ids;
     }
@@ -290,24 +312,30 @@ public class Staff extends User{
                 products.put(productSku, quantity);
             }
 
-            String getShippingQuery = "SELECT shipping_address FROM orders WHERE order_id=?";
+            String getShippingQuery = "SELECT (shipping_address) FROM orders WHERE order_id=?";
             PreparedStatement shippingStatement = connector.myDbConn.prepareStatement(getShippingQuery);
 
             shippingStatement.setInt(1, orderId);
-            ResultSet shippingAddressResult = preparedStatement.executeQuery();
+            ResultSet shippingAddressResult = shippingStatement.executeQuery();
 
-            String shippingAddress = null;
+            // Check if the result set has any rows
             if (shippingAddressResult.next()) {
                 // Retrieve the shipping address
-                shippingAddress = shippingAddressResult.getString("shipping_address");
+                String shippingAddress = shippingAddressResult.getString("shipping_address");
 
                 // Do something with the shipping address, for example, print it
                 System.out.println("Shipping Address: " + shippingAddress);
+
+                Order order = new Order(products,shippingAddress);
+                return order;
+                // Do something with the order
+            } else {
+                // Handle the case where no shipping address was found
+                System.out.println("No shipping address found for order ID: " + orderId);
             }
 
-            Order order = new Order(products, shippingAddress);
 
-            return order;
+            return null;
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }finally {
@@ -317,22 +345,110 @@ public class Staff extends User{
 
     public void shipOrder(int orderID, int trackingNumber) {
         SQLConnector connector = new SQLConnector();
-
         try {
             // Define the SQL insert statement
-            String insertOrderQuery = "INSERT INTO shipped_orders (order_id, tracking_number) VALUES (?,?)";
-            PreparedStatement preparedStatement = connector.myDbConn.prepareStatement(insertOrderQuery);
+            String insertOrderQuery = "INSERT INTO ShippedOrders (order_id, tracking_number) VALUES (?,?)";
+            try (PreparedStatement preparedStatement = connector.myDbConn.prepareStatement(insertOrderQuery)) {
+                // Set the values for object
+                preparedStatement.setInt(1, orderID);
+                preparedStatement.setInt(2, trackingNumber);
 
-            // Set the values for object
-            preparedStatement.setInt(1, orderID);
-            preparedStatement.setInt(2, trackingNumber);
-
-            // Execute the insert
-            preparedStatement.executeUpdate();
-
+                // Execute the insert
+                preparedStatement.executeUpdate();
+            }
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
+        } finally {
+            connector.closeConnection(); // Add a method to close the database connection in your SQLConnector class
+        }
+    }
+
+    public void changePermission(User changedUser, String role) {
+
+        int isStaff;
+
+        switch(role.toLowerCase()){
+            case "customer":
+                isStaff = 0;
+                break;
+
+            case "staff":
+                isStaff = 1;
+                break;
+
+            default:
+                throw new IllegalArgumentException("Invalid role: " + role);
         }
 
+        SQLConnector connector = new SQLConnector();
+
+        int user_id;
+
+        if(changedUser instanceof Customer){
+            Customer customer = (Customer) changedUser;
+            user_id = customer.getUserId();
+        }else if(changedUser instanceof Staff){
+            Staff staff = (Staff) changedUser;
+            user_id = staff.getUserId();
+        }else{
+            System.out.println("User does not exist!");
+            return;
+        }
+
+        try {
+            // Define the SQL update statement
+            String updateQuery = "UPDATE users SET isStaff = ? WHERE user_id = ? ";
+            PreparedStatement preparedStatement = connector.myDbConn.prepareStatement(updateQuery);
+
+            // Set the values for the product
+            preparedStatement.setInt(1, isStaff);
+            preparedStatement.setInt(2, user_id);
+
+            // Execute the update
+            int rowsUpdated = preparedStatement.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                System.out.println("User updated successfully.");
+            } else {
+                System.out.println("User update failed. No matching id found.");
+            }
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }finally {
+            connector.closeConnection(); // Add a method to close the database connection in your SQLConnector class
+        }
+        connector.closeConnection();
     }
+
+    public ArrayList<User> getAllUsers(){
+        ArrayList<User> userList = new ArrayList<>();
+        SQLConnector connector = new SQLConnector();
+
+        try{
+
+            Statement statement = connector.myDbConn.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM Users");
+
+            while (resultSet.next()) {
+                int userID = resultSet.getInt("user_id");
+                String passcode = resultSet.getString("passcode");
+                int isStaff = resultSet.getInt("isStaff");
+
+                if(isStaff == 0){
+                    Customer customer = new Customer(passcode);
+                    userList.add(customer);
+                }
+                if(isStaff == 1){
+                    Staff staff = new Staff(passcode);
+                    userList.add(staff);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+        connector.closeConnection(); // Add a method to close the database connection in your SQLConnector class
+        }
+        return userList;
+    }
+
 }

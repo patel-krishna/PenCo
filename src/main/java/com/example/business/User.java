@@ -9,35 +9,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class User {
-    String username;
-    String password;
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-
-        this.password = password;
-    }
-
-    public User(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
-
-    public User(){
-        username = null;
-        password = null;
-    }
 
     public Product getProduct(String SKU){
         SQLConnector connector = new SQLConnector();
@@ -67,8 +38,9 @@ public class User {
             e.printStackTrace();
             System.out.println("Object not found");
             // Handle any exceptions (e.g., database connection or query errors)
+        }finally {
+        connector.closeConnection(); // Add a method to close the database connection in your SQLConnector class
         }
-        connector.closeConnection();
         return targetProduct;
     }
 
@@ -100,8 +72,9 @@ public class User {
             e.printStackTrace();
             System.out.println("Object not found");
             // Handle any exceptions (e.g., database connection or query errors)
+        }finally {
+            connector.closeConnection(); // Add a method to close the database connection in your SQLConnector class
         }
-        connector.closeConnection();
         return targetProduct;
 
     }
@@ -129,8 +102,9 @@ public class User {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }finally {
+        connector.closeConnection(); // Add a method to close the database connection in your SQLConnector class
         }
-        connector.closeConnection();
         return productList;
     }
 
@@ -162,6 +136,34 @@ public class User {
         return orderId;
     }
 
+    public int getTrackingNumber(int orderID) {
+        SQLConnector connector = new SQLConnector();
+        int trackingNumber = -1; // Default value if not found
 
+        try {
+            // Define the SQL select statement
+            String selectOrderQuery = "SELECT tracking_number FROM ShippedOrders WHERE order_id = ?";
+            PreparedStatement preparedStatement = connector.myDbConn.prepareStatement(selectOrderQuery);
 
+            // Set the value for the order ID
+            preparedStatement.setInt(1, orderID);
+
+            // Execute the query
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            // Check if a row is found
+            if (resultSet.next()) {
+                // Retrieve the tracking number from the result set
+                trackingNumber = resultSet.getInt("tracking_number");
+            }
+
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        } finally {
+            // Close the database connection (if needed)
+            connector.closeConnection();
+        }
+
+        return trackingNumber;
+    }
 }

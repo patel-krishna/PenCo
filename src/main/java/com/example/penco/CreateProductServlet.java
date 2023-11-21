@@ -29,7 +29,7 @@ public class CreateProductServlet extends HttpServlet {
         User user = (User) servletContext.getAttribute("User");
 
         //create a product with only sku and name, added to the HashMap
-        facade.createProduct((Staff) user, sku, name);
+        facade.createProduct(user, sku, name);
 
         //Get this new product and update its attributes with the rest of the info
         Product product = facade.getProduct(sku);
