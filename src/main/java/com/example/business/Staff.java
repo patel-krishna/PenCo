@@ -445,8 +445,9 @@ public class Staff extends User{
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }finally {
+        connector.closeConnection(); // Add a method to close the database connection in your SQLConnector class
         }
-        connector.closeConnection();
         return userList;
     }
 

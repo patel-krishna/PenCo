@@ -12,8 +12,8 @@ public class Cart {
         this.shoppingList = new HashMap<String, Integer>();
     }
 
-    public Cart(String username){
-        this.shoppingList = getShoppingCart(username);
+    public Cart(String passcode){
+        this.shoppingList = getShoppingCart(passcode);
     }
 
     public HashMap<String, Integer> getShoppingCart() {
@@ -58,8 +58,11 @@ public class Cart {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            connector.closeConnection(); // Add a method to close the database connection in your SQLConnector class
         }
 
+        connector.closeConnection();
         return map;
     }
 
@@ -102,7 +105,10 @@ public class Cart {
         } catch (SQLException e) {
             System.out.println(e);
             throw new RuntimeException(e);
+        }finally {
+            connector.closeConnection(); // Add a method to close the database connection in your SQLConnector class
         }
+
         connector.closeConnection();
         return cartId;
     }
@@ -137,6 +143,8 @@ public class Cart {
                 } catch (SQLException e) {
                     e.printStackTrace();
                     // Handle any exceptions (e.g., database connection or query errors)
+                }finally {
+                    connector.closeConnection();
                 }
 
                 connector.closeConnection();
@@ -164,7 +172,10 @@ public class Cart {
             }
     } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            connector.closeConnection(); // Add a method to close the database connection in your SQLConnector class
         }
+
         connector.closeConnection();
         return userId;
 
@@ -191,6 +202,8 @@ public class Cart {
         } catch (SQLException e) {
             e.printStackTrace();
             // Handle any exceptions (e.g., database connection or query errors)
+        }finally {
+            connector.closeConnection(); // Add a method to close the database connection in your SQLConnector class
         }
 
         connector.closeConnection();
@@ -212,8 +225,11 @@ public class Cart {
         } catch (SQLException e) {
             e.printStackTrace();
             // Handle any exceptions (e.g., database connection or query errors)
+        }finally {
+            connector.closeConnection(); // Add a method to close the database connection in your SQLConnector class
         }
-    }
+
+        connector.closeConnection();    }
 
     public boolean productExistsInCart(int cartID, String sku){
 
@@ -234,6 +250,8 @@ public class Cart {
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            connector.closeConnection(); // Add a method to close the database connection in your SQLConnector class
         }
         return false;
     }
@@ -254,6 +272,8 @@ public class Cart {
 
             } catch (SQLException ex) {
             throw new RuntimeException(ex);
+        }finally {
+            connector.closeConnection(); // Add a method to close the database connection in your SQLConnector class
         }
     }
 
@@ -279,6 +299,8 @@ public class Cart {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            connector.closeConnection(); // Add a method to close the database connection in your SQLConnector class
         }
     }
 }
