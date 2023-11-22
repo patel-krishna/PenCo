@@ -32,6 +32,7 @@ public class GuestUser extends User {
     }
 
 
+
     //business layer functions
     public void addProductToCart(String productSku, int quantity) {
         tempCart.getShoppingCart().put(productSku, quantity);

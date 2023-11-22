@@ -166,4 +166,18 @@ public class User {
 
         return trackingNumber;
     }
+    public void setPasscode(String passcode){
+        SQLConnector connector = new SQLConnector();
+
+        try{
+            String checkPasscode = "SELECT passcode FROM Users WHERE user_id = ? "
+            if (passcode.length() < 5 && !passcode.matches("^[a-zA-Z0-9]*$"))
+                System.out.print("Passcode must be at least 4 characters long and alphanumeric.");
+
+        }catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            connector.closeConnection();
+        }
+    }
 }

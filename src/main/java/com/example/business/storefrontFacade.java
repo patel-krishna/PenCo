@@ -178,7 +178,6 @@ public void shipOrder(User user, int orderID, int trackingNumber){
             System.out.println("You cannot ship an order! You're not a staff");
         }
 }
-
 public int getTrackingNumber(int order_id) {
     try {
         return Order.getTrackingNumber(order_id);
@@ -194,14 +193,15 @@ public int generateUniqueTrackingNumber() {
     int randomComponent = new Random().nextInt(1000000); // Adjust the range as needed
     return Math.abs((int) (timestamp % Integer.MAX_VALUE) * 1_000_000 + randomComponent);
 }
-
-
-public void setOrderOwner(int orderID, String userpasscode){
-        //TO-DO
-}
-
-public void setPasscode(User user, String newpasscode){
-        //TO-DO
+public void setPasscode(User user, String passcode){
+        if (user instanceof Customer){
+            Customer customer=(Customer) user;
+            customer.setPasscode(passcode);
+        }
+        if (user instanceof Staff){
+            Staff staff=(Staff) user;
+            staff.setPasscode(passcode);
+        }
 }
 
 public void changePermission(User user, User changedUser, String role){
