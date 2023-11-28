@@ -28,9 +28,16 @@
 <%--    <input type="text" id="username" name="username" required><br>--%>
 
     <label for="password">User Passcode:</label>
-    <input type="password" id="password" name="password" required><br>
+    <input type="password" id="password" name="password" required>
 
-    <input type="submit" value="Sign In">
+    <input type="submit" value="Sign In"><br>
+
+
+</form>
+<form id="form" action="ChangePasswordServlet" method="post">
+
+    <input type="passcode" id="passcode" name="passcode">
+    <input type="submit" value="Change Passcode">
 </form>
 </div>
 </body>

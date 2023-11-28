@@ -22,6 +22,7 @@
             <li><a href="${pageContext.request.contextPath}/products">All Products</a></li>
             <li><a href="${pageContext.request.contextPath}/orders">View Your Orders</a></li>
             <li><a href="${pageContext.request.contextPath}/cart.jsp">Cart</a></li>
+            <li><a href="${pageContext.request.contextPath}/sign-in.jsp">Sign in</a></li>
             <li>Welcome, Customer</li>
         </ul>
     </div>
@@ -39,6 +40,7 @@
             <li><a href="${pageContext.request.contextPath}/create-product.jsp">Create Product</a></li>
             <li><a href="${pageContext.request.contextPath}/orders">View Orders</a></li>
             <li><a href="${pageContext.request.contextPath}/users.jsp">Manage User Roles</a></li>
+            <li><a href="${pageContext.request.contextPath}/sign-in.jsp">Sign in</a></li>
             <li>Welcome, Staff member!</li>
         </ul>
     </div>

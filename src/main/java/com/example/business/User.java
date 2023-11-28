@@ -166,15 +166,41 @@ public class User {
 
         return trackingNumber;
     }
-    public void setPasscode(String passcode){
+    public void setPasscode(User user, String passcode){
+        if (passcode.length() < 5 || !passcode.matches("^[a-zA-Z0-9]*$")) {
+            System.out.println("Passcode must be at least 4 characters long and alphanumeric.");
+            return;
+        }
         SQLConnector connector = new SQLConnector();
 
-        try{
-            String checkPasscode = "SELECT passcode FROM Users WHERE user_id = ? "
-            if (passcode.length() < 5 && !passcode.matches("^[a-zA-Z0-9]*$"))
-                System.out.print("Passcode must be at least 4 characters long and alphanumeric.");
+        try {
+            String checkPasscode = "SELECT passcode FROM Users WHERE passcode = ? ";
+            PreparedStatement checkPasscodeStatement = connector.myDbConn.prepareStatement(checkPasscode);
+            checkPasscodeStatement.setString(1, passcode);
 
-        }catch (SQLException e) {
+            ResultSet conflictingUsers = checkPasscodeStatement.executeQuery();
+            boolean isDuplicatePasscode = conflictingUsers.next();
+            if(isDuplicatePasscode) {
+                throw new Exception("Passcode is already in use, please pick another one.");
+            }
+
+            String setPasscode = "UPDATE Users SET passcode = ? WHERE user_id = ?";
+            PreparedStatement setPasscodeStatement = connector.myDbConn.prepareStatement(setPasscode);
+            setPasscodeStatement.setString(1, passcode);
+            if (user instanceof Customer){
+                Customer customer =(Customer) user;
+                setPasscodeStatement.setInt(2, customer.getUserId());
+            }
+            else if (user instanceof Staff){
+                Staff staff =(Staff) user;
+                setPasscodeStatement.setInt(2, staff.getUserId());
+            }
+            else {
+                throw new Exception("User must be an instance of customer or staff");
+            }
+
+            setPasscodeStatement.executeUpdate();
+        } catch (Exception e) {
             throw new RuntimeException(e);
         } finally {
             connector.closeConnection();

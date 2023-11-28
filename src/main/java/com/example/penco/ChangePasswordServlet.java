@@ -18,7 +18,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-@WebServlet(name = "changePassword", value = "/changePassword")
+@WebServlet(name = "ChangePasswordServlet", value = "/ChangePasswordServlet")
 public class ChangePasswordServlet extends HttpServlet{
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ServletContext servletContext = getServletContext();
@@ -26,7 +26,7 @@ public class ChangePasswordServlet extends HttpServlet{
         User user = (User) servletContext.getAttribute("User");
         String passcode= request.getParameter("passcode");
         facade.setPasscode(user, passcode);
-        response.sendRedirect(request.getContextPath() + "/users.jsp");
+//        response.sendRedirect(request.getContextPath() + "/users.jsp");
         request.getSession().setAttribute("successMessage", "Passcode is now changed!");
     }
 }
