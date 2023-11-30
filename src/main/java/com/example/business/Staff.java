@@ -36,7 +36,7 @@ public class Staff extends User{
         SQLConnector connector = new SQLConnector();
         try {
             // Define the SQL insert statement
-            String insertQuery = "INSERT INTO products (SKU, name) VALUES (?, ?)";
+            String insertQuery = "INSERT INTO Products (SKU, name) VALUES (?, ?)";
             PreparedStatement preparedStatement = connector.myDbConn.prepareStatement(insertQuery);
 
             // Set the values for the new product
@@ -95,7 +95,7 @@ public class Staff extends User{
 
         try {
             // Define the SQL update statement
-            String updateQuery = "UPDATE products SET name = ?, description = ?, vendor = ?, url_slug = ?, price = ?, imgSrc = ? WHERE SKU = ? ";
+            String updateQuery = "UPDATE Products SET name = ?, description = ?, vendor = ?, url_slug = ?, price = ?, imgSrc = ? WHERE SKU = ? ";
             PreparedStatement preparedStatement = connector.myDbConn.prepareStatement(updateQuery);
 
             // Set the values for the product
@@ -295,7 +295,7 @@ public class Staff extends User{
         // Make a database connection using your SQLConnector class
         try {
             // Define the SQL insert statement
-            String getProductsQuery = "SELECT product_sku,quantity FROM orderitems WHERE order_id=?";
+            String getProductsQuery = "SELECT product_sku,quantity FROM OrderItems WHERE order_id=?";
             PreparedStatement preparedStatement = connector.myDbConn.prepareStatement(getProductsQuery);
 
             // Set the values for object
@@ -312,7 +312,7 @@ public class Staff extends User{
                 products.put(productSku, quantity);
             }
 
-            String getShippingQuery = "SELECT (shipping_address) FROM orders WHERE order_id=?";
+            String getShippingQuery = "SELECT (shipping_address) FROM Orders WHERE order_id=?";
             PreparedStatement shippingStatement = connector.myDbConn.prepareStatement(getShippingQuery);
 
             shippingStatement.setInt(1, orderId);

@@ -71,6 +71,5 @@ public class GuestUser extends User {
         newOrder.insertOrderItems(orderId);
 
         return orderId;
-
     }
 }
