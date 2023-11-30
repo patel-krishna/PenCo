@@ -37,6 +37,7 @@
                     <% } %>
                 </table>
             <%
+<%--                if you are not a customer you can't claim orders --%>
                 if (user instanceof Customer) {
             %>
             <h3>Claim order by entering Order id: </h3>
