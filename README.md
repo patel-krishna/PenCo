@@ -4,12 +4,10 @@ PenCo is a storefront for stationery. Built using Java and JSP for SOEN-387 Assi
 
 ### Important
 ##### Staff login: 
-`-username: staff
--password: password `
+`-user passcode: staff1 `
 
 ##### User login:
-`-username: user
--password: password `
+`-user passcode: user1 `
 
 
 ## Authors
@@ -30,3 +28,8 @@ PenCo is a storefront for stationery. Built using Java and JSP for SOEN-387 Assi
 [Report Assignment 2](https://docs.google.com/document/d/14Bwe9ac5dJp5BO2Nni2ttOooCQ2fp_lng6MRKyAN07o/edit?usp=sharing)
 
 [Notes for Assignment 2-3](https://docs.google.com/document/d/1BFC3u1E0YlqBDw7po3DwNITLkzO6NHQW_37v-X0vJR4/edit?usp=sharing)
+
+[UML Diagram Assignment 3](//www.plantuml.com/plantuml/png/pLN1RXiX4Btp5SYdjUmzzEfKKLfNbI9LZIkt7q1WRA-om7Q0f5RiV-z2m8kD6crpocMrC_Dcc3SyuCPOXjR9bl2M6KDNg8NZzfcGMZ492xgssAWjgGKOZard6wq6voCeeN6m7RRhrcq7XtbmWz5Xm_kAGhlx5aZToEqQ-IbCZeJ49duPGD-1Cu3dNNHz-4cZE7bc1kogTt8jeFBuHSYUKuzSziw4d99ZAhzqnce9IE6F1INIUhNPwQxheKk6Ta7zzugIMgC0_DQOthK6-_7EczTajWNh4TMKp9WGSMm_TV1bhFimWjIF415VKSi24rX4m0_7b6ti_bPTmkRqTumjQADidyLRO9Ywu0ZCGcYlChicCFaa188nmqA-xG0nLMPKWUFjbrJNfvU1ERN8-CDt9-y1WoURwTgopUPyeB6bn3nGIKp2hfwQSft8S2aMWBdiaY-gBfb9TCdErtcHt8lYFB58-Ev95UISoKV0TqnjOGKe6sFwnS-qXRhDT9K9Yw7DT3I89bAxlgAbMiugZr5EZX-XefHIP1I26eY48RtEXDJv-4Zz3ycH-b8qVbv9CnfXWrhP3UDCmFjJ30rdf6ndcli_xtsnogIAANonMTDtlFNfBYbRpc-LVFKnDyo0Z-wYoflldV4dUVm3yL-7_aZyhEZamuGU3dMjd-b4ChMVf0UKf4Vc13aSmgzFAuD3Vc15mlULwZUWX9FjNm00)
+
+
+[Report Assignment 3](https://docs.google.com/document/d/1q6VkEgDkAHDTXJ6v9UjvE7ry1IUBOmiMPCiQ1X_JQrI/edit?usp=sharing)

@@ -27,6 +27,11 @@ public class Staff extends User{
         this.passcode = passcode;
     }
 
+    public int getUserId() {
+        int userId = Cart.getUserIdByPasscode(this.passcode);
+        return userId;
+    }
+
     public void createProduct(String sku, String name){
         SQLConnector connector = new SQLConnector();
         try {
@@ -356,6 +361,94 @@ public class Staff extends User{
         } finally {
             connector.closeConnection(); // Add a method to close the database connection in your SQLConnector class
         }
+    }
+
+    public void changePermission(User changedUser, String role) {
+
+        int isStaff;
+
+        switch(role.toLowerCase()){
+            case "customer":
+                isStaff = 0;
+                break;
+
+            case "staff":
+                isStaff = 1;
+                break;
+
+            default:
+                throw new IllegalArgumentException("Invalid role: " + role);
+        }
+
+        SQLConnector connector = new SQLConnector();
+
+        int user_id;
+
+        if(changedUser instanceof Customer){
+            Customer customer = (Customer) changedUser;
+            user_id = customer.getUserId();
+        }else if(changedUser instanceof Staff){
+            Staff staff = (Staff) changedUser;
+            user_id = staff.getUserId();
+        }else{
+            System.out.println("User does not exist!");
+            return;
+        }
+
+        try {
+            // Define the SQL update statement
+            String updateQuery = "UPDATE users SET isStaff = ? WHERE user_id = ? ";
+            PreparedStatement preparedStatement = connector.myDbConn.prepareStatement(updateQuery);
+
+            // Set the values for the product
+            preparedStatement.setInt(1, isStaff);
+            preparedStatement.setInt(2, user_id);
+
+            // Execute the update
+            int rowsUpdated = preparedStatement.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                System.out.println("User updated successfully.");
+            } else {
+                System.out.println("User update failed. No matching id found.");
+            }
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }finally {
+            connector.closeConnection(); // Add a method to close the database connection in your SQLConnector class
+        }
+        connector.closeConnection();
+    }
+
+    public ArrayList<User> getAllUsers(){
+        ArrayList<User> userList = new ArrayList<>();
+        SQLConnector connector = new SQLConnector();
+
+        try{
+
+            Statement statement = connector.myDbConn.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM Users");
+
+            while (resultSet.next()) {
+                int userID = resultSet.getInt("user_id");
+                String passcode = resultSet.getString("passcode");
+                int isStaff = resultSet.getInt("isStaff");
+
+                if(isStaff == 0){
+                    Customer customer = new Customer(passcode);
+                    userList.add(customer);
+                }
+                if(isStaff == 1){
+                    Staff staff = new Staff(passcode);
+                    userList.add(staff);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+        connector.closeConnection(); // Add a method to close the database connection in your SQLConnector class
+        }
+        return userList;
     }
 
 }

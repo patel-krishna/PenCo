@@ -51,7 +51,7 @@ public class Customer extends User {
     }
 
     public int getUserId() {
-        int userId = shoppingCart.getUserIdByPasscode(this.passcode);
+        int userId = Cart.getUserIdByPasscode(this.passcode);
         return userId;
     }
 
