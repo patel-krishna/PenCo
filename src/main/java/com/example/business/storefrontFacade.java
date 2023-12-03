@@ -190,16 +190,8 @@ public int generateUniqueTrackingNumber() {
     int randomComponent = new Random().nextInt(1000000); // Adjust the range as needed
     return Math.abs((int) (timestamp % Integer.MAX_VALUE) * 1_000_000 + randomComponent);
 }
-public void setPasscode(User user, String passcode) {
+public void setPasscode(User user, String passcode) throws InvalidPasswordException,DuplicatePasswordException, NotSignedInException{
     user.setPasscode(passcode);
-    if (user instanceof Customer) {
-        Customer customer = (Customer) user;
-        customer.setPasscode(passcode);
-    }
-    if (user instanceof Staff) {
-        Staff staff = (Staff) user;
-        staff.setPasscode(passcode);
-    }
 }
 
     public int getTrackingNumber(int order_id) {

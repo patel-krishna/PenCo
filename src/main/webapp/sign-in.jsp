@@ -7,6 +7,7 @@
 --%>
 <%@ page import="com.example.business.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/index.css">
@@ -38,13 +39,10 @@
 <form id="form" action="ChangePasswordServlet" method="post">
     <input type="passcode" id="passcode" name="passcode">
     <input type="submit" value="Change Passcode">
-    <%if (application.getAttribute("successMessage") != null) { %>
-        <p>Changed password, pog</p>
-    <%} else {%>
-    <p>REEEE</p>
-    <%}%>
+
 
 </form>
+<p style="text-align: center"> ${Message} </p>
 </div>
 </body>
 </html>

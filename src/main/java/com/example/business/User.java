@@ -166,10 +166,9 @@ public class User {
 
         return trackingNumber;
     }
-    public void setPasscode(String passcode){
+    public void setPasscode(String passcode) throws InvalidPasswordException, DuplicatePasswordException, NotSignedInException{
         if (passcode.length() < 5 || !passcode.matches("^[a-zA-Z0-9]*$")) {
-            System.out.println("Passcode must be at least 4 characters long and alphanumeric.");
-            return;
+           throw new InvalidPasswordException();
         }
         SQLConnector connector = new SQLConnector();
 
@@ -181,7 +180,7 @@ public class User {
             ResultSet conflictingUsers = checkPasscodeStatement.executeQuery();
             boolean isDuplicatePasscode = conflictingUsers.next();
             if(isDuplicatePasscode) {
-                throw new Exception("Passcode is already in use, please pick another one.");
+                throw new DuplicatePasswordException();
             }
 
             String setPasscode = "UPDATE Users SET passcode = ? WHERE user_id = ?";
@@ -196,11 +195,11 @@ public class User {
                 setPasscodeStatement.setInt(2, staff.getUserId());
             }
             else {
-                throw new Exception("User must be an instance of customer or staff");
+                throw new NotSignedInException("User must be signed in to change passcode");
             }
 
             setPasscodeStatement.executeUpdate();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
             connector.closeConnection();

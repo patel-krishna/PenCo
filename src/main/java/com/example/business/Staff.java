@@ -23,9 +23,7 @@ public class Staff extends User{
         return this.passcode;
     }
 
-    public void setPasscode(String passcode) {
-        this.passcode = passcode;
-    }
+
 
     public int getUserId() {
         int userId = Cart.getUserIdByPasscode(this.passcode);

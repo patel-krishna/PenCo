@@ -21,13 +21,20 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet(name = "ChangePasswordServlet", value = "/ChangePasswordServlet")
 public class ChangePasswordServlet extends HttpServlet{
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("HALLO?!");
         ServletContext servletContext = getServletContext();
         storefrontFacade facade = new storefrontFacade();
         User user = (User) servletContext.getAttribute("User");
         String passcode= request.getParameter("passcode");
-        facade.setPasscode(user, passcode);
-        request.getSession().setAttribute("successMessage", "Passcode is now changed!");
-        response.sendRedirect(request.getContextPath() + "/sign-in.jsp");
+        try{
+            facade.setPasscode(user, passcode);
+            request.setAttribute("Message", "Passcode is changed successfully");
+        }catch (InvalidPasswordException | DuplicatePasswordException | NotSignedInException e){
+            request.setAttribute("Message", e.getMessage());
+
+        }
+        request.getRequestDispatcher("/sign-in.jsp").forward(request, response);
+
+
+
     }
 }
