@@ -162,7 +162,7 @@ public class Customer extends User {
         // Make a database connection using your SQLConnector class
         try {
             // Define the SQL insert statement
-            String getProductsQuery = "SELECT product_sku,quantity FROM orderitems WHERE order_id=?";
+            String getProductsQuery = "SELECT product_sku,quantity FROM OrderItems WHERE order_id=?";
             PreparedStatement preparedStatement = connector.myDbConn.prepareStatement(getProductsQuery);
 
             // Set the values for object
@@ -179,7 +179,7 @@ public class Customer extends User {
                 products.put(productSku, quantity);
             }
 
-            String getShippingQuery = "SELECT shipping_address FROM orders WHERE order_id=?";
+            String getShippingQuery = "SELECT shipping_address FROM Orders WHERE order_id=?";
             PreparedStatement shippingStatement = connector.myDbConn.prepareStatement(getShippingQuery);
 
             shippingStatement.setInt(1, orderId);
@@ -249,4 +249,39 @@ public class Customer extends User {
 
         return orderId;
     }
+    public void claimOrder(int orderId) {
+        SQLConnector connector = new SQLConnector();
+
+        try {
+            // Define the SQL select statement to check if it's a guest order
+            String checkOrderQuery = "SELECT * FROM Orders WHERE order_id = ? AND user_id = 0";
+
+            try (PreparedStatement checkOrderStatement = connector.myDbConn.prepareStatement(checkOrderQuery)) {
+                checkOrderStatement.setInt(1, orderId);
+
+                try (ResultSet resultSet = checkOrderStatement.executeQuery()) {
+                    if (resultSet.next()) {
+                        // Update the user_id in the original order to the current user
+                        String updateOrderQuery = "UPDATE Orders SET user_id = ? WHERE order_id = ?";
+
+                        try (PreparedStatement updateOrderStatement = connector.myDbConn.prepareStatement(updateOrderQuery)) {
+                            updateOrderStatement.setInt(1, this.getUserId());
+                            updateOrderStatement.setInt(2, orderId);
+
+                            updateOrderStatement.executeUpdate();
+                        }
+                        System.out.println("Order claimed successfully.");
+                    }
+                    else {
+                        System.out.println("Order not found or already claimed by a registered user.");
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            connector.closeConnection();
+        }
+    }
+
 }

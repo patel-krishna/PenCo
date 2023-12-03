@@ -38,45 +38,34 @@
 </head>
 <body>
 <jsp:include page="navbar.jsp" />
-
-<body>
-<h1>Orders List</h1>
-<table border="1">
-    <tr>
-
-        <th>Order ID</th>
-        <th>View Order</th>
-        <%--        <th>Customer ID</th>--%>
-        <%--        <th>Shipping Address</th>--%>
-    </tr>
-
-    <% for (int i=0; i<order_ids.size(); i++){ %>
-
-    <tr>
-        <td style="text-align: center;"><%=order_ids.get(i)%></td>
-        <td style="text-align: center;"> <!-- Add this style for center alignment -->
-            <form action="${pageContext.request.contextPath}/orders/<%=order_ids.get(i)%>" method="post">
-                <!-- Hidden field to specify the product slug to be added to the cart -->
-                <input type="hidden" name="order_id" value="<%=order_ids.get(i)%>">
-                <button class="button" type="submit">View Order Details</button>
+    <div class="container">
+        <div class="content">
+            <h2>Orders List</h2>
+                <table border="1">
+                    <tr>
+                        <th>Order ID</th>
+                        <th>View Order</th>
+                    </tr>
+                    <% for (int i=0; i<order_ids.size(); i++){ %>
+                    <tr>
+                        <td><%=order_ids.get(i)%></td>
+                        <td><a class="button" href="orders/<%=order_ids.get(i)%>">View Order</a></td>
+                    </tr>
+                    <% } %>
+                </table>
+            <%
+                if (user instanceof Customer) {
+            %>
+            <h3>Claim order by entering Order id: </h3>
+            <form id="claimOrder" action="claimOrder" method="post">
+                <input type="text" id="orderId" name="orderId" required>
+                <button type="submit">Claim order</button>
             </form>
-        </td>
-    </tr>
-
-
-
-    <% } %>
-
-
-    <%--    --%>
-    <%--    <c:forEach items="${order_ids}" var="order">--%>
-    <%--        <tr>--%>
-    <%--            <td>${order.getOrderId()}</td>--%>
-    <%--            <td>${order.getCustomerId()}</td>--%>
-    <%--            <td>${order.getShippingAddress()}</td>--%>
-    <%--        </tr>--%>
-    <%--    </c:forEach>--%>
-</table>
+            <%
+                }
+            %>
+        </div>
+    </div>
 </body>
 
 <style>

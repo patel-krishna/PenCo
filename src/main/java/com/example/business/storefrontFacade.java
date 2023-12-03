@@ -1,5 +1,9 @@
 package com.example.business;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -169,22 +173,15 @@ public class storefrontFacade {
         }
         return order;
     }
-
-public void shipOrder(User user, int orderID, int trackingNumber){
-        if(user instanceof Staff){
-            Staff staff = (Staff) user;
-            staff.shipOrder(orderID, trackingNumber);
-        }else{
-            System.out.println("You cannot ship an order! You're not a staff");
-        }
-}
-public int getTrackingNumber(int order_id) {
-    try {
-        return Order.getTrackingNumber(order_id);
-    } catch (SQLException e) {
-        throw new RuntimeException(e);
+    public void shipOrder(User user, int orderID, int trackingNumber){
+            if(user instanceof Staff){
+                Staff staff = (Staff) user;
+                staff.shipOrder(orderID, trackingNumber);
+            }else{
+                System.out.println("You cannot ship an order! You're not a staff");
+            }
     }
-}
+
 
 //helper method to randomly generate tracking numbers
 public int generateUniqueTrackingNumber() {
@@ -193,17 +190,43 @@ public int generateUniqueTrackingNumber() {
     int randomComponent = new Random().nextInt(1000000); // Adjust the range as needed
     return Math.abs((int) (timestamp % Integer.MAX_VALUE) * 1_000_000 + randomComponent);
 }
-public void setPasscode(User user, String passcode){
-        user.setPasscode(passcode);
-//        if (user instanceof Customer){
-//            Customer customer=(Customer) user;
-//            customer.setPasscode(passcode);
-//        }
-//        if (user instanceof Staff){
-//            Staff staff=(Staff) user;
-//            staff.setPasscode(passcode);
-//        }
+public void setPasscode(User user, String passcode) {
+    user.setPasscode(passcode);
+    if (user instanceof Customer) {
+        Customer customer = (Customer) user;
+        customer.setPasscode(passcode);
+    }
+    if (user instanceof Staff) {
+        Staff staff = (Staff) user;
+        staff.setPasscode(passcode);
+    }
 }
+
+    public int getTrackingNumber(int order_id) {
+        try {
+            return Order.getTrackingNumber(order_id);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    public void claimOrder(User user, int orderId){
+        if(user instanceof Customer){
+            Customer customer = (Customer) user;
+            customer.claimOrder(orderId);
+        }
+        else{
+            System.out.println("You cannot claim an order! You're not a customer");
+        }
+    }
+
+public void setOrderOwner(int orderID, String userpasscode){
+        //TO-DO
+}
+
+
+
 
 public void changePermission(User user, User changedUser, String role){
     if(user instanceof Staff){

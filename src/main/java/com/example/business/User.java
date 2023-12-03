@@ -14,7 +14,7 @@ public class User {
         SQLConnector connector = new SQLConnector();
         Product targetProduct = null;
 
-        String query = "SELECT * FROM products WHERE SKU = ?";
+        String query = "SELECT * FROM Products WHERE SKU = ?";
 
         try{
             PreparedStatement preparedStatement = connector.myDbConn.prepareStatement(query);
@@ -48,7 +48,7 @@ public class User {
         SQLConnector connector = new SQLConnector();
         Product targetProduct = null;
 
-        String query = "SELECT * FROM products WHERE url_slug = ?";
+        String query = "SELECT * FROM Products WHERE url_slug = ?";
 
         try{
             PreparedStatement preparedStatement = connector.myDbConn.prepareStatement(query);

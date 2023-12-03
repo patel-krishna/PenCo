@@ -44,6 +44,7 @@
   <br>
   <h3>Your Order ID, please take note for safekeeping: <%= order_id %></h3>
   <h3>Your Shipping Address: <%= shippingAddress %></h3>
+
 </header>
 
 </body>

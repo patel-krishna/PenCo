@@ -12,7 +12,10 @@ public class SQLConnector {
             System.out.print("JDBC NOT FOUND");
         }
 
+
         String url = "jdbc:sqlite:/Users/chitchitm.czaw/IdeaProjects/Intellij/PenCo/src/main/webapp/WEB-INF/penco.sqlite";
+
+
         //String username = "cuties387";
         //String password = "Soen387!";
 
@@ -41,7 +44,7 @@ public class SQLConnector {
             Statement statement = connector.myDbConn.createStatement();
 
             // Execute a SELECT query
-            String query = "SELECT * FROM products"; // Replace with your actual table name
+            String query = "SELECT * FROM Products"; // Replace with your actual table name
             ResultSet resultSet = statement.executeQuery(query);
 
             // Print the results to the console
