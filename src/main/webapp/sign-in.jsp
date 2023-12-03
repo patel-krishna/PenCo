@@ -35,9 +35,14 @@
 
 </form>
 <form id="form" action="ChangePasswordServlet" method="post">
-
     <input type="passcode" id="passcode" name="passcode">
     <input type="submit" value="Change Passcode">
+    <%if (application.getAttribute("successMessage") != null) { %>
+        <p>Changed password, pog</p>
+    <%} else {%>
+    <p>REEEE</p>
+    <%}%>
+
 </form>
 </div>
 </body>

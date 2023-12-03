@@ -194,14 +194,15 @@ public int generateUniqueTrackingNumber() {
     return Math.abs((int) (timestamp % Integer.MAX_VALUE) * 1_000_000 + randomComponent);
 }
 public void setPasscode(User user, String passcode){
-        if (user instanceof Customer){
-            Customer customer=(Customer) user;
-            customer.setPasscode(passcode);
-        }
-        if (user instanceof Staff){
-            Staff staff=(Staff) user;
-            staff.setPasscode(passcode);
-        }
+        user.setPasscode(passcode);
+//        if (user instanceof Customer){
+//            Customer customer=(Customer) user;
+//            customer.setPasscode(passcode);
+//        }
+//        if (user instanceof Staff){
+//            Staff staff=(Staff) user;
+//            staff.setPasscode(passcode);
+//        }
 }
 
 public void changePermission(User user, User changedUser, String role){

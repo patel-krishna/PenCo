@@ -166,7 +166,7 @@ public class User {
 
         return trackingNumber;
     }
-    public void setPasscode(User user, String passcode){
+    public void setPasscode(String passcode){
         if (passcode.length() < 5 || !passcode.matches("^[a-zA-Z0-9]*$")) {
             System.out.println("Passcode must be at least 4 characters long and alphanumeric.");
             return;
@@ -187,12 +187,12 @@ public class User {
             String setPasscode = "UPDATE Users SET passcode = ? WHERE user_id = ?";
             PreparedStatement setPasscodeStatement = connector.myDbConn.prepareStatement(setPasscode);
             setPasscodeStatement.setString(1, passcode);
-            if (user instanceof Customer){
-                Customer customer =(Customer) user;
+            if (this instanceof Customer){
+                Customer customer =(Customer) this;
                 setPasscodeStatement.setInt(2, customer.getUserId());
             }
-            else if (user instanceof Staff){
-                Staff staff =(Staff) user;
+            else if (this instanceof Staff){
+                Staff staff =(Staff) this;
                 setPasscodeStatement.setInt(2, staff.getUserId());
             }
             else {
