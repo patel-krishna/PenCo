@@ -30,7 +30,7 @@ public class ClaimOrderServlet extends HttpServlet{
         // get orderId from form
         int orderId = Integer.parseInt(request.getParameter("orderId"));
 
-        facade.claimOrder(user, orderId);
+        facade.setOrderOwner(user, orderId);
 
         //redirect to vieworder page where user will see claimed order
         response.sendRedirect(request.getContextPath() + "/orders" );

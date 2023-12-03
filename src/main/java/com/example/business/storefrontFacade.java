@@ -203,7 +203,7 @@ public void setPasscode(User user, String passcode) throws InvalidPasswordExcept
     }
 
 
-    public void claimOrder(User user, int orderId){
+    public void setOrderOwner(User user, int orderId){
         if(user instanceof Customer){
             Customer customer = (Customer) user;
             customer.claimOrder(orderId);
@@ -212,13 +212,6 @@ public void setPasscode(User user, String passcode) throws InvalidPasswordExcept
             System.out.println("You cannot claim an order! You're not a customer");
         }
     }
-
-public void setOrderOwner(int orderID, String userpasscode){
-        //TO-DO
-}
-
-
-
 
 public void changePermission(User user, User changedUser, String role){
     if(user instanceof Staff){
