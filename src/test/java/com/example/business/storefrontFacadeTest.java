@@ -34,10 +34,76 @@ class storefrontFacadeTest {
 
     @Test
     void setPasscode_alreadyTaken() {
+        User user = new User();
+        String existingPasscode = "Hello12345";
+
+        // Create an instance of the class containing the setPasscode method
+        storefrontFacade facade = new storefrontFacade();
+
+        // Set the passcode for the customer
+        try {
+            facade.setPasscode(user, existingPasscode);
+        } catch (InvalidPasswordException e) {
+            throw new RuntimeException(e);
+        } catch (DuplicatePasswordException e) {
+            throw new RuntimeException(e);
+        } catch (NotSignedInException e) {
+            throw new RuntimeException(e);
+        }
+
+        // Attempt to set the passcode again
+        DuplicatePasswordException exception = assertThrows(DuplicatePasswordException.class,
+                () -> facade.setPasscode(user, existingPasscode));
+
+        assertEquals("Passcode is already in use", exception.getMessage());
+
     }
 
     @Test
     void setPasscode_notTaken() {
+        User user = new Customer();  // or Staff, depending on the actual implementation
+        String newPasscode = "NewPasscode123";
+
+        // Create an instance of the class containing the setPasscode method
+        storefrontFacade facade = new storefrontFacade();
+
+        // Set the passcode for the customer
+        assertDoesNotThrow(() -> facade.setPasscode(user, newPasscode));
+
+        // Verify that the passcode is set successfully
+        if (user instanceof Customer) {
+            Customer customer = (Customer) user;
+            assertEquals(newPasscode, getPasscodeForUser(customer.getUserId()));
+        } else {
+            Staff staff = (Staff) user;
+            assertEquals(newPasscode, getPasscodeForUser(staff.getUserId()));
+        }
+    }
+
+    private String getPasscodeForUser(int userId) {
+        SQLConnector connector = new SQLConnector();
+
+        try {
+            String getPasscodeQuery = "SELECT passcode FROM Users WHERE user_id = ?";
+
+            try (Connection connection = connector.myDbConn;
+                 PreparedStatement getPasscodeStatement = connection.prepareStatement(getPasscodeQuery)) {
+
+                getPasscodeStatement.setInt(1, userId);
+
+                try (ResultSet resultSet = getPasscodeStatement.executeQuery()) {
+                    if (resultSet.next()) {
+                        return resultSet.getString("passcode");
+                    } else {
+                        return null; // User not found
+                    }
+                }
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            connector.closeConnection();
+        }
     }
 
     private boolean orderIsClaimed(int orderId, int userId) {

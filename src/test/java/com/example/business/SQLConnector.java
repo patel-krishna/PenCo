@@ -13,8 +13,9 @@ public class SQLConnector {
         }
 
 
-        String url = "jdbc:sqlite:C:/Users/Krish/Documents/School/Concordia/Projects/PenCo/src/test/java/com/example/business/penco_test.sqlite";
-
+        String url = "jdbc:sqlite:/Users/briannam/Documents/GitHub/PenCo/src/test/java/com/example/business/penco_test.sqlite";
+        ///jdbc:sqlite:/Users/briannam/Documents/GitHub/PenCo/src/test/java/com/example/business/penco_test.sqlite
+        //jdbc:sqlite:C:/Users/Krish/Documents/School/Concordia/Projects/PenCo/src/test/java/com/example/business/penco_test.sqlite
 
         //String username = "cuties387";
         //String password = "Soen387!";
