@@ -13,7 +13,7 @@ public class SQLConnector {
         }
 
 
-        String url = "jdbc:sqlite:/Users/chitchitm.czaw/IdeaProjects/Intellij/PenCo/src/main/webapp/WEB-INF/penco.sqlite";
+        String url = "jdbc:sqlite:/Users/briannam/Documents/GitHub/PenCo/src/main/webapp/WEB-INF/penco.sqlite";
 
 
         //String username = "cuties387";
