@@ -7,10 +7,18 @@ import static org.junit.jupiter.api.Assertions.*;
 class storefrontFacadeTest {
 
     @Test
-    void setOrderOwner() {
+    void setOrderOwner_alreadyClaimed() {
     }
 
     @Test
-    void changePermission() {
+    void setOrderOwner_notClaimed() {
+    }
+
+    @Test
+    void setPasscode_alreadyTaken() {
+    }
+
+    @Test
+    void setPasscode_notTaken() {
     }
 }
