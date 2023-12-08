@@ -203,7 +203,7 @@ public void setPasscode(User user, String passcode) throws InvalidPasswordExcept
     }
 
 
-    public void setOrderOwner(User user, int orderId){
+    public void setOrderOwner(User user, int orderId) throws ClaimedOrderException{
         if(user instanceof Customer){
             Customer customer = (Customer) user;
             customer.claimOrder(orderId);

@@ -58,6 +58,7 @@ public class LoginServlet extends HttpServlet {
             } else {
                 // Authentication failed
                 request.setAttribute("error", "Authentication failed. Please try again.");
+                request.setAttribute("Message", "User Passcode does not exist. Please Try Again.");
                 request.getRequestDispatcher("sign-in.jsp").forward(request, response);
             }
         } catch (SQLException e) {

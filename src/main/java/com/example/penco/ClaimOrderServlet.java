@@ -30,10 +30,14 @@ public class ClaimOrderServlet extends HttpServlet{
         // get orderId from form
         int orderId = Integer.parseInt(request.getParameter("orderId"));
 
-        facade.setOrderOwner(user, orderId);
-
-        //redirect to vieworder page where user will see claimed order
+        try {
+            facade.setOrderOwner(user, orderId);
+            //redirect to vieworder page where user will see claimed order
+            request.getSession().setAttribute("successMessage", "Order is now claimed!");
+        } catch (ClaimedOrderException e) {
+            //redirect to vieworder page where user will get an error pop up
+            request.getSession().setAttribute("successMessage", e.getMessage());
+        }
         response.sendRedirect(request.getContextPath() + "/orders" );
-        request.getSession().setAttribute("successMessage", "Order is now claimed!");
     }
 }

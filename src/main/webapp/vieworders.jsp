@@ -14,8 +14,6 @@
     <style>
         table, td, th {
             border: 1px solid black;
-
-
         }
 
         table {
@@ -23,10 +21,6 @@
             width: 30%;
             margin: 0 auto; /* This will center the table horizontally */
         }
-
-
-
-
     </style>
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/style/style.css">
@@ -56,18 +50,30 @@
             <%
                 if (user instanceof Customer) {
             %>
-            <h3>Claim order by entering Order id: </h3>
+            <h3>Claim order by entering Order ID: </h3>
             <form id="claimOrder" action="claimOrder" method="post">
-                <input type="text" id="orderId" name="orderId" required>
+                <input type="number" id="orderId" name="orderId" required min="0" step="1">
                 <button type="submit">Claim order</button>
             </form>
+            <p style="text-align: center"> ${Message} </p>
             <%
                 }
             %>
         </div>
     </div>
 </body>
+<script>
+    // Check if the success message is present in the session
+    var successMessage = "<%= request.getSession().getAttribute("successMessage") %>";
 
+    if (successMessage && successMessage.trim() !== "null") {
+        // Display a JavaScript alert with the success message
+        alert(successMessage);
+
+        // Clear the success message from the session to prevent it from showing again
+        <% request.getSession().removeAttribute("successMessage"); %>
+    }
+</script>
 <style>
     .container {
         display: flex;

@@ -19,6 +19,14 @@
 <header>
     <h1>Welcome to PenCo</h1>
     <h3>Where Your Words Find Color: Discover Your Favorites at Our Stationery Store. Montreal based.</h3>
+    <a href="${pageContext.request.contextPath}/products"><button class="button">Start Exploring</button></a>
 </header>
 </body>
 </html>
+
+<style>
+    .button a{
+        text-decoration: none;
+    }
+
+</style>

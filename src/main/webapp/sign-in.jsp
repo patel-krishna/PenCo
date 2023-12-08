@@ -23,25 +23,30 @@
 </head>
 <body>
 <jsp:include page="navbar.jsp" />
+<%
+    User user = (User) application.getAttribute("User");
+%>
+
+<%if(user instanceof GuestUser){%>
 <h1>Sign-In</h1>
 <form id="form" action="LoginServlet" method="post">
-
-<%--    <label for="username">Username:</label>--%>
-<%--    <input type="text" id="username" name="username" required><br>--%>
 
     <label for="password">User Passcode:</label>
     <input type="password" id="password" name="password" required>
 
     <input type="submit" value="Sign In"><br>
 
-
 </form>
+<%}%>
+
+<%if(!(user instanceof GuestUser)){%>
+<h1>Change Passcode</h1>
 <form id="form" action="ChangePasswordServlet" method="post">
+    <label for="passcode">New Passcode:</label>
     <input type="passcode" id="passcode" name="passcode">
     <input type="submit" value="Change Passcode">
-
-
 </form>
+<%}%>
 <p style="text-align: center"> ${Message} </p>
 </div>
 </body>

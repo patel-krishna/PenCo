@@ -246,7 +246,7 @@ public class Customer extends User {
 
         return orderId;
     }
-    public void claimOrder(int orderId) {
+    public void claimOrder (int orderId) throws ClaimedOrderException{
         SQLConnector connector = new SQLConnector();
 
         try {
@@ -271,6 +271,7 @@ public class Customer extends User {
                     }
                     else {
                         System.out.println("Order not found or already claimed by a registered user.");
+                        throw new ClaimedOrderException();
                     }
                 }
             }

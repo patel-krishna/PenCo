@@ -106,8 +106,6 @@
     // Clear the success message from the session to prevent it from showing again
     <% request.getSession().removeAttribute("successMessage"); %>
   }
-
-
 </script>
 
 <style>

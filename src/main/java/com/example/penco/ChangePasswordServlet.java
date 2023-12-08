@@ -9,6 +9,7 @@ import java.nio.file.FileStore;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -25,9 +26,19 @@ public class ChangePasswordServlet extends HttpServlet{
         storefrontFacade facade = new storefrontFacade();
         User user = (User) servletContext.getAttribute("User");
         String passcode= request.getParameter("passcode");
+
+
         try{
             facade.setPasscode(user, passcode);
+            if(user instanceof Staff){
+                user = new Staff(passcode);
+                servletContext.setAttribute("User",user);
+            }else if(user instanceof Customer){
+                user = new Customer(passcode);
+                servletContext.setAttribute("User",user);
+            }
             request.setAttribute("Message", "Passcode is changed successfully");
+
         }catch (InvalidPasswordException | DuplicatePasswordException | NotSignedInException e){
             request.setAttribute("Message", e.getMessage());
 

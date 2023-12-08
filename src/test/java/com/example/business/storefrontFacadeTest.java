@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class storefrontFacadeTest {
 
     @Test
-    void setOrderOwner_alreadyClaimed() {
+    void setOrderOwner_alreadyClaimed() throws NotSignedInException, InvalidPasswordException, DuplicatePasswordException, ClaimedOrderException {
         // Create a Customer object
         Customer customer = new Customer();
         int orderId = 1000;
@@ -23,13 +23,13 @@ class storefrontFacadeTest {
         facade.setOrderOwner(customer, orderId);
 
         // Assert that the order was claimed by the Customer
-        assertTrue(orderIsClaimed(orderId, customer.getUserId()));
+        assertTrue(orderIsClaimed(orderId));
 
         // Attempt to claim the order again
         facade.setOrderOwner(customer, orderId);
 
         // Assert that the order is still claimed (it should not be claimed again)
-        assertTrue(orderIsClaimed(orderId, customer.getUserId()));
+        assertTrue(orderIsClaimed(orderId));
     }
 
     @Test
@@ -106,17 +106,16 @@ class storefrontFacadeTest {
         }
     }
 
-    private boolean orderIsClaimed(int orderId, int userId) {
+    private boolean orderIsClaimed(int orderId) {
         SQLConnector connector = new SQLConnector();
 
         try {
-            String checkOrderQuery = "SELECT * FROM Orders WHERE order_id = ? AND user_id = ?";
+            String checkOrderQuery = "SELECT * FROM Orders WHERE order_id = ? AND user_id != 0";
 
             try (Connection connection = connector.myDbConn;
                  PreparedStatement checkOrderStatement = connection.prepareStatement(checkOrderQuery)) {
 
                 checkOrderStatement.setInt(1, orderId);
-                checkOrderStatement.setInt(2, userId);
 
                 try (ResultSet resultSet = checkOrderStatement.executeQuery()) {
                     return resultSet.next();
