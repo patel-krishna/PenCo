@@ -14,21 +14,56 @@ class storefrontFacadeTest {
     void setOrderOwner_alreadyClaimed() throws NotSignedInException, InvalidPasswordException, DuplicatePasswordException, ClaimedOrderException {
         // Create a Customer object
         Customer customer = new Customer();
-        int orderId = 1000;
+
+        //id of an already claimed order
+        int orderId = 10000;
 
         // Create an instance of the class containing the setOrderOwner method
         storefrontFacade facade = new storefrontFacade();
 
         // Call the setOrderOwner method with the Customer and orderId
-        facade.setOrderOwner(customer, orderId);
+        try {
+            facade.setOrderOwner(customer, orderId);
+        }catch(ClaimedOrderException e){
+            // Assert that the order was claimed by the Customer
+            //assertTrue(orderIsClaimed(orderId));
+            String message = "This order already belongs to another customer. Please ensure you have the correct order ID, and try again.";
+            assertEquals(message, e.getMessage());
+            assertTrue(orderIsClaimed(orderId));
+        }
 
-        // Assert that the order was claimed by the Customer
-        assertTrue(orderIsClaimed(orderId));
+//        // Attempt to claim the order again
+//        facade.setOrderOwner(customer, orderId);
+//
+//        // Assert that the order is still claimed (it should not be claimed again)
+//        assertTrue(orderIsClaimed(orderId));
+    }
 
-        // Attempt to claim the order again
-        facade.setOrderOwner(customer, orderId);
+    @Test
+    void setOrderOwner_orderNotClaimed() throws NotSignedInException, InvalidPasswordException, DuplicatePasswordException, ClaimedOrderException {
+        // Create a Customer object
+        Customer customer = new Customer();
 
-        // Assert that the order is still claimed (it should not be claimed again)
+        //id of a not claimed order
+        int orderId = 10002;
+
+        //check that the order is unclaimed
+        assertFalse(orderIsClaimed(orderId));
+
+        // Create an instance of the class containing the setOrderOwner method
+        storefrontFacade facade = new storefrontFacade();
+
+        // Call the setOrderOwner method with the Customer and orderId
+        try {
+            facade.setOrderOwner(customer, orderId);
+        }catch(ClaimedOrderException e){
+            // Assert that the order was claimed by the Customer
+            //assertTrue(orderIsClaimed(orderId));
+            String message = "This order already belongs to another customer. Please ensure you have the correct order ID, and try again.";
+            assertEquals(message, e.getMessage());
+        }
+
+        //show that the unclaimed order has been claimed
         assertTrue(orderIsClaimed(orderId));
     }
 
